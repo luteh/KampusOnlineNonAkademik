@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "243457719641",
+    "firebase_url": "https://oncampusnonakademik.firebaseio.com",
+    "project_id": "oncampusnonakademik",
+    "storage_bucket": "oncampusnonakademik.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:243457719641:android:9f9430f1d3f72961",
+        "android_client_info": {
+          "package_name": "com.luteh.kampusonlinenonakademik"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "243457719641-fvorijrlkdl78u18cql1k6eo3f72q1db.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.luteh.kampusonlinenonakademik",
+            "certificate_hash": "5312f51e5eb1e129904f57cc80c29171d97a73d5"
+          }
+        },
+        {
+          "client_id": "243457719641-etus1h9esom67gpppq4q6lq9kbku7br8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB31qy7ZC-pf2zvccQvO5sXibaR1IkZj8s"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "243457719641-etus1h9esom67gpppq4q6lq9kbku7br8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
