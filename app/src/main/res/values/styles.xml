@@ -8,4 +8,99 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="TextInputLayoutForm">
+        <item name="android:textColorHint">@color/whiteTransparent</item>
+        <item name="errorTextAppearance">@style/TextErrorAppearance</item>
+        <item name="hintTextAppearance">@style/TextHintAppearance</item>
+    </style>
+
+    <style name="EditTextForm">
+        <item name="android:background">@drawable/bg_input</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:imeOptions">actionNext</item>
+        <item name="android:textColorHighlight">@color/blackTransparent4</item>
+        <item name="android:textSize">@dimen/text_small_14</item>
+    </style>
+
+    <style name="TextErrorAppearance" parent="@android:style/TextAppearance">
+        <item name="android:textColor">@color/colorRed</item>
+        <item name="android:textSize">10sp</item>
+        <item name="colorControlNormal">@android:color/white</item>
+    </style>
+
+    <style name="TextHintAppearance" parent="@android:style/TextAppearance">
+        <item name="android:textColor">@color/whiteTransparent</item>
+        <item name="android:textSize">10sp</item>
+    </style>
+
+    <!--Spots progress dialog-->
+    <style name="CustomSpotsDialog" parent="android:Theme.DeviceDefault.Dialog">
+        <item name="DialogTitleAppearance">@android:style/TextAppearance.Medium</item>
+        <!--<item name="DialogTitleText">Updating…</item>-->
+        <item name="DialogSpotColor">@color/colorAccent</item>
+        <item name="DialogSpotCount">4</item>
+    </style>
+
+    <!--TextView Widget-->
+    <style name="TextHeaderBold" parent="android:Widget.TextView">
+        <item name="android:textColor">@color/colorDefaultText</item>
+        <item name="android:textSize">@dimen/text_large_</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:shadowColor">@color/colorAccent</item>
+        <item name="android:shadowDx">5</item>
+        <item name="android:shadowDy">5</item>
+        <item name="android:shadowRadius">5</item>
+    </style>
+
+    <style name="TextMediumBold" parent="android:Widget.TextView">
+        <item name="android:textColor">@color/colorDefaultText</item>
+        <item name="android:textSize">@dimen/text_default_16</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:shadowColor">@color/colorAccent</item>
+        <item name="android:shadowDx">5</item>
+        <item name="android:shadowDy">5</item>
+        <item name="android:shadowRadius">5</item>
+    </style>
+
+    <style name="TextDefaultBold" parent="android:Widget.TextView">
+        <item name="android:textColor">@color/colorDefaultText</item>
+        <item name="android:textSize">@dimen/text_small_14</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextDefault" parent="android:Widget.TextView">
+        <item name="android:textColor">@color/colorDefaultText</item>
+        <item name="android:textSize">@dimen/text_small_14</item>
+    </style>
+
+    <style name="TextSmall" parent="android:Widget.TextView">
+        <item name="android:textColor">@color/colorSmallText</item>
+        <item name="android:textSize">@dimen/text_small_12</item>
+    </style>
+
+    <style name="TextDefaultGreen" parent="android:Widget.TextView">
+        <item name="android:textColor">@color/colorGreenText</item>
+        <item name="android:textSize">@dimen/text_small_14</item>
+    </style>
+
+    <style name="TextDefaultRed" parent="android:Widget.TextView">
+        <item name="android:textColor">@color/colorRed</item>
+        <item name="android:textSize">@dimen/text_small_14</item>
+    </style>
+
+    <style name="SelectableItemBackground">
+        <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:foreground">?attr/selectableItemBackground</item>
+    </style>
+
+    <style name="EditTextNotEditable" parent="Widget.MaterialComponents.TextInputEditText.FilledBox">
+        <item name="android:focusableInTouchMode">false</item>
+        <item name="android:focusable">false</item>
+        <item name="android:cursorVisible">false</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textColor">@color/colorDefaultText</item>
+        <item name="android:textColorHint">@color/colorSmallText</item>
+    </style>
+
 </resources>

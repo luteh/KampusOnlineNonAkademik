@@ -3,4 +3,32 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
+
+    <color name="utamaPurpleBlue">#330066</color>
+    <color name="utamaDarkBlue">#3F51B5</color>
+    <color name="utamaBlue">#445ce1</color>
+    <color name="utamaOrange">#ff6600</color>
+    <color name="colorAccentDark">#2090b2</color>
+    <color name="colorDivider">#afafaf</color>
+    <color name="colorBackground">#F2F2F2</color>
+    <color name="colorPrimaryText">#212121</color>
+    <color name="colorSecondaryText">#757575</color>
+    <color name="grey">#b2b2b2</color>
+    <color name="blackTransparent4">#99000000</color>
+    <color name="colorRed">#FE3824</color>
+    <color name="whiteTransparent">#99EEEEEE</color>
+    <color name="whiteVeryTransparent">#73EEEEEE</color>
+    <color name="colorGreen">#44db5e</color>
+
+    <!--TextView-->
+    <color name="colorSmallText">#99000000</color>
+    <color name="colorDefaultText">#000000</color>
+
+    <color name="colorRedText">#ff0000</color>
+    <color name="colorRedTransparentText">#99ff0000</color>
+    <color name="colorYellowTransparentText">#FFAB00</color>
+    <color name="colorGreenText">#13df36</color>
+    <color name="colorGreenTransparentText">#9913df36</color>
+
+    <color name="colorBackgroundDefault">#ffffff</color>
 </resources>

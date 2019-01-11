@@ -1,3 +1,22 @@
 <resources>
     <string name="app_name">KampusOnlineNonAkademik</string>
+
+    <string name="label_warning">Warning</string>
+    <string name="label_message_apps_requirement">This app requires read phone state permission to run properly.</string>
+    <string name="label_show_permission">Show permission</string>
+    <string name="label_close_app">Close Apps</string>
+
+    <!--Login Activity-->
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="text_login">Login</string>
+    <string name="label_message_valid_email">Email is valid</string>
+    <string name="label_message_unvalid_email">Email is invalid!</string>
+    <string name="label_message_email_required">Email is required</string>
+    <string name="label_message_password_required">Password is required!</string>
+    <string name="label_message_password_incorrect">Password is incorrect!</string>
+    <string name="label_message_email_password_not_match">Email and Password don\'t match</string>
+    <string name="message_authentication_failed">Authentication failed</string>
+
+    <string name="title_message_loading">Loading . . .</string>
+
 </resources>
