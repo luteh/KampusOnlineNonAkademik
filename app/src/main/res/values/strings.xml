@@ -2,7 +2,8 @@
     <string name="app_name">KampusOnlineNonAkademik</string>
 
     <string name="label_warning">Warning</string>
-    <string name="label_message_apps_requirement">This app requires read phone state permission to run properly.</string>
+    <string name="label_message_apps_requirement">This app requires permission to run properly.
+    </string>
     <string name="label_show_permission">Show permission</string>
     <string name="label_close_app">Close Apps</string>
 

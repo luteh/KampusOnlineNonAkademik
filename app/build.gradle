@@ -26,7 +26,7 @@ android {
 ext {
     firebaseVersion = "16.0.5"
     androidxLibraryVersion = "1.1.0-alpha02"
-    butterKnifeVersion =  "9.0.0-rc1"
+    butterKnifeVersion = "9.0.0-rc1"
 }
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
