@@ -13,28 +13,27 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="TextInputLayoutForm">
-        <item name="android:textColorHint">@color/whiteTransparent</item>
+    <style name="TextInputLayoutForm" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
+        <item name="android:textColorHint">@color/colorPrimary</item>
         <item name="errorTextAppearance">@style/TextErrorAppearance</item>
         <item name="hintTextAppearance">@style/TextHintAppearance</item>
     </style>
 
-    <style name="EditTextForm">
-        <item name="android:background">@drawable/bg_input</item>
-        <item name="android:textColor">@android:color/white</item>
+    <style name="EditTextForm" parent="Widget.MaterialComponents.TextInputEditText.FilledBox">
+        <item name="android:textColor">@color/blackTransparent</item>
         <item name="android:imeOptions">actionNext</item>
-        <item name="android:textColorHighlight">@color/blackTransparent4</item>
+        <item name="android:textColorHighlight">@color/blackTransparent</item>
         <item name="android:textSize">@dimen/text_small_14</item>
     </style>
 
     <style name="TextErrorAppearance" parent="@android:style/TextAppearance">
         <item name="android:textColor">@color/colorRed</item>
         <item name="android:textSize">10sp</item>
-        <item name="colorControlNormal">@android:color/white</item>
+        <item name="colorControlNormal">@color/colorPrimary</item>
     </style>
 
     <style name="TextHintAppearance" parent="@android:style/TextAppearance">
-        <item name="android:textColor">@color/whiteTransparent</item>
+        <item name="android:textColor">@color/colorPrimary</item>
         <item name="android:textSize">10sp</item>
     </style>
 

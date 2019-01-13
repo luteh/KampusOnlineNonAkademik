@@ -14,7 +14,7 @@
     <color name="colorPrimaryText">#212121</color>
     <color name="colorSecondaryText">#757575</color>
     <color name="grey">#b2b2b2</color>
-    <color name="blackTransparent4">#99000000</color>
+    <color name="blackTransparent">#99000000</color>
     <color name="colorRed">#FE3824</color>
     <color name="whiteTransparent">#99EEEEEE</color>
     <color name="whiteVeryTransparent">#73EEEEEE</color>
