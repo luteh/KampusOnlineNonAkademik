@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/navDashboard"
+            android:title="@string/title_fragment_struktur_organisasi" />
+        <item
+            android:id="@+id/navKeuangan"
+            android:title="@string/title_fragment_daftar_member" />
+        <item
+            android:id="@+id/navHasilStudi"
+            android:title="@string/title_fragment_jobdesk_divisi" />
+        <item
+            android:id="@+id/navJadwal"
+            android:title="@string/title_fragment_kalender_kegiatan" />
+        <item
+            android:id="@+id/navRencanaStudi"
+            android:title="@string/title_fragment_proposal" />
+        <item
+            android:id="@+id/navLogout"
+            android:title="@string/label_logout" />
+    </group>
+
+</menu>

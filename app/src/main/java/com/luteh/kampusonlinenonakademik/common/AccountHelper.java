@@ -42,8 +42,8 @@ public class AccountHelper {
         MyApplication.getSharedPreferences().edit().putString("user", new Gson().toJson(user)).apply();
     }
 
-    public static void saveToken(String sid) {
-        MyApplication.getSharedPreferences().edit().putString("token", sid).apply();
+    public static void saveToken(String uid) {
+        MyApplication.getSharedPreferences().edit().putString("token", uid).apply();
     }
 
     public static void clearUserData(Context context) {

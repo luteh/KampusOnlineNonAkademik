@@ -1,6 +1,5 @@
 package com.luteh.kampusonlinenonakademik.ui.activities.login;
 
-import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -9,10 +8,11 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.luteh.kampusonlinenonakademik.R;
+import com.luteh.kampusonlinenonakademik.common.AccountHelper;
 import com.luteh.kampusonlinenonakademik.common.AppConstant;
 import com.luteh.kampusonlinenonakademik.common.Common;
 import com.luteh.kampusonlinenonakademik.common.base.BaseActivity;
-import com.luteh.kampusonlinenonakademik.ui.activities.DashboardActivity;
+import com.luteh.kampusonlinenonakademik.ui.activities.dashboard.DashboardActivity;
 
 public class LoginActivity extends BaseActivity implements ILoginView {
 
@@ -37,6 +37,7 @@ public class LoginActivity extends BaseActivity implements ILoginView {
 
     private void updateUI(FirebaseUser currentUser) {
         if (currentUser != null) {
+            AccountHelper.saveToken(currentUser.getUid());
 //            Common.showSuccessMessage(this, "Transition to the next page");
             Common.currentUID = currentUser.getUid();
             Bundle bundle = new Bundle();

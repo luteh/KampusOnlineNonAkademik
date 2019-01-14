@@ -7,6 +7,11 @@
     <string name="label_show_permission">Show permission</string>
     <string name="label_close_app">Close Apps</string>
 
+    <string name="label_logout">Logout</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+
     <!--Login Activity-->
     <string name="title_activity_login">LoginActivity</string>
     <string name="text_login">Login</string>
@@ -18,6 +23,24 @@
     <string name="label_message_email_password_not_match">Email and Password don\'t match</string>
     <string name="message_authentication_failed">Authentication failed</string>
 
+    <string name="title_fragment_struktur_organisasi">Struktur Organisasi</string>
+    <string name="title_fragment_daftar_member">Daftar Member</string>
+    <string name="title_fragment_jobdesk_divisi">Job Desk Divisi</string>
+    <string name="title_fragment_kalender_kegiatan">Kalender Kegiatan</string>
+    <string name="title_fragment_proposal">Proposal</string>
+
+
     <string name="title_message_loading">Loading . . .</string>
+    <string name="title_activity_dashboard">DashboardActivity</string>
+    <string name="title_section1">Section 1</string>
+    <string name="title_section2">Section 2</string>
+    <string name="title_section3">Section 3</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_example">Example action</string>
+
+    <string name="action_settings">Settings</string>
 
 </resources>
