@@ -12,12 +12,12 @@ import com.luteh.kampusonlinenonakademik.R;
  * Email luthfanmaftuh@gmail.com
  */
 public class HeaderViewHolder {
-    /*@BindView(R.id.imgProfile)
+    @BindView(R.id.imgProfile)
     public ImageView imgProfile;
     @BindView(R.id.tvProfileName)
     public TextView tvProfileName;
     @BindView(R.id.tvProfileNpm)
-    public TextView tvProfileNpm;*/
+    public TextView tvProfileNpm;
 
     public HeaderViewHolder(View view) {
         ButterKnife.bind(this, view);

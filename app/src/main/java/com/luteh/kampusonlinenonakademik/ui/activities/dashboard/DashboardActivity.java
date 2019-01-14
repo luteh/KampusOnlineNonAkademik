@@ -3,6 +3,7 @@ package com.luteh.kampusonlinenonakademik.ui.activities.dashboard;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.widget.Toolbar;
@@ -17,13 +18,22 @@ import com.luteh.kampusonlinenonakademik.R;
 import com.luteh.kampusonlinenonakademik.common.AccountHelper;
 import com.luteh.kampusonlinenonakademik.common.Common;
 import com.luteh.kampusonlinenonakademik.common.base.BaseActivity;
+import com.luteh.kampusonlinenonakademik.common.utils.HeaderViewHolder;
+import com.luteh.kampusonlinenonakademik.model.User;
+import com.squareup.picasso.Picasso;
 import timber.log.Timber;
+
+import static com.luteh.kampusonlinenonakademik.common.AccountHelper.getUser;
 
 /**
  * Created by Luthfan Maftuh on 14/01/2019.
  * Email luthfanmaftuh@gmail.com
  */
-public class DashboardActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class DashboardActivity extends BaseActivity implements
+        NavigationView.OnNavigationItemSelectedListener,
+        IDashboardView {
+
+    private IDashboardPresenter iDashboardPresenter;
 
     @BindView(R.id.drawer_layout)
     DrawerLayout drawer;
@@ -53,6 +63,9 @@ public class DashboardActivity extends BaseActivity implements NavigationView.On
     protected void onInit() {
         super.onInit();
 
+        iDashboardPresenter = new DashboardPresenterImp(this, this);
+        iDashboardPresenter.getUserInfo();
+        Common.showProgressBar(this);
         Timber.d("Token : %s", AccountHelper.getToken());
     }
 
@@ -109,5 +122,22 @@ public class DashboardActivity extends BaseActivity implements NavigationView.On
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void onRetrieveUserInfoSuccess() {
+        View headerLayout = navigationView.getHeaderView(0);
+        HeaderViewHolder headerViewHolder = new HeaderViewHolder(headerLayout);
+
+        if (getUser() != null) {
+            Picasso.get()
+                    .load(getUser().photo_url)
+                    .into(headerViewHolder.imgProfile);
+
+            headerViewHolder.tvProfileName.setText(getUser().nama);
+            headerViewHolder.tvProfileNpm.setText(getUser().npm);
+        }
+
+        Common.dismissProgressBar();
     }
 }
