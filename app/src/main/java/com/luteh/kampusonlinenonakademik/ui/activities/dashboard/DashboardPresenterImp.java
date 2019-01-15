@@ -10,6 +10,7 @@ import com.luteh.kampusonlinenonakademik.model.User;
 import durdinapps.rxfirebase2.RxFirebaseDatabase;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+import timber.log.Timber;
 
 import java.util.ArrayList;
 
@@ -32,6 +33,7 @@ public class DashboardPresenterImp implements IDashboardPresenter {
     @Override
     public void getUserInfo() {
         if (AccountHelper.getToken() != null) {
+            Common.showProgressBar(context);
 
             DatabaseReference databaseReference =
                     FirebaseDatabase.getInstance().getReference()
@@ -43,9 +45,15 @@ public class DashboardPresenterImp implements IDashboardPresenter {
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(user -> {
-                        AccountHelper.saveUser(user);
-                        iDashboardView.onRetrieveUserInfoSuccess();
-                    });
+                                Common.dismissProgressBar();
+
+                                AccountHelper.saveUser(user);
+                                iDashboardView.onRetrieveUserInfoSuccess();
+                            }, throwable -> {
+                                Common.dismissProgressBar();
+                                Timber.e(throwable.getMessage());
+                            }
+                    );
         }
     }
 }

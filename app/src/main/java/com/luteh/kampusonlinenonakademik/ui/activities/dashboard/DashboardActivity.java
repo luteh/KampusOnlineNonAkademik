@@ -20,6 +20,7 @@ import com.luteh.kampusonlinenonakademik.common.Common;
 import com.luteh.kampusonlinenonakademik.common.base.BaseActivity;
 import com.luteh.kampusonlinenonakademik.common.utils.HeaderViewHolder;
 import com.luteh.kampusonlinenonakademik.model.User;
+import com.luteh.kampusonlinenonakademik.ui.activities.login.LoginActivity;
 import com.squareup.picasso.Picasso;
 import timber.log.Timber;
 
@@ -64,8 +65,12 @@ public class DashboardActivity extends BaseActivity implements
         super.onInit();
 
         iDashboardPresenter = new DashboardPresenterImp(this, this);
-        iDashboardPresenter.getUserInfo();
-        Common.showProgressBar(this);
+
+        if ((AccountHelper.getUser() == null))
+            iDashboardPresenter.getUserInfo();
+        else
+            onRetrieveUserInfoSuccess();
+
         Timber.d("Token : %s", AccountHelper.getToken());
     }
 
@@ -116,6 +121,10 @@ public class DashboardActivity extends BaseActivity implements
                 replaceFragment(new RencanaStudiFragment(), R.string.title_rencana_studi_fragment);
                 break;*/
             case R.id.navLogout:
+                FirebaseAuth.getInstance().signOut();
+                AccountHelper.clearUserData(this);
+                finishToRight();
+                startActivity(LoginActivity.class);
                 break;
         }
 
@@ -137,7 +146,5 @@ public class DashboardActivity extends BaseActivity implements
             headerViewHolder.tvProfileName.setText(getUser().nama);
             headerViewHolder.tvProfileNpm.setText(getUser().npm);
         }
-
-        Common.dismissProgressBar();
     }
 }
