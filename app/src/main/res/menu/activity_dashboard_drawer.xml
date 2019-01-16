@@ -5,22 +5,22 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/navDashboard"
+            android:id="@+id/menu_nav_struktur_organisasi"
             android:title="@string/title_fragment_struktur_organisasi" />
         <item
-            android:id="@+id/navKeuangan"
+            android:id="@+id/menu_nav_daftar_member"
             android:title="@string/title_fragment_daftar_member" />
         <item
-            android:id="@+id/navHasilStudi"
+            android:id="@+id/menu_nav_job_desk_divisi"
             android:title="@string/title_fragment_jobdesk_divisi" />
         <item
-            android:id="@+id/navJadwal"
+            android:id="@+id/menu_nav_kalender_kegiatan"
             android:title="@string/title_fragment_kalender_kegiatan" />
         <item
-            android:id="@+id/navRencanaStudi"
+            android:id="@+id/menu_nav_proposal"
             android:title="@string/title_fragment_proposal" />
         <item
-            android:id="@+id/navLogout"
+            android:id="@+id/menu_nav_logout"
             android:title="@string/label_logout" />
     </group>
 

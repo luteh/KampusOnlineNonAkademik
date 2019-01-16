@@ -9,18 +9,16 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.Fragment;
 import butterknife.BindView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.luteh.kampusonlinenonakademik.R;
 import com.luteh.kampusonlinenonakademik.common.AccountHelper;
 import com.luteh.kampusonlinenonakademik.common.Common;
 import com.luteh.kampusonlinenonakademik.common.base.BaseActivity;
 import com.luteh.kampusonlinenonakademik.common.utils.HeaderViewHolder;
-import com.luteh.kampusonlinenonakademik.model.User;
 import com.luteh.kampusonlinenonakademik.ui.activities.login.LoginActivity;
+import com.luteh.kampusonlinenonakademik.ui.fragments.strukturorganisasi.StrukturOrganisasiFragment;
 import com.squareup.picasso.Picasso;
 import timber.log.Timber;
 
@@ -106,21 +104,21 @@ public class DashboardActivity extends BaseActivity implements
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            /*case R.id.navDashboard:
-                replaceFragment(new DashboardFragment(), R.string.title_dashboard_fragment);
+            case R.id.menu_nav_struktur_organisasi:
+                replaceFragment(new StrukturOrganisasiFragment(), R.string.title_fragment_struktur_organisasi);
                 break;
-            case R.id.navKeuangan:
+            case R.id.menu_nav_daftar_member:
                 break;
-            case R.id.navHasilStudi:
-                replaceFragment(new HasilStudiFragment(), R.string.title_hasil_studi_fragment);
+            case R.id.menu_nav_job_desk_divisi:
+//                replaceFragment(new HasilStudiFragment(), R.string.title_hasil_studi_fragment);
                 break;
-            case R.id.navJadwal:
-                replaceFragment(new JadwalFragment(), R.string.title_jadwal_fragment);
+            case R.id.menu_nav_kalender_kegiatan:
+//                replaceFragment(new JadwalFragment(), R.string.title_jadwal_fragment);
                 break;
-            case R.id.navRencanaStudi:
-                replaceFragment(new RencanaStudiFragment(), R.string.title_rencana_studi_fragment);
-                break;*/
-            case R.id.navLogout:
+            case R.id.menu_nav_proposal:
+//                replaceFragment(new RencanaStudiFragment(), R.string.title_rencana_studi_fragment);
+                break;
+            case R.id.menu_nav_logout:
                 FirebaseAuth.getInstance().signOut();
                 AccountHelper.clearUserData(this);
                 finishToRight();
