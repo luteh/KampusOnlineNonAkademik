@@ -9,6 +9,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
 import butterknife.BindView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -18,6 +19,7 @@ import com.luteh.kampusonlinenonakademik.common.Common;
 import com.luteh.kampusonlinenonakademik.common.base.BaseActivity;
 import com.luteh.kampusonlinenonakademik.common.utils.HeaderViewHolder;
 import com.luteh.kampusonlinenonakademik.ui.activities.login.LoginActivity;
+import com.luteh.kampusonlinenonakademik.ui.fragments.home.HomeFragment;
 import com.luteh.kampusonlinenonakademik.ui.fragments.strukturorganisasi.StrukturOrganisasiFragment;
 import com.squareup.picasso.Picasso;
 import timber.log.Timber;
@@ -52,10 +54,6 @@ public class DashboardActivity extends BaseActivity implements
         toggle.syncState();
 
         navigationView.setNavigationItemSelectedListener(this);
-
-        // Create and set Android Fragment as default.
-        /*Fragment dashboardFragment = new DashboardFragment();
-        setDefaultFragment(dashboardFragment);*/
     }
 
     @Override
@@ -144,5 +142,13 @@ public class DashboardActivity extends BaseActivity implements
             headerViewHolder.tvProfileName.setText(getUser().nama);
             headerViewHolder.tvProfileNpm.setText(getUser().npm);
         }
+
+        initFragment();
+    }
+
+    private void initFragment() {
+        // Create and set Android Fragment as default.
+        Fragment homeFragment = new HomeFragment();
+        setDefaultFragment(homeFragment);
     }
 }

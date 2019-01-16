@@ -92,4 +92,10 @@ public class Common {
     public static void showToastMessage(Context context, String message) {
         Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
     }
+
+    public static String formatChildName(String string) {
+        return string.replace(" ", "_")
+                .replace("/", "-")
+                .toLowerCase();
+    }
 }

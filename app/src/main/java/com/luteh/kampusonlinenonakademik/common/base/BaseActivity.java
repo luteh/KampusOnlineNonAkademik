@@ -126,9 +126,9 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
     }
 
     // This method is used to set the default fragment that will be shown.
-    /*public void setDefaultFragment(Fragment defaultFragment) {
-        this.replaceFragment(defaultFragment, R.string.title_dashboard_fragment);
-    }*/
+    public void setDefaultFragment(Fragment defaultFragment) {
+        this.replaceFragment(defaultFragment, R.string.title_fragment_home);
+    }
 
     // Replace current Fragment with the destination Fragment.
     public void replaceFragment(Fragment destFragment, int titleResId) {
@@ -144,7 +144,7 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
             destFragment.setExitTransition(transitionWithFadeOut());
 
             // Replace the layout holder with the required Fragment object.
-//            fragmentTransaction.replace(R.id.fragmentFrameLayout, destFragment);
+            fragmentTransaction.replace(R.id.fragmentFrameLayout, destFragment);
 
             // Commit the Fragment replace action.
             fragmentTransaction.commit();
