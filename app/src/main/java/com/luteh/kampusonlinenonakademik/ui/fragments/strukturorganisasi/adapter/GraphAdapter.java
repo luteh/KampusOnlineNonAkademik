@@ -21,20 +21,25 @@ import de.blox.graphview.Graph;
 public class GraphAdapter extends BaseGraphAdapter<GraphViewHolder> {
 
     private List<StrukturOrganisasi> strukturOrganisasis;
+    private OnGraphItemClicked onGraphItemClicked;
 
     public GraphAdapter(@NonNull Context context, int layoutRes) {
         super(context, layoutRes);
     }
 
-    public GraphAdapter(@NonNull Context context, int layoutRes, @NonNull Graph graph, List<StrukturOrganisasi> strukturOrganisasis) {
+    public GraphAdapter(@NonNull Context context,
+                        int layoutRes, @NonNull Graph graph,
+                        List<StrukturOrganisasi> strukturOrganisasis,
+                        OnGraphItemClicked onGraphItemClicked) {
         super(context, layoutRes, graph);
         this.strukturOrganisasis = strukturOrganisasis;
+        this.onGraphItemClicked = onGraphItemClicked;
     }
 
     @NonNull
     @Override
     public GraphViewHolder onCreateViewHolder(View view) {
-        return new GraphViewHolder(view);
+        return new GraphViewHolder(view, onGraphItemClicked);
     }
 
     @Override
@@ -49,5 +54,8 @@ public class GraphAdapter extends BaseGraphAdapter<GraphViewHolder> {
                     .placeholder(R.drawable.ic_user_holo)
                     .into(holder.iv_struktur_org_item);
         }
+
+        holder.position = position;
+        holder.strukturOrganisasi = strukturOrganisasis.get(position);
     }
 }

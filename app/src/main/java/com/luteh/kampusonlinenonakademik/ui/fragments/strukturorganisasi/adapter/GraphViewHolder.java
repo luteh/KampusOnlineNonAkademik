@@ -5,17 +5,19 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.luteh.kampusonlinenonakademik.R;
+import com.luteh.kampusonlinenonakademik.model.StrukturOrganisasi;
 
-import org.w3c.dom.Text;
-
+import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
+import de.blox.graphview.BaseGraphAdapter;
 
 /**
  * Created by Luthfan Maftuh on 17/01/2019.
  * Email luthfanmaftuh@gmail.com
  */
-public class GraphViewHolder {
+public class GraphViewHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.tv_jabatan)
     public TextView tv_jabatan;
     @BindView(R.id.iv_struktur_org_item)
@@ -25,7 +27,19 @@ public class GraphViewHolder {
     @BindView(R.id.tv_nama)
     public TextView tv_nama;
 
-    public GraphViewHolder(View view) {
+    public int position;
+    public StrukturOrganisasi strukturOrganisasi;
+
+    private OnGraphItemClicked onGraphItemClicked;
+
+    public GraphViewHolder(View view, OnGraphItemClicked onGraphItemClicked) {
+        super(view);
         ButterKnife.bind(this, view);
+        this.onGraphItemClicked = onGraphItemClicked;
+    }
+
+    @OnClick
+    public void onClick(){
+        onGraphItemClicked.onItemClicked(strukturOrganisasi, position);
     }
 }

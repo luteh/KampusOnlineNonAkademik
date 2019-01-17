@@ -11,12 +11,14 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.gson.Gson;
 import com.luteh.kampusonlinenonakademik.R;
 import com.luteh.kampusonlinenonakademik.common.Common;
 import com.luteh.kampusonlinenonakademik.common.base.BaseFragment;
 import com.luteh.kampusonlinenonakademik.model.StrukturOrganisasi;
 import com.luteh.kampusonlinenonakademik.ui.fragments.strukturorganisasi.adapter.GraphAdapter;
 import com.luteh.kampusonlinenonakademik.ui.fragments.strukturorganisasi.adapter.GraphViewHolder;
+import com.luteh.kampusonlinenonakademik.ui.fragments.strukturorganisasi.adapter.OnGraphItemClicked;
 
 import java.util.List;
 
@@ -24,11 +26,14 @@ import butterknife.BindView;
 import de.blox.graphview.BaseGraphAdapter;
 import de.blox.graphview.Graph;
 import de.blox.graphview.GraphView;
+import timber.log.Timber;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class StrukturOrganisasiFragment extends BaseFragment implements IStrukturOrganisasiView {
+public class StrukturOrganisasiFragment extends BaseFragment implements
+        IStrukturOrganisasiView,
+        OnGraphItemClicked {
 
     @BindView(R.id.graph_struktur_org)
     GraphView graph_struktur_org;
@@ -69,17 +74,20 @@ public class StrukturOrganisasiFragment extends BaseFragment implements IStruktu
     }
 
     private void setupAdapter(Graph graph, List<StrukturOrganisasi> strukturOrganisasis) {
-        adapter = new GraphAdapter(getContext(), R.layout.node_struktur_organisasi, graph, strukturOrganisasis);
+        adapter = new GraphAdapter(getContext(), R.layout.node_struktur_organisasi, graph, strukturOrganisasis, this);
+
 
         iStrukturOrganisasiPresenter.setAlgorithm(adapter);
 
         graph_struktur_org.setAdapter(adapter);
-        graph_struktur_org.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        /*graph_struktur_org.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Common.showToastMessage(getContext(), "Clicker on position " + position);
+                Timber.d("Position: %d", position);
             }
-        });
+        });*/
+
     }
 
     @Override
@@ -91,5 +99,11 @@ public class StrukturOrganisasiFragment extends BaseFragment implements IStruktu
 
         ll_progress_bar_container.setVisibility(View.INVISIBLE);
         rl_struktur_org_container.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void onItemClicked(StrukturOrganisasi strukturOrganisasi, int position) {
+        Common.showToastMessage(getContext(), "Clicker on position " + position);
+        Timber.d("Info: %s", strukturOrganisasi.toString());
     }
 }
