@@ -6,21 +6,29 @@
     android:layout_height="match_parent"
     tools:context=".ui.fragments.strukturorganisasi.StrukturOrganisasiFragment">
 
-    <de.blox.graphview.GraphView
-        android:id="@+id/graph_struktur_org"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="?attr/actionBarSize"
-        app:hasClickableChildren="true"
-        app:lineColor="@color/colorPrimary"
-        app:useMaxSize="true" />
+        android:layout_height="match_parent">
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_struktur_org_add_node"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        android:src="@drawable/ic_add_white" />
+        <de.blox.graphview.GraphView
+            android:id="@+id/graph_struktur_org"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="?attr/actionBarSize"
+            app:hasClickableChildren="true"
+            app:lineColor="@color/colorPrimary"
+            app:useMaxSize="true" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_struktur_org_add_node"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="@dimen/fab_margin"
+            android:src="@drawable/ic_add_white" />
+    </RelativeLayout>
+
+    <include layout="@layout/layout_loading_dialog" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
