@@ -1,15 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView
+<FrameLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fillViewport="true"
         tools:context=".ui.fragments.home.HomeFragment">
 
-    <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
 
         <!-- TODO: Update blank fragment layout -->
         <RelativeLayout
@@ -25,6 +21,5 @@
         </RelativeLayout>
 
         <include layout="@layout/layout_loading_dialog"/>
-    </FrameLayout>
 
-</androidx.core.widget.NestedScrollView>
+</FrameLayout>

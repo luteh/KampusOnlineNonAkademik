@@ -10,6 +10,7 @@ public class AppConstant {
 
     public static final String ARG_USERS = "users";
     public static final String ARG_FRS = "frs";
+    public static final String ARG_STRUKTUR_ORG = "struktur_organisasi";
     public static final String ARG_UKM = "ukm";
     public static final String ARG_PNG_EXTENSION = ".png";
 
