@@ -1,6 +1,7 @@
-package com.luteh.kampusonlinenonakademik.ui.fragments.strukturorganisasi;
+package com.luteh.kampusonlinenonakademik.ui.fragments.strukturorganisasi.adapter;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.luteh.kampusonlinenonakademik.R;
@@ -42,9 +43,11 @@ public class GraphAdapter extends BaseGraphAdapter<GraphViewHolder> {
         holder.tv_nama.setText(strukturOrganisasis.get(position).nama);
         holder.tv_npm.setText(strukturOrganisasis.get(position).npm);
 
-        /*Picasso.get()
-                .load(strukturOrganisasis.get(position).photo_url)
-                .placeholder(R.drawable.ic_user_holo)
-                .into(holder.iv_struktur_org_item);*/
+        if (!TextUtils.isEmpty(strukturOrganisasis.get(position).photo_url)) {
+            Picasso.get()
+                    .load(strukturOrganisasis.get(position).photo_url)
+                    .placeholder(R.drawable.ic_user_holo)
+                    .into(holder.iv_struktur_org_item);
+        }
     }
 }

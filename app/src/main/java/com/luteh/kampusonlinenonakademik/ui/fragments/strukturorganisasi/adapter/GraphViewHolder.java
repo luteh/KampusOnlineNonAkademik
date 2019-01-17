@@ -1,4 +1,4 @@
-package com.luteh.kampusonlinenonakademik.ui.fragments.strukturorganisasi;
+package com.luteh.kampusonlinenonakademik.ui.fragments.strukturorganisasi.adapter;
 
 import android.view.View;
 import android.widget.ImageView;
