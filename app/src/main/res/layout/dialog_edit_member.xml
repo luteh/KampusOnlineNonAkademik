@@ -1,20 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"
+    android:layout_marginTop="?attr/actionBarSize"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:showIn="@layout/fragment_struktur_organisasi">
 
     <LinearLayout
         android:id="@+id/ll_edit_member_form_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:background="@drawable/bg_rounded_up_corners"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/margin_default">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            app:srcCompat="@drawable/ic_arrow_down_black" />
 
         <com.google.android.material.card.MaterialCardView
             android:layout_width="@dimen/img_rounded"
             android:layout_height="@dimen/img_rounded"
             android:layout_gravity="center"
-            android:layout_marginTop="@dimen/margin_small"
+            android:layout_marginTop="@dimen/margin_default"
             app:cardCornerRadius="@dimen/img_corner">
 
             <ImageView
