@@ -52,4 +52,6 @@
 
     <dimen name="img_rounded">80dp</dimen>
     <dimen name="img_corner">40dp</dimen>
+
+    <dimen name="spinner_height">35dp</dimen>
 </resources>

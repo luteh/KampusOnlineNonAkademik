@@ -88,5 +88,8 @@ dependencies {
 
     // GraphView
     implementation 'de.blox:graphview:0.4.2'
+
+    // SlideUp
+    implementation "com.github.mancj:SlideUp-Android:2.2.8"
 }
 apply plugin: 'com.google.gms.google-services'
