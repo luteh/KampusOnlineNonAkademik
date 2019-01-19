@@ -27,7 +27,7 @@
             android:layout_height="@dimen/img_rounded"
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/margin_small"
-            app:cardCornerRadius="@dimen/img_corner">
+            app:cardCornerRadius="@dimen/img_rounded_corner">
 
             <ImageView
                 android:id="@+id/iv_struktur_org_item"

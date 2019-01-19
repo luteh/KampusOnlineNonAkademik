@@ -11,9 +11,7 @@
     <RelativeLayout
         android:id="@+id/rl_struktur_org_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:alpha="1"
-        android:fitsSystemWindows="true">
+        android:layout_height="match_parent">
 
         <de.blox.graphview.GraphView
             android:id="@+id/graph_struktur_org"
@@ -32,8 +30,6 @@
             android:layout_margin="@dimen/fab_margin"
             android:src="@drawable/ic_add_white" />
     </RelativeLayout>
-
-    <include layout="@layout/dialog_edit_member" />
 
     <include layout="@layout/layout_loading_dialog" />
 

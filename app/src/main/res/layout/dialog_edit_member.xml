@@ -1,100 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_alignParentBottom="true"
-    android:layout_marginTop="?attr/actionBarSize"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:showIn="@layout/fragment_struktur_organisasi">
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:background="@color/colorBackground"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center">
 
     <LinearLayout
-        android:id="@+id/ll_edit_member_form_container"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/bg_rounded_up_corners"
-        android:orientation="vertical"
-        android:paddingBottom="@dimen/margin_default">
-
-        <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/ll_edit_member_form_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            app:srcCompat="@drawable/ic_arrow_down_black" />
+            android:background="@drawable/bg_rounded_up_corners"
+            android:orientation="vertical">
 
         <com.google.android.material.card.MaterialCardView
-            android:layout_width="@dimen/img_rounded"
-            android:layout_height="@dimen/img_rounded"
-            android:layout_gravity="center"
-            android:layout_marginTop="@dimen/margin_default"
-            app:cardCornerRadius="@dimen/img_corner">
+                android:layout_width="@dimen/img_default"
+                android:layout_height="@dimen/img_default"
+                android:layout_margin="@dimen/margin_xlarge__"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/margin_default"
+                app:cardCornerRadius="@dimen/img_default_corner">
 
             <ImageView
-                android:id="@+id/iv_dialog_edit_member"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:contentDescription="@string/nav_header_desc"
-                android:scaleType="centerCrop"
-                android:src="@drawable/ic_launcher_background" />
+                    android:id="@+id/iv_dialog_edit_member"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:contentDescription="@string/nav_header_desc"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_launcher_background"/>
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/til_dialog_edit_member_npm"
-            style="@style/InputLayoutWithMargin"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+                android:id="@+id/til_dialog_edit_member_npm"
+                style="@style/InputLayoutWithMargin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/et_dialog_edit_member_npm"
-                style="@style/EditTextForm"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/label_npm"
-                android:inputType="text" />
+                    android:id="@+id/et_dialog_edit_member_npm"
+                    style="@style/EditTextForm"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/label_npm"
+                    android:inputType="text"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/til_dialog_edit_member_nama"
-            style="@style/InputLayoutWithMargin"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+                android:id="@+id/til_dialog_edit_member_nama"
+                style="@style/InputLayoutWithMargin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/et_dialog_edit_member_nama"
-                style="@style/EditTextForm"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/label_nama"
-                android:inputType="text" />
+                    android:id="@+id/et_dialog_edit_member_nama"
+                    style="@style/EditTextForm"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/label_nama"
+                    android:inputType="text"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.card.MaterialCardView
-            style="@style/DefaultMargins"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:cardBackgroundColor="@color/colorBackground"
-            app:cardCornerRadius="4dp"
-            app:cardElevation="4dp">
+                style="@style/DefaultMargins"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardBackgroundColor="@color/colorBackgroundDefault"
+                app:cardCornerRadius="4dp">
 
             <Spinner
-                android:id="@+id/spn_dialog_edit_member_jabatan"
-                style="@style/Widget.AppCompat.Spinner.Underlined"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/spinner_height" />
+                    android:id="@+id/spn_dialog_edit_member_jabatan"
+                    style="@style/Widget.AppCompat.Spinner.Underlined"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/spinner_height"/>
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_dialog_edit_member_done"
-            style="@style/DefaultMargins"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:text="@string/label_btn_done" />
+                android:id="@+id/btn_dialog_edit_member_done"
+                android:layout_marginEnd="@dimen/margin_default"
+                android:layout_marginTop="@dimen/margin_default"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:text="@string/label_btn_done"/>
     </LinearLayout>
 
 

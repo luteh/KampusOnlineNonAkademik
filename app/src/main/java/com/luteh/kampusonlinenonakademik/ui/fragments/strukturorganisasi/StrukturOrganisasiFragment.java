@@ -3,20 +3,15 @@ package com.luteh.kampusonlinenonakademik.ui.fragments.strukturorganisasi;
 
 import android.os.Bundle;
 import android.app.Fragment;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ImageView;
+import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.Spinner;
 
+import androidx.appcompat.app.AlertDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
-import com.google.gson.Gson;
 import com.luteh.kampusonlinenonakademik.R;
 import com.luteh.kampusonlinenonakademik.common.Common;
 import com.luteh.kampusonlinenonakademik.common.base.BaseFragment;
@@ -24,12 +19,11 @@ import com.luteh.kampusonlinenonakademik.model.StrukturOrganisasi;
 import com.luteh.kampusonlinenonakademik.ui.fragments.strukturorganisasi.adapter.GraphAdapter;
 import com.luteh.kampusonlinenonakademik.ui.fragments.strukturorganisasi.adapter.GraphViewHolder;
 import com.luteh.kampusonlinenonakademik.ui.fragments.strukturorganisasi.adapter.OnGraphItemClicked;
-import com.mancj.slideup.SlideUp;
-import com.mancj.slideup.SlideUpBuilder;
 
 import java.util.List;
 
 import butterknife.BindView;
+import com.squareup.picasso.Picasso;
 import de.blox.graphview.BaseGraphAdapter;
 import de.blox.graphview.Graph;
 import de.blox.graphview.GraphView;
@@ -51,23 +45,7 @@ public class StrukturOrganisasiFragment extends BaseFragment implements
     @BindView(R.id.rl_struktur_org_container)
     RelativeLayout rl_struktur_org_container;
 
-    //    Edit Member Dialog Views
-    @BindView(R.id.ll_edit_member_form_container)
-    View ll_edit_member_form_container;
-    @BindView(R.id.iv_dialog_edit_member)
-    ImageView iv_dialog_edit_member;
-    @BindView(R.id.til_dialog_edit_member_npm)
-    TextInputLayout til_dialog_edit_member_npm;
-    @BindView(R.id.et_dialog_edit_member_npm)
-    TextInputEditText et_dialog_edit_member_npm;
-    @BindView(R.id.til_dialog_edit_member_nama)
-    TextInputLayout til_dialog_edit_member_nama;
-    @BindView(R.id.et_dialog_edit_member_nama)
-    TextInputEditText et_dialog_edit_member_nama;
-    @BindView(R.id.spn_dialog_edit_member_jabatan)
-    Spinner spn_dialog_edit_member_jabatan;
-
-    private SlideUp slideUp;
+    private EditMemberDialogViewHolder dialogHolder;
 
     protected BaseGraphAdapter<GraphViewHolder> adapter;
 
@@ -95,56 +73,22 @@ public class StrukturOrganisasiFragment extends BaseFragment implements
 
         ll_progress_bar_container.setVisibility(View.VISIBLE);
         rl_struktur_org_container.setVisibility(View.INVISIBLE);
-
-        initSlideUp();
-
     }
 
-    private void initSlideUp() {
-        slideUp = new SlideUpBuilder(ll_edit_member_form_container)
-                .withListeners(new SlideUp.Listener.Events() {
-                    @Override
-                    public void onSlide(float percent) {
-                        if (percent >= 20) rl_struktur_org_container.setAlpha(percent / 100);
-                        Timber.d("Percent: %f", percent);
-                       /* if (fab.isShown() && percent < 100) {
-                            fab.hide();
-                        }*/
-                    }
+    private void initSpinner(StrukturOrganisasi strukturOrganisasi) {
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.label_jabatan_item));
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        dialogHolder.spn_dialog_edit_member_jabatan.setAdapter(adapter);
 
-                    @Override
-                    public void onVisibilityChanged(int visibility) {
-                        /*if (visibility == View.VISIBLE) {
-                            graph_struktur_org.setHasClickableChildren(false);
-                        }
-                        if (visibility == View.GONE) {
-                            graph_struktur_org.setHasClickableChildren(true);
-                        }*/
-                    }
-                })
-                .withStartState(SlideUp.State.HIDDEN)
-                .withStartGravity(Gravity.BOTTOM)
-                .withLoggingEnabled(true)
-                .withGesturesEnabled(true)
-//                .withSlideFromOtherView(findViewById(R.id.rootView))
-                .build();
+        dialogHolder.spn_dialog_edit_member_jabatan.setSelection(adapter.getPosition(strukturOrganisasi.jabatan));
     }
 
     private void setupAdapter(Graph graph, List<StrukturOrganisasi> strukturOrganisasis) {
         adapter = new GraphAdapter(getContext(), R.layout.node_struktur_organisasi, graph, strukturOrganisasis, this);
 
-
         iStrukturOrganisasiPresenter.setAlgorithm(adapter);
 
         graph_struktur_org.setAdapter(adapter);
-        /*graph_struktur_org.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Common.showToastMessage(getContext(), "Clicker on position " + position);
-                Timber.d("Position: %d", position);
-            }
-        });*/
-
     }
 
     @Override
@@ -167,8 +111,32 @@ public class StrukturOrganisasiFragment extends BaseFragment implements
     }
 
     private void showEditMemberDialog(StrukturOrganisasi strukturOrganisasi) {
-        et_dialog_edit_member_npm.setText(strukturOrganisasi.npm);
+        View view = LayoutInflater.from(context).inflate(R.layout.dialog_edit_member, null);
+        dialogHolder = new EditMemberDialogViewHolder(view);
 
-        slideUp.show();
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setView(view);
+
+        initSpinner(strukturOrganisasi);
+
+        dialogHolder.et_dialog_edit_member_npm.setText(strukturOrganisasi.npm);
+        dialogHolder.et_dialog_edit_member_nama.setText(strukturOrganisasi.nama);
+
+        Picasso.get()
+                .load(strukturOrganisasi.photo_url)
+                .placeholder(R.drawable.ic_user_holo)
+                .into(dialogHolder.iv_dialog_edit_member);
+
+        AlertDialog dialog = builder.create();
+        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+//        dialog.getWindow().getAttributes().windowAnimations = R.style.pdlg_default_animation;
+        dialog.show();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+
+        dialogHolder.unbindView();
     }
 }

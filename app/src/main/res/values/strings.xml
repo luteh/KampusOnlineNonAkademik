@@ -52,4 +52,11 @@
     <string name="label_jabatan">Jabatan</string>
     <string name="label_btn_done">Done</string>
 
+    <string-array name="label_jabatan_item">
+        <item>Ketua</item>
+        <item>Wakil Ketua</item>
+        <item>Bendahara</item>
+        <item>Sekretaris</item>
+    </string-array>
+
 </resources>
