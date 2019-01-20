@@ -5,13 +5,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.luteh.kampusonlinenonakademik.R;
-import com.luteh.kampusonlinenonakademik.model.StrukturOrganisasi;
+import com.luteh.kampusonlinenonakademik.model.strukturorganisasi.StrukturOrganisasiResponse;
 
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import de.blox.graphview.BaseGraphAdapter;
 
 /**
  * Created by Luthfan Maftuh on 17/01/2019.
@@ -28,7 +27,7 @@ public class GraphViewHolder extends RecyclerView.ViewHolder {
     public TextView tv_nama;
 
     public int position;
-    public StrukturOrganisasi strukturOrganisasi;
+    public StrukturOrganisasiResponse strukturOrganisasiResponse;
 
     private OnGraphItemClicked onGraphItemClicked;
 
@@ -40,6 +39,6 @@ public class GraphViewHolder extends RecyclerView.ViewHolder {
 
     @OnClick
     public void onClick(){
-        onGraphItemClicked.onItemClicked(strukturOrganisasi, position);
+        onGraphItemClicked.onItemClicked(strukturOrganisasiResponse, position);
     }
 }

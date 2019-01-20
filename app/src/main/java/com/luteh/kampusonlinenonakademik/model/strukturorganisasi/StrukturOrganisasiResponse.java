@@ -1,4 +1,4 @@
-package com.luteh.kampusonlinenonakademik.model;
+package com.luteh.kampusonlinenonakademik.model.strukturorganisasi;
 
 import androidx.annotation.NonNull;
 
@@ -6,7 +6,7 @@ import androidx.annotation.NonNull;
  * Created by Luthfan Maftuh on 17/01/2019.
  * Email luthfanmaftuh@gmail.com
  */
-public class StrukturOrganisasi {
+public class StrukturOrganisasiResponse {
     public String photo_url;
     public String npm;
     public String nama;

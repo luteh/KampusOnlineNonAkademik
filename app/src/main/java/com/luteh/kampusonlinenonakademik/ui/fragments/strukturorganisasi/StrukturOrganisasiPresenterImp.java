@@ -5,10 +5,12 @@ import android.content.Context;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.luteh.kampusonlinenonakademik.R;
 import com.luteh.kampusonlinenonakademik.common.AccountHelper;
 import com.luteh.kampusonlinenonakademik.common.AppConstant;
 import com.luteh.kampusonlinenonakademik.common.Common;
-import com.luteh.kampusonlinenonakademik.model.StrukturOrganisasi;
+import com.luteh.kampusonlinenonakademik.model.strukturorganisasi.StrukturOrganisasiRequest;
+import com.luteh.kampusonlinenonakademik.model.strukturorganisasi.StrukturOrganisasiResponse;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,11 +49,11 @@ public class StrukturOrganisasiPresenterImp implements IStrukturOrganisasiPresen
 
             RxFirebaseDatabase.observeSingleValueEvent(databaseReference,
                     dataSnapshot -> {
-                        List<StrukturOrganisasi> strukturOrganisasiList = new ArrayList<>();
+                        List<StrukturOrganisasiResponse> strukturOrganisasiResponseList = new ArrayList<>();
                         for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                            strukturOrganisasiList.add(postSnapshot.getValue(StrukturOrganisasi.class));
+                            strukturOrganisasiResponseList.add(postSnapshot.getValue(StrukturOrganisasiResponse.class));
                         }
-                        return strukturOrganisasiList;
+                        return strukturOrganisasiResponseList;
                     })
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
@@ -64,17 +66,17 @@ public class StrukturOrganisasiPresenterImp implements IStrukturOrganisasiPresen
     }
 
     @Override
-    public Graph createGraph(List<StrukturOrganisasi> strukturOrganisasis) {
+    public Graph createGraph(List<StrukturOrganisasiResponse> strukturOrganisasiResponses) {
         final Graph graph = new Graph();
-        Node[] nodes = new Node[strukturOrganisasis.size()];
+        Node[] nodes = new Node[strukturOrganisasiResponses.size()];
         int i = 0;
-        for (StrukturOrganisasi strukturOrganisasi : strukturOrganisasis) {
-            nodes[i] = new Node(strukturOrganisasi);
+        for (StrukturOrganisasiResponse strukturOrganisasiResponse : strukturOrganisasiResponses) {
+            nodes[i] = new Node(strukturOrganisasiResponse);
             if (i >= 1) {
-                if (strukturOrganisasi.tree_level == 2) {
+                if (strukturOrganisasiResponse.tree_level == 2) {
                     graph.addEdge(nodes[0], nodes[i]);
                 }
-                if (strukturOrganisasi.tree_level == 3) {
+                if (strukturOrganisasiResponse.tree_level == 3) {
                     graph.addEdge(nodes[1], nodes[i]);
                 }
             }
@@ -93,4 +95,21 @@ public class StrukturOrganisasiPresenterImp implements IStrukturOrganisasiPresen
                 .build();
         adapter.setAlgorithm(new BuchheimWalkerAlgorithm(configuration));
     }
+
+    @Override
+    public void submitEditMember(StrukturOrganisasiRequest strukturOrganisasiRequest) {
+        switch (strukturOrganisasiRequest.isValidData()) {
+            case 1:
+                iStrukturOrganisasiView.onNpmError(context.getResources().getString(R.string.label_msg_npm_required));
+                break;
+            case 2:
+                iStrukturOrganisasiView.onNamaError(context.getResources().getString(R.string.label_msg_nama_required));
+                break;
+            case -1:
+                Timber.d("Data Valid!");
+                break;
+        }
+    }
+
+
 }

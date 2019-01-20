@@ -1,6 +1,6 @@
 package com.luteh.kampusonlinenonakademik.ui.fragments.strukturorganisasi;
 
-import com.luteh.kampusonlinenonakademik.model.StrukturOrganisasi;
+import com.luteh.kampusonlinenonakademik.model.strukturorganisasi.StrukturOrganisasiResponse;
 
 import java.util.List;
 
@@ -9,5 +9,24 @@ import java.util.List;
  * Email luthfanmaftuh@gmail.com
  */
 public interface IStrukturOrganisasiView {
-    void onDataRetrieved(List<StrukturOrganisasi> strukturOrganisasis);
+    void onDataRetrieved(List<StrukturOrganisasiResponse> strukturOrganisasiResponses);
+
+    /**
+     * Show the email error message
+     *
+     * @param message the error message
+     */
+    void onNamaError(String message);
+
+    /**
+     * Show the password error message
+     *
+     * @param message the error message
+     */
+    void onNpmError(String message);
+
+    /**
+     * Clear the error effect on all fields
+     **/
+    void clearError();
 }

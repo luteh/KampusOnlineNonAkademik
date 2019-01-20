@@ -12,7 +12,7 @@ import butterknife.Unbinder;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.luteh.kampusonlinenonakademik.R;
-import com.luteh.kampusonlinenonakademik.model.StrukturOrganisasi;
+import com.luteh.kampusonlinenonakademik.model.strukturorganisasi.StrukturOrganisasiResponse;
 import com.squareup.picasso.Picasso;
 
 /**
@@ -35,7 +35,7 @@ public class EditMemberDialogViewHolder {
     @BindView(R.id.spn_dialog_edit_member_jabatan)
     public Spinner spn_dialog_edit_member_jabatan;
 
-    private StrukturOrganisasi strukturOrganisasi;
+    private StrukturOrganisasiResponse strukturOrganisasiResponse;
     private OnEditMemberDialogClick onEditMemberDialogClick;
 
     private Context context;
@@ -43,22 +43,22 @@ public class EditMemberDialogViewHolder {
     private Unbinder unbinder;
 
     public EditMemberDialogViewHolder(View view,
-                                      StrukturOrganisasi strukturOrganisasi,
+                                      StrukturOrganisasiResponse strukturOrganisasiResponse,
                                       OnEditMemberDialogClick onEditMemberDialogClick) {
         this.context = view.getContext();
         unbinder = ButterKnife.bind(this, view);
-        this.strukturOrganisasi = strukturOrganisasi;
+        this.strukturOrganisasiResponse = strukturOrganisasiResponse;
         this.onEditMemberDialogClick = onEditMemberDialogClick;
 
         onInit();
     }
 
     private void onInit() {
-        et_dialog_edit_member_npm.setText(strukturOrganisasi.npm);
-        et_dialog_edit_member_nama.setText(strukturOrganisasi.nama);
+        et_dialog_edit_member_npm.setText(strukturOrganisasiResponse.npm);
+        et_dialog_edit_member_nama.setText(strukturOrganisasiResponse.nama);
 
         Picasso.get()
-                .load(strukturOrganisasi.photo_url)
+                .load(strukturOrganisasiResponse.photo_url)
                 .placeholder(R.drawable.ic_user_holo)
                 .into(iv_dialog_edit_member);
 
@@ -70,7 +70,7 @@ public class EditMemberDialogViewHolder {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spn_dialog_edit_member_jabatan.setAdapter(adapter);
 
-        spn_dialog_edit_member_jabatan.setSelection(adapter.getPosition(strukturOrganisasi.jabatan));
+        spn_dialog_edit_member_jabatan.setSelection(adapter.getPosition(strukturOrganisasiResponse.jabatan));
     }
 
     @OnClick(R.id.iv_dialog_edit_member)

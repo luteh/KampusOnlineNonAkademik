@@ -35,6 +35,7 @@
                 android:id="@+id/til_dialog_edit_member_npm"
                 style="@style/InputLayoutWithMargin"
                 android:layout_width="match_parent"
+                app:errorEnabled="true"
                 android:layout_height="wrap_content">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -50,6 +51,7 @@
                 android:id="@+id/til_dialog_edit_member_nama"
                 style="@style/InputLayoutWithMargin"
                 android:layout_width="match_parent"
+                app:errorEnabled="true"
                 android:layout_height="wrap_content">
 
             <com.google.android.material.textfield.TextInputEditText

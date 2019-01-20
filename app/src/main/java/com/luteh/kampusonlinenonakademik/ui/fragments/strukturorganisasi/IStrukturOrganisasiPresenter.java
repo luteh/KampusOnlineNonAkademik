@@ -1,6 +1,7 @@
 package com.luteh.kampusonlinenonakademik.ui.fragments.strukturorganisasi;
 
-import com.luteh.kampusonlinenonakademik.model.StrukturOrganisasi;
+import com.luteh.kampusonlinenonakademik.model.strukturorganisasi.StrukturOrganisasiRequest;
+import com.luteh.kampusonlinenonakademik.model.strukturorganisasi.StrukturOrganisasiResponse;
 
 import java.util.List;
 
@@ -14,7 +15,9 @@ import de.blox.graphview.GraphAdapter;
 public interface IStrukturOrganisasiPresenter {
     void retrieveStrukturOrganisasiData();
 
-    Graph createGraph(List<StrukturOrganisasi> strukturOrganisasis);
+    Graph createGraph(List<StrukturOrganisasiResponse> strukturOrganisasiResponses);
 
     void setAlgorithm(GraphAdapter adapter);
+
+    void submitEditMember(StrukturOrganisasiRequest strukturOrganisasiRequest);
 }

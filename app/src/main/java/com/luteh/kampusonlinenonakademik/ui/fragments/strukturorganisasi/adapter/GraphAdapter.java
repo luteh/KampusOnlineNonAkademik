@@ -5,7 +5,7 @@ import android.text.TextUtils;
 import android.view.View;
 
 import com.luteh.kampusonlinenonakademik.R;
-import com.luteh.kampusonlinenonakademik.model.StrukturOrganisasi;
+import com.luteh.kampusonlinenonakademik.model.strukturorganisasi.StrukturOrganisasiResponse;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -20,7 +20,7 @@ import de.blox.graphview.Graph;
  */
 public class GraphAdapter extends BaseGraphAdapter<GraphViewHolder> {
 
-    private List<StrukturOrganisasi> strukturOrganisasis;
+    private List<StrukturOrganisasiResponse> strukturOrganisasiResponses;
     private OnGraphItemClicked onGraphItemClicked;
 
     public GraphAdapter(@NonNull Context context, int layoutRes) {
@@ -29,10 +29,10 @@ public class GraphAdapter extends BaseGraphAdapter<GraphViewHolder> {
 
     public GraphAdapter(@NonNull Context context,
                         int layoutRes, @NonNull Graph graph,
-                        List<StrukturOrganisasi> strukturOrganisasis,
+                        List<StrukturOrganisasiResponse> strukturOrganisasiResponses,
                         OnGraphItemClicked onGraphItemClicked) {
         super(context, layoutRes, graph);
-        this.strukturOrganisasis = strukturOrganisasis;
+        this.strukturOrganisasiResponses = strukturOrganisasiResponses;
         this.onGraphItemClicked = onGraphItemClicked;
     }
 
@@ -44,18 +44,18 @@ public class GraphAdapter extends BaseGraphAdapter<GraphViewHolder> {
 
     @Override
     public void onBindViewHolder(GraphViewHolder holder, Object data, int position) {
-        holder.tv_jabatan.setText(strukturOrganisasis.get(position).jabatan);
-        holder.tv_nama.setText(strukturOrganisasis.get(position).nama);
-        holder.tv_npm.setText(strukturOrganisasis.get(position).npm);
+        holder.tv_jabatan.setText(strukturOrganisasiResponses.get(position).jabatan);
+        holder.tv_nama.setText(strukturOrganisasiResponses.get(position).nama);
+        holder.tv_npm.setText(strukturOrganisasiResponses.get(position).npm);
 
-        if (!TextUtils.isEmpty(strukturOrganisasis.get(position).photo_url)) {
+        if (!TextUtils.isEmpty(strukturOrganisasiResponses.get(position).photo_url)) {
             Picasso.get()
-                    .load(strukturOrganisasis.get(position).photo_url)
+                    .load(strukturOrganisasiResponses.get(position).photo_url)
                     .placeholder(R.drawable.ic_user_holo)
                     .into(holder.iv_struktur_org_item);
         }
 
         holder.position = position;
-        holder.strukturOrganisasi = strukturOrganisasis.get(position);
+        holder.strukturOrganisasiResponse = strukturOrganisasiResponses.get(position);
     }
 }

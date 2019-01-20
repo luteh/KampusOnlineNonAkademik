@@ -2,9 +2,9 @@ package com.luteh.kampusonlinenonakademik.ui.fragments.strukturorganisasi;
 
 
 import android.Manifest;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.view.LayoutInflater;
@@ -18,7 +18,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.luteh.kampusonlinenonakademik.R;
 import com.luteh.kampusonlinenonakademik.common.Common;
 import com.luteh.kampusonlinenonakademik.common.base.BaseFragment;
-import com.luteh.kampusonlinenonakademik.model.StrukturOrganisasi;
+import com.luteh.kampusonlinenonakademik.model.strukturorganisasi.StrukturOrganisasiRequest;
+import com.luteh.kampusonlinenonakademik.model.strukturorganisasi.StrukturOrganisasiResponse;
 import com.luteh.kampusonlinenonakademik.ui.fragments.strukturorganisasi.adapter.GraphAdapter;
 import com.luteh.kampusonlinenonakademik.ui.fragments.strukturorganisasi.adapter.GraphViewHolder;
 import com.luteh.kampusonlinenonakademik.ui.fragments.strukturorganisasi.adapter.OnGraphItemClicked;
@@ -28,7 +29,6 @@ import java.util.List;
 import butterknife.BindView;
 import com.luteh.kampusonlinenonakademik.ui.fragments.strukturorganisasi.editmemberdialog.EditMemberDialogViewHolder;
 import com.luteh.kampusonlinenonakademik.ui.fragments.strukturorganisasi.editmemberdialog.OnEditMemberDialogClick;
-import com.squareup.picasso.Picasso;
 import com.theartofdev.edmodo.cropper.CropImage;
 import de.blox.graphview.BaseGraphAdapter;
 import de.blox.graphview.Graph;
@@ -60,6 +60,8 @@ public class StrukturOrganisasiFragment extends BaseFragment implements
 
     private IStrukturOrganisasiPresenter iStrukturOrganisasiPresenter;
 
+    private Uri mUriImageDialog;
+
     public StrukturOrganisasiFragment() {
         // Required empty public constructor
     }
@@ -84,17 +86,17 @@ public class StrukturOrganisasiFragment extends BaseFragment implements
         rl_struktur_org_container.setVisibility(View.INVISIBLE);
     }
 
-    private void setupAdapter(Graph graph, List<StrukturOrganisasi> strukturOrganisasis) {
-        adapter = new GraphAdapter(getContext(), R.layout.node_struktur_organisasi, graph, strukturOrganisasis, this);
+    private void setupAdapter(Graph graph, List<StrukturOrganisasiResponse> strukturOrganisasiResponses) {
+        adapter = new GraphAdapter(getContext(), R.layout.node_struktur_organisasi, graph, strukturOrganisasiResponses, this);
 
         iStrukturOrganisasiPresenter.setAlgorithm(adapter);
 
         graph_struktur_org.setAdapter(adapter);
     }
 
-    private void showEditMemberDialog(StrukturOrganisasi strukturOrganisasi) {
+    private void showEditMemberDialog(StrukturOrganisasiResponse strukturOrganisasiResponse) {
         View view = LayoutInflater.from(context).inflate(R.layout.dialog_edit_member, null);
-        dialogHolder = new EditMemberDialogViewHolder(view, strukturOrganisasi, this);
+        dialogHolder = new EditMemberDialogViewHolder(view, strukturOrganisasiResponse, this);
 
         AlertDialog dialog = new AlertDialog.Builder(context)
                 .setView(view)
@@ -106,22 +108,42 @@ public class StrukturOrganisasiFragment extends BaseFragment implements
     }
 
     @Override
-    public void onDataRetrieved(List<StrukturOrganisasi> strukturOrganisasis) {
+    public void onDataRetrieved(List<StrukturOrganisasiResponse> strukturOrganisasiResponses) {
 
-        Graph graph = iStrukturOrganisasiPresenter.createGraph(strukturOrganisasis);
+        Graph graph = iStrukturOrganisasiPresenter.createGraph(strukturOrganisasiResponses);
 
-        setupAdapter(graph, strukturOrganisasis);
+        setupAdapter(graph, strukturOrganisasiResponses);
 
         ll_progress_bar_container.setVisibility(View.INVISIBLE);
         rl_struktur_org_container.setVisibility(View.VISIBLE);
     }
 
     @Override
-    public void onItemClicked(StrukturOrganisasi strukturOrganisasi, int position) {
-        Common.showToastMessage(getContext(), "Clicker on position " + position);
-        Timber.d("Info: %s", strukturOrganisasi.toString());
+    public void onNamaError(String message) {
+        dialogHolder.til_dialog_edit_member_nama.setError(message);
+        getBaseActivity().showSoftKeyboard(dialogHolder.et_dialog_edit_member_nama);
+//        Common.dismissSpotsProgress();
+    }
 
-        showEditMemberDialog(strukturOrganisasi);
+    @Override
+    public void onNpmError(String message) {
+        dialogHolder.til_dialog_edit_member_npm.setError(message);
+        getBaseActivity().showSoftKeyboard(dialogHolder.et_dialog_edit_member_npm);
+//        Common.dismissSpotsProgress();
+    }
+
+    @Override
+    public void clearError() {
+        dialogHolder.til_dialog_edit_member_nama.setError(null);
+        dialogHolder.til_dialog_edit_member_npm.setError(null);
+    }
+
+    @Override
+    public void onItemClicked(StrukturOrganisasiResponse strukturOrganisasiResponse, int position) {
+        Common.showToastMessage(getContext(), "Clicker on position " + position);
+        Timber.d("Info: %s", strukturOrganisasiResponse.toString());
+
+        showEditMemberDialog(strukturOrganisasiResponse);
     }
 
     @Override
@@ -136,7 +158,12 @@ public class StrukturOrganisasiFragment extends BaseFragment implements
 
     @Override
     public void onBtnDoneDialogClicked() {
-
+        iStrukturOrganisasiPresenter.submitEditMember(
+                new StrukturOrganisasiRequest(mUriImageDialog,
+                        dialogHolder.et_dialog_edit_member_npm.getText().toString(),
+                        dialogHolder.et_dialog_edit_member_nama.getText().toString(),
+                        dialogHolder.spn_dialog_edit_member_jabatan.getSelectedItem().toString())
+        );
     }
 
     @Override
@@ -162,6 +189,9 @@ public class StrukturOrganisasiFragment extends BaseFragment implements
             if (resultCode == RESULT_OK) {
                 Timber.d("Image Crop Uri: %s", result.getUri());
                 dialogHolder.iv_dialog_edit_member.setImageURI(result.getUri());
+
+                mUriImageDialog = result.getUri();
+
                 Toast.makeText(
                         getContext(), "Cropping successful, Sample: " + result.getSampleSize(), Toast.LENGTH_LONG)
                         .show();
