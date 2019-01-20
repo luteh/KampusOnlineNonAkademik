@@ -88,5 +88,8 @@ dependencies {
 
     // GraphView
     implementation 'de.blox:graphview:0.4.2'
+
+    // Android Image Cropper
+    api 'com.theartofdev.edmodo:android-image-cropper:2.8.0'
 }
 apply plugin: 'com.google.gms.google-services'

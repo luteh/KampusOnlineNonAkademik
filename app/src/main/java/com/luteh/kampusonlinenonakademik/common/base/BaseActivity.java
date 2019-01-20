@@ -17,6 +17,8 @@ import androidx.fragment.app.FragmentTransaction;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import com.luteh.kampusonlinenonakademik.R;
+import com.theartofdev.edmodo.cropper.CropImage;
+import com.theartofdev.edmodo.cropper.CropImageView;
 
 /**
  * Created by Luthfan Maftuh on 17/08/2018.
@@ -169,5 +171,21 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
             fadeOut.setMode(Visibility.MODE_OUT);
             return fadeOut;
         } else return null;
+    }
+
+    public void startPickImage() {
+        CropImage.activity(null)
+                .setGuidelines(CropImageView.Guidelines.ON)
+                .setCropShape(CropImageView.CropShape.OVAL)
+                .setFixAspectRatio(true)
+                .start(this);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+
+        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.fragmentFrameLayout);
+        if (fragment != null) fragment.onActivityResult(requestCode, resultCode, data);
     }
 }

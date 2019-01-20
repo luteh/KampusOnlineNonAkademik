@@ -1,11 +1,14 @@
 package com.luteh.kampusonlinenonakademik.common;
 
+import android.Manifest;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.text.TextUtils;
 import android.util.Patterns;
 import android.widget.EditText;
 import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
+import androidx.core.app.ActivityCompat;
 import com.luteh.kampusonlinenonakademik.R;
 import com.shashank.sony.fancytoastlib.FancyToast;
 import dmax.dialog.SpotsDialog;
@@ -97,5 +100,10 @@ public class Common {
         return string.replace(" ", "_")
                 .replace("/", "-")
                 .toLowerCase();
+    }
+
+    public static boolean isPermissionGranted(Context context, String permission) {
+        return ActivityCompat.checkSelfPermission(context, permission)
+                == PackageManager.PERMISSION_GRANTED;
     }
 }

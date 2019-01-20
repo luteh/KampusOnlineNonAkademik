@@ -1,14 +1,20 @@
 package com.luteh.kampusonlinenonakademik.ui.fragments.strukturorganisasi;
 
+import android.Manifest;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import androidx.core.app.ActivityCompat;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.luteh.kampusonlinenonakademik.R;
+import com.luteh.kampusonlinenonakademik.common.Common;
+import com.theartofdev.edmodo.cropper.CropImage;
+import com.theartofdev.edmodo.cropper.CropImageView;
 
 /**
  * Created by Luthfan Maftuh on 19/01/2019.
@@ -39,4 +45,5 @@ public class EditMemberDialogViewHolder {
     public void unbindView(){
         unbinder.unbind();
     }
+
 }

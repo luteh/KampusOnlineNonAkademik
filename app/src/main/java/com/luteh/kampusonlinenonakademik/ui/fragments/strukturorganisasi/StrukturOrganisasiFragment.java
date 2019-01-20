@@ -1,16 +1,19 @@
 package com.luteh.kampusonlinenonakademik.ui.fragments.strukturorganisasi;
 
 
+import android.Manifest;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
+import android.widget.*;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import butterknife.OnClick;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.luteh.kampusonlinenonakademik.R;
 import com.luteh.kampusonlinenonakademik.common.Common;
@@ -24,10 +27,14 @@ import java.util.List;
 
 import butterknife.BindView;
 import com.squareup.picasso.Picasso;
+import com.theartofdev.edmodo.cropper.CropImage;
+import com.theartofdev.edmodo.cropper.CropImageView;
 import de.blox.graphview.BaseGraphAdapter;
 import de.blox.graphview.Graph;
 import de.blox.graphview.GraphView;
 import timber.log.Timber;
+
+import static android.app.Activity.RESULT_OK;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -131,6 +138,50 @@ public class StrukturOrganisasiFragment extends BaseFragment implements
         dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
 //        dialog.getWindow().getAttributes().windowAnimations = R.style.pdlg_default_animation;
         dialog.show();
+
+        dialogHolder.iv_dialog_edit_member.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!Common.isPermissionGranted(getContext(), Manifest.permission.READ_EXTERNAL_STORAGE))
+                    requestPermissions(
+                            new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                            CropImage.PICK_IMAGE_PERMISSIONS_REQUEST_CODE);
+                else
+                    getBaseActivity().startPickImage();
+            }
+        });
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == CropImage.PICK_IMAGE_PERMISSIONS_REQUEST_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                getBaseActivity().startPickImage();
+            } else {
+                Toast.makeText(getContext(), "Cancelling, required permissions are not granted", Toast.LENGTH_LONG)
+                        .show();
+            }
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Timber.d("Request Code: %d , Result Code: %d", requestCode, resultCode);
+        // handle result of CropImageActivity
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+            CropImage.ActivityResult result = CropImage.getActivityResult(data);
+            if (resultCode == RESULT_OK) {
+                Timber.d("Image Crop Uri: %s", result.getUri());
+                dialogHolder.iv_dialog_edit_member.setImageURI(result.getUri());
+                Toast.makeText(
+                        getContext(), "Cropping successful, Sample: " + result.getSampleSize(), Toast.LENGTH_LONG)
+                        .show();
+            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+                Toast.makeText(getContext(), "Cropping failed: " + result.getError(), Toast.LENGTH_LONG).show();
+            }
+        }
     }
 
     @Override
