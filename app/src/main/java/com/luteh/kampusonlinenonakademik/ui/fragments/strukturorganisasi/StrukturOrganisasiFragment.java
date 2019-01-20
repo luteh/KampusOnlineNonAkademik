@@ -2,6 +2,7 @@ package com.luteh.kampusonlinenonakademik.ui.fragments.strukturorganisasi;
 
 
 import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -13,7 +14,6 @@ import android.widget.*;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
-import butterknife.OnClick;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.luteh.kampusonlinenonakademik.R;
 import com.luteh.kampusonlinenonakademik.common.Common;
@@ -26,9 +26,10 @@ import com.luteh.kampusonlinenonakademik.ui.fragments.strukturorganisasi.adapter
 import java.util.List;
 
 import butterknife.BindView;
+import com.luteh.kampusonlinenonakademik.ui.fragments.strukturorganisasi.editmemberdialog.EditMemberDialogViewHolder;
+import com.luteh.kampusonlinenonakademik.ui.fragments.strukturorganisasi.editmemberdialog.OnEditMemberDialogClick;
 import com.squareup.picasso.Picasso;
 import com.theartofdev.edmodo.cropper.CropImage;
-import com.theartofdev.edmodo.cropper.CropImageView;
 import de.blox.graphview.BaseGraphAdapter;
 import de.blox.graphview.Graph;
 import de.blox.graphview.GraphView;
@@ -41,7 +42,8 @@ import static android.app.Activity.RESULT_OK;
  */
 public class StrukturOrganisasiFragment extends BaseFragment implements
         IStrukturOrganisasiView,
-        OnGraphItemClicked {
+        OnGraphItemClicked,
+        OnEditMemberDialogClick {
 
     @BindView(R.id.graph_struktur_org)
     GraphView graph_struktur_org;
@@ -82,20 +84,25 @@ public class StrukturOrganisasiFragment extends BaseFragment implements
         rl_struktur_org_container.setVisibility(View.INVISIBLE);
     }
 
-    private void initSpinner(StrukturOrganisasi strukturOrganisasi) {
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.label_jabatan_item));
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        dialogHolder.spn_dialog_edit_member_jabatan.setAdapter(adapter);
-
-        dialogHolder.spn_dialog_edit_member_jabatan.setSelection(adapter.getPosition(strukturOrganisasi.jabatan));
-    }
-
     private void setupAdapter(Graph graph, List<StrukturOrganisasi> strukturOrganisasis) {
         adapter = new GraphAdapter(getContext(), R.layout.node_struktur_organisasi, graph, strukturOrganisasis, this);
 
         iStrukturOrganisasiPresenter.setAlgorithm(adapter);
 
         graph_struktur_org.setAdapter(adapter);
+    }
+
+    private void showEditMemberDialog(StrukturOrganisasi strukturOrganisasi) {
+        View view = LayoutInflater.from(context).inflate(R.layout.dialog_edit_member, null);
+        dialogHolder = new EditMemberDialogViewHolder(view, strukturOrganisasi, this);
+
+        AlertDialog dialog = new AlertDialog.Builder(context)
+                .setView(view)
+                .create();
+
+        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        dialog.show();
+//        dialog.getWindow().getAttributes().windowAnimations = R.style.pdlg_default_animation;
     }
 
     @Override
@@ -117,39 +124,19 @@ public class StrukturOrganisasiFragment extends BaseFragment implements
         showEditMemberDialog(strukturOrganisasi);
     }
 
-    private void showEditMemberDialog(StrukturOrganisasi strukturOrganisasi) {
-        View view = LayoutInflater.from(context).inflate(R.layout.dialog_edit_member, null);
-        dialogHolder = new EditMemberDialogViewHolder(view);
+    @Override
+    public void onImageDialogClicked() {
+        if (!Common.isPermissionGranted(getContext(), Manifest.permission.READ_EXTERNAL_STORAGE))
+            requestPermissions(
+                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                    CropImage.PICK_IMAGE_PERMISSIONS_REQUEST_CODE);
+        else
+            getBaseActivity().startPickImage();
+    }
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setView(view);
+    @Override
+    public void onBtnDoneDialogClicked() {
 
-        initSpinner(strukturOrganisasi);
-
-        dialogHolder.et_dialog_edit_member_npm.setText(strukturOrganisasi.npm);
-        dialogHolder.et_dialog_edit_member_nama.setText(strukturOrganisasi.nama);
-
-        Picasso.get()
-                .load(strukturOrganisasi.photo_url)
-                .placeholder(R.drawable.ic_user_holo)
-                .into(dialogHolder.iv_dialog_edit_member);
-
-        AlertDialog dialog = builder.create();
-        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-//        dialog.getWindow().getAttributes().windowAnimations = R.style.pdlg_default_animation;
-        dialog.show();
-
-        dialogHolder.iv_dialog_edit_member.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!Common.isPermissionGranted(getContext(), Manifest.permission.READ_EXTERNAL_STORAGE))
-                    requestPermissions(
-                            new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
-                            CropImage.PICK_IMAGE_PERMISSIONS_REQUEST_CODE);
-                else
-                    getBaseActivity().startPickImage();
-            }
-        });
     }
 
     @Override
