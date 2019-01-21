@@ -160,7 +160,7 @@ public class StrukturOrganisasiFragment extends BaseFragment implements
     public void onBtnDoneDialogClicked() {
         iStrukturOrganisasiPresenter.submitEditMember(
                 new StrukturOrganisasiRequest(dialogHolder.getPosition(),
-                        mUriImageDialog,
+                        mUriImageDialog.toString(),
                         dialogHolder.et_dialog_edit_member_npm.getText().toString(),
                         dialogHolder.et_dialog_edit_member_nama.getText().toString(),
                         dialogHolder.spn_dialog_edit_member_jabatan.getSelectedItem().toString())

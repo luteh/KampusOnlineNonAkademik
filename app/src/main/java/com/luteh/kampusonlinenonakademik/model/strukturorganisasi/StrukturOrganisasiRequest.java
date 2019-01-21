@@ -1,8 +1,10 @@
 package com.luteh.kampusonlinenonakademik.model.strukturorganisasi;
 
-import android.net.Uri;
 import android.text.TextUtils;
-import android.util.Patterns;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -17,15 +19,25 @@ import static com.luteh.kampusonlinenonakademik.common.AppConstant.*;
 public class StrukturOrganisasiRequest {
     private int id;
 
-    private Uri imageUri;
+    @SerializedName("photo_url")
+    @Expose
+    private String photo_url;
+    @SerializedName("npm")
+    @Expose
     private String npm;
+    @SerializedName("nama")
+    @Expose
     private String nama;
+    @SerializedName("jabatan")
+    @Expose
     private String jabatan;
-    private Integer treeLevel;
+    @SerializedName("tree_level")
+    @Expose
+    private Integer tree_level;
 
-    public StrukturOrganisasiRequest(int id, Uri imageUri, String npm, String nama, String jabatan) {
+    public StrukturOrganisasiRequest(int id, String photo_url, String npm, String nama, String jabatan) {
         this.id = id;
-        this.imageUri = imageUri;
+        this.photo_url = photo_url;
         this.nama = nama;
         this.npm = npm;
         this.jabatan = jabatan;
@@ -39,12 +51,12 @@ public class StrukturOrganisasiRequest {
         this.id = id;
     }
 
-    public Uri getImageUri() {
-        return imageUri;
+    public String getPhoto_url() {
+        return photo_url;
     }
 
-    public void setImageUri(Uri imageUri) {
-        this.imageUri = imageUri;
+    public void setPhoto_url(String photo_url) {
+        this.photo_url = photo_url;
     }
 
     public String getNama() {
@@ -71,29 +83,47 @@ public class StrukturOrganisasiRequest {
         this.jabatan = jabatan;
     }
 
-    public Integer getTreeLevel() {
-        return treeLevel;
+    public Integer getTree_level() {
+        return tree_level;
     }
 
-    public void setTreeLevel(Integer treeLevel) {
-        this.treeLevel = treeLevel;
+    public void setTree_level(Integer tree_level) {
+        this.tree_level = tree_level;
     }
 
     public int isValidData() {
-//        if (getImageUri() == null) return 0;
+//        if (getPhoto_url() == null) return 0;
         if (TextUtils.isEmpty(getNpm())) return 1;
         else if (TextUtils.isEmpty(getNama())) return 2;
         else return RESULT_OK;
     }
 
-    public Map<String, Object> toMap() {
+    /*public Map<String, Object> toMap() {
         HashMap<String, Object> result = new HashMap<>();
-        if (getImageUri() != null) result.put(FIELD_PHOTO_URL, getImageUri());
+        if (getPhoto_url() != null) result.put(FIELD_PHOTO_URL, getPhoto_url());
         result.put(FIELD_NPM, getNpm());
         result.put(FIELD_NAMA, getNama());
         result.put(FIELD_JABATAN, getJabatan());
-        result.put(FIELD_TREE_LEVEL, getTreeLevel());
+        result.put(FIELD_TREE_LEVEL, getTree_level());
 
         return result;
+    }*/
+
+    public Map<String, JSONObject> toMap() {
+        Map<String, JSONObject> userMap = new HashMap<String, JSONObject>();
+        JSONObject result = new JSONObject();
+        try {
+            if (getPhoto_url() != null) result.put(FIELD_PHOTO_URL, getPhoto_url());
+            result.put(FIELD_NPM, getNpm());
+            result.put(FIELD_NAMA, getNama());
+            result.put(FIELD_JABATAN, getJabatan());
+            result.put(FIELD_TREE_LEVEL, getTree_level());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        userMap.put("" + getId(), result);
+
+        return userMap;
     }
 }

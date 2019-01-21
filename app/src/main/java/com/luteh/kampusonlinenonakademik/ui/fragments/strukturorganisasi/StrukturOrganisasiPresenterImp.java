@@ -34,7 +34,6 @@ import timber.log.Timber;
 import static android.app.Activity.RESULT_OK;
 import static com.luteh.kampusonlinenonakademik.common.AppConstant.ARG_MEMBER_IMAGE;
 import static com.luteh.kampusonlinenonakademik.common.AppConstant.ARG_UKM;
-import static com.luteh.kampusonlinenonakademik.common.AppConstant.FIELD_NPM;
 
 /**
  * Created by Luthfan Maftuh on 15/01/2019.
@@ -127,9 +126,9 @@ public class StrukturOrganisasiPresenterImp implements IStrukturOrganisasiPresen
     // to update member info
     private void updateMemberInfo(StrukturOrganisasiRequest strukturOrganisasiRequest) {
         // set tree level for implement into graph
-        strukturOrganisasiRequest.setTreeLevel(getJabatanPosition(strukturOrganisasiRequest.getJabatan()));
+        strukturOrganisasiRequest.setTree_level(getJabatanPosition(strukturOrganisasiRequest.getJabatan()));
 
-        if (strukturOrganisasiRequest.getImageUri() != null) {
+        if (strukturOrganisasiRequest.getPhoto_url() != null) {
             putMemberImage(strukturOrganisasiRequest);
         } else updateMemberField(strukturOrganisasiRequest);
     }
@@ -142,14 +141,14 @@ public class StrukturOrganisasiPresenterImp implements IStrukturOrganisasiPresen
                 .child(ARG_MEMBER_IMAGE)
                 .child(Common.formatChildName(strukturOrganisasiRequest.getNpm() + ".png"));
 
-        RxFirebaseStorage.putFile(storageReference, strukturOrganisasiRequest.getImageUri())
+        RxFirebaseStorage.putFile(storageReference, Uri.parse(strukturOrganisasiRequest.getPhoto_url()))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(taskSnapshot ->
                                 taskSnapshot.getStorage().getDownloadUrl()
                                         .addOnCompleteListener(task -> {
                                             Timber.d("Download URL: %s", task.getResult());
-                                            strukturOrganisasiRequest.setImageUri(task.getResult());
+                                            strukturOrganisasiRequest.setPhoto_url(task.getResult().toString());
                                             updateMemberField(strukturOrganisasiRequest);
                                         })
                                         .addOnFailureListener(e -> {
@@ -173,18 +172,12 @@ public class StrukturOrganisasiPresenterImp implements IStrukturOrganisasiPresen
         Timber.d("Key: %s", key);
 
         // still have issues on updating database fields
-        RxFirebaseDatabase.setValue(databaseReference.child(FIELD_NPM), strukturOrganisasiRequest.getNpm())
+        RxFirebaseDatabase.setValue(databaseReference, strukturOrganisasiRequest)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(() -> Timber.d("Member info updated!"),
                         throwable -> Timber.e(throwable.getMessage())
                 );
-        /*RxFirebaseDatabase.updateChildren(databaseReference, toMapMemberField(databaseReference, strukturOrganisasiRequest.toMap()))
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(() -> Timber.d("Member info updated!"),
-                        throwable -> Timber.e(throwable.getMessage())
-                );*/
     }
 
     private Map<String, Object> toMapMemberField(DatabaseReference databaseReference, Map<String, Object> memberFieldMap) {
