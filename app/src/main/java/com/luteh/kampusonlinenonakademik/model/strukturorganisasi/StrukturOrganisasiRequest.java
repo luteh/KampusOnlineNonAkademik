@@ -4,23 +4,39 @@ import android.net.Uri;
 import android.text.TextUtils;
 import android.util.Patterns;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import static android.app.Activity.RESULT_OK;
+import static com.luteh.kampusonlinenonakademik.common.AppConstant.*;
+
 /**
  * Created by Luthfan Maftuh on 20/01/2019.
  * Email luthfanmaftuh@gmail.com
  */
 public class StrukturOrganisasiRequest {
-    private Uri imageUri;
-    private String nama;
-    private String npm;
-    private String jabatan;
+    private int id;
 
+    private Uri imageUri;
+    private String npm;
+    private String nama;
+    private String jabatan;
     private Integer treeLevel;
 
-    public StrukturOrganisasiRequest(Uri imageUri, String npm, String nama, String jabatan) {
+    public StrukturOrganisasiRequest(int id, Uri imageUri, String npm, String nama, String jabatan) {
+        this.id = id;
         this.imageUri = imageUri;
         this.nama = nama;
         this.npm = npm;
         this.jabatan = jabatan;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public Uri getImageUri() {
@@ -65,8 +81,19 @@ public class StrukturOrganisasiRequest {
 
     public int isValidData() {
 //        if (getImageUri() == null) return 0;
-         if (TextUtils.isEmpty(getNpm())) return 1;
+        if (TextUtils.isEmpty(getNpm())) return 1;
         else if (TextUtils.isEmpty(getNama())) return 2;
-        else return -1;
+        else return RESULT_OK;
+    }
+
+    public Map<String, Object> toMap() {
+        HashMap<String, Object> result = new HashMap<>();
+        if (getImageUri() != null) result.put(FIELD_PHOTO_URL, getImageUri());
+        result.put(FIELD_NPM, getNpm());
+        result.put(FIELD_NAMA, getNama());
+        result.put(FIELD_JABATAN, getJabatan());
+        result.put(FIELD_TREE_LEVEL, getTreeLevel());
+
+        return result;
     }
 }

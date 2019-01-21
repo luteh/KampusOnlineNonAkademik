@@ -94,9 +94,9 @@ public class StrukturOrganisasiFragment extends BaseFragment implements
         graph_struktur_org.setAdapter(adapter);
     }
 
-    private void showEditMemberDialog(StrukturOrganisasiResponse strukturOrganisasiResponse) {
+    private void showEditMemberDialog(int position, StrukturOrganisasiResponse strukturOrganisasiResponse) {
         View view = LayoutInflater.from(context).inflate(R.layout.dialog_edit_member, null);
-        dialogHolder = new EditMemberDialogViewHolder(view, strukturOrganisasiResponse, this);
+        dialogHolder = new EditMemberDialogViewHolder(view, position, strukturOrganisasiResponse, this);
 
         AlertDialog dialog = new AlertDialog.Builder(context)
                 .setView(view)
@@ -143,7 +143,7 @@ public class StrukturOrganisasiFragment extends BaseFragment implements
         Common.showToastMessage(getContext(), "Clicker on position " + position);
         Timber.d("Info: %s", strukturOrganisasiResponse.toString());
 
-        showEditMemberDialog(strukturOrganisasiResponse);
+        showEditMemberDialog(position, strukturOrganisasiResponse);
     }
 
     @Override
@@ -159,7 +159,8 @@ public class StrukturOrganisasiFragment extends BaseFragment implements
     @Override
     public void onBtnDoneDialogClicked() {
         iStrukturOrganisasiPresenter.submitEditMember(
-                new StrukturOrganisasiRequest(mUriImageDialog,
+                new StrukturOrganisasiRequest(dialogHolder.getPosition(),
+                        mUriImageDialog,
                         dialogHolder.et_dialog_edit_member_npm.getText().toString(),
                         dialogHolder.et_dialog_edit_member_nama.getText().toString(),
                         dialogHolder.spn_dialog_edit_member_jabatan.getSelectedItem().toString())

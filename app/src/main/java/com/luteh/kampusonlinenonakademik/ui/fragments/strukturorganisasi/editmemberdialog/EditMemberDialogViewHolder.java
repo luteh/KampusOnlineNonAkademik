@@ -39,13 +39,15 @@ public class EditMemberDialogViewHolder {
     private OnEditMemberDialogClick onEditMemberDialogClick;
 
     private Context context;
+    private int position;
 
     private Unbinder unbinder;
 
     public EditMemberDialogViewHolder(View view,
-                                      StrukturOrganisasiResponse strukturOrganisasiResponse,
+                                      int position, StrukturOrganisasiResponse strukturOrganisasiResponse,
                                       OnEditMemberDialogClick onEditMemberDialogClick) {
         this.context = view.getContext();
+        this.position = position;
         unbinder = ButterKnife.bind(this, view);
         this.strukturOrganisasiResponse = strukturOrganisasiResponse;
         this.onEditMemberDialogClick = onEditMemberDialogClick;
@@ -73,13 +75,17 @@ public class EditMemberDialogViewHolder {
         spn_dialog_edit_member_jabatan.setSelection(adapter.getPosition(strukturOrganisasiResponse.jabatan));
     }
 
+    public int getPosition() {
+        return position;
+    }
+
     @OnClick(R.id.iv_dialog_edit_member)
     void onImageClicked() {
         onEditMemberDialogClick.onImageDialogClicked();
     }
 
     @OnClick(R.id.btn_dialog_edit_member_done)
-    void onBtnDoneClicked(){
+    void onBtnDoneClicked() {
         onEditMemberDialogClick.onBtnDoneDialogClicked();
     }
 
