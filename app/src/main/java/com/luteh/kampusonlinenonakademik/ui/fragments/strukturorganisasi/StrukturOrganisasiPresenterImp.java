@@ -15,10 +15,8 @@ import com.luteh.kampusonlinenonakademik.common.Common;
 import com.luteh.kampusonlinenonakademik.model.strukturorganisasi.StrukturOrganisasiRequest;
 import com.luteh.kampusonlinenonakademik.model.strukturorganisasi.StrukturOrganisasiResponse;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.lang.reflect.Array;
+import java.util.*;
 
 import de.blox.graphview.Graph;
 import de.blox.graphview.GraphAdapter;
@@ -80,8 +78,11 @@ public class StrukturOrganisasiPresenterImp implements IStrukturOrganisasiPresen
 
     @Override
     public Graph createGraph(List<StrukturOrganisasiResponse> strukturOrganisasiResponses) {
+//        Collections.sort(strukturOrganisasiResponses, (o1, o2) -> o1.tree_level.compareTo(o2.tree_level));
+
         final Graph graph = new Graph();
         Node[] nodes = new Node[strukturOrganisasiResponses.size()];
+
         int i = 0;
         for (StrukturOrganisasiResponse strukturOrganisasiResponse : strukturOrganisasiResponses) {
             nodes[i] = new Node(strukturOrganisasiResponse);
@@ -173,9 +174,13 @@ public class StrukturOrganisasiPresenterImp implements IStrukturOrganisasiPresen
                                         })
                                         .addOnFailureListener(e -> {
                                             Timber.e(e.getMessage());
+                                            iStrukturOrganisasiView.onUpdateStrukturOrganisasiFailed(e.getMessage());
                                         })
                         ,
-                        throwable -> Timber.e(throwable.getMessage())
+                        throwable -> {
+                            Timber.e(throwable.getMessage());
+                            iStrukturOrganisasiView.onUpdateStrukturOrganisasiFailed(throwable.getMessage());
+                        }
                 );
     }
 
@@ -191,19 +196,37 @@ public class StrukturOrganisasiPresenterImp implements IStrukturOrganisasiPresen
         RxFirebaseDatabase.setValue(databaseReference, strukturOrganisasiRequest)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(() -> Timber.d("Member info updated!"),
-                        throwable -> Timber.e(throwable.getMessage())
+                .subscribe(() -> {
+                            Timber.d("Member info updated!");
+                            iStrukturOrganisasiView.onStrukturOrganisasiDataUpdated();
+                        },
+                        throwable -> {
+                            Timber.e(throwable.getMessage());
+                            iStrukturOrganisasiView.onUpdateStrukturOrganisasiFailed(throwable.getMessage());
+                        }
                 );
     }
 
     // to set tree level (for graph) according to its jabatan
     private Integer getJabatanPosition(String jabatan) {
-        int i = 0;
+        switch (jabatan.toLowerCase()) {
+            case "ketua":
+                return 1;
+            case "wakil ketua":
+                return 2;
+            case "bendahara":
+                return 3;
+            case "sekretaris":
+                return 3;
+            default:
+                return null;
+        }
+        /*int i = 0;
         for (String jabatanItem : context.getResources().getStringArray(R.array.label_jabatan_item)) {
             if (jabatan.equals(jabatanItem)) return i + 1;
 
             i++;
         }
-        return null;
+        return null;*/
     }
 }

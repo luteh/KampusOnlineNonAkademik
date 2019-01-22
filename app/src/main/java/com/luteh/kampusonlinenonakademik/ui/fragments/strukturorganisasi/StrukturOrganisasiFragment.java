@@ -32,6 +32,7 @@ import com.theartofdev.edmodo.cropper.CropImage;
 import de.blox.graphview.BaseGraphAdapter;
 import de.blox.graphview.Graph;
 import de.blox.graphview.GraphView;
+import durdinapps.rxfirebase2.RxFirebaseDatabase;
 import timber.log.Timber;
 
 import static android.app.Activity.RESULT_OK;
@@ -141,6 +142,23 @@ public class StrukturOrganisasiFragment extends BaseFragment implements
     @Override
     public void onDataIsSame() {
         editMemberDialog.dismiss();
+    }
+
+    @Override
+    public void onStrukturOrganisasiDataUpdated() {
+        editMemberDialog.dismiss();
+        Common.showSuccessMessage(context, getString(R.string.label_msg_update_member_success));
+
+        iStrukturOrganisasiPresenter.retrieveStrukturOrganisasiData();
+
+        ll_progress_bar_container.setVisibility(View.VISIBLE);
+        rl_struktur_org_container.setVisibility(View.INVISIBLE);
+    }
+
+    @Override
+    public void onUpdateStrukturOrganisasiFailed(String message) {
+        editMemberDialog.dismiss();
+        Common.showErrorMessage(context, message);
     }
 
     @Override

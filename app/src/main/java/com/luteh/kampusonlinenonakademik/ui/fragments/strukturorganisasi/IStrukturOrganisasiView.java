@@ -31,4 +31,8 @@ public interface IStrukturOrganisasiView {
     void clearError();
 
     void onDataIsSame();
+
+    void onStrukturOrganisasiDataUpdated();
+
+    void onUpdateStrukturOrganisasiFailed(String message);
 }
