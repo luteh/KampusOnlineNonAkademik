@@ -1,6 +1,7 @@
 package com.luteh.kampusonlinenonakademik.model.strukturorganisasi;
 
 import android.text.TextUtils;
+import androidx.annotation.NonNull;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import org.json.JSONException;
@@ -98,32 +99,13 @@ public class StrukturOrganisasiRequest {
         else return RESULT_OK;
     }
 
-    /*public Map<String, Object> toMap() {
-        HashMap<String, Object> result = new HashMap<>();
-        if (getPhoto_url() != null) result.put(FIELD_PHOTO_URL, getPhoto_url());
-        result.put(FIELD_NPM, getNpm());
-        result.put(FIELD_NAMA, getNama());
-        result.put(FIELD_JABATAN, getJabatan());
-        result.put(FIELD_TREE_LEVEL, getTree_level());
-
-        return result;
-    }*/
-
-    public Map<String, JSONObject> toMap() {
-        Map<String, JSONObject> userMap = new HashMap<String, JSONObject>();
-        JSONObject result = new JSONObject();
-        try {
-            if (getPhoto_url() != null) result.put(FIELD_PHOTO_URL, getPhoto_url());
-            result.put(FIELD_NPM, getNpm());
-            result.put(FIELD_NAMA, getNama());
-            result.put(FIELD_JABATAN, getJabatan());
-            result.put(FIELD_TREE_LEVEL, getTree_level());
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        userMap.put("" + getId(), result);
-
-        return userMap;
+    @NonNull
+    @Override
+    public String toString() {
+        return String.format("Photo URL: %s \n" +
+                        "NPM: %s \n" +
+                        "Nama: %s \n" +
+                        "Jabatan: %s",
+                getPhoto_url(), getNpm(), getNama(), getJabatan());
     }
 }

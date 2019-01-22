@@ -44,6 +44,9 @@ public class StrukturOrganisasiPresenterImp implements IStrukturOrganisasiPresen
     private Context context;
     private IStrukturOrganisasiView iStrukturOrganisasiView;
 
+    private StrukturOrganisasiResponse strukturOrganisasiResponse;
+    private StrukturOrganisasiRequest strukturOrganisasiRequest;
+
     public StrukturOrganisasiPresenterImp(Context context, IStrukturOrganisasiView iStrukturOrganisasiView) {
         this.context = context;
         this.iStrukturOrganisasiView = iStrukturOrganisasiView;
@@ -107,7 +110,13 @@ public class StrukturOrganisasiPresenterImp implements IStrukturOrganisasiPresen
     }
 
     @Override
-    public void submitEditMember(StrukturOrganisasiRequest strukturOrganisasiRequest) {
+    public void submitEditMember(StrukturOrganisasiRequest strukturOrganisasiRequest,
+                                 StrukturOrganisasiResponse strukturOrganisasiResponse) {
+        this.strukturOrganisasiResponse = strukturOrganisasiResponse;
+        this.strukturOrganisasiRequest = strukturOrganisasiRequest;
+
+        iStrukturOrganisasiView.clearError();
+
         switch (strukturOrganisasiRequest.isValidData()) {
             case 1:
                 iStrukturOrganisasiView.onNpmError(context.getResources().getString(R.string.label_msg_npm_required));
@@ -118,23 +127,34 @@ public class StrukturOrganisasiPresenterImp implements IStrukturOrganisasiPresen
             case RESULT_OK:
                 Timber.d("Data Valid!");
 
-                updateMemberInfo(strukturOrganisasiRequest);
+                updateMemberInfo();
                 break;
         }
     }
 
     // to update member info
-    private void updateMemberInfo(StrukturOrganisasiRequest strukturOrganisasiRequest) {
+    private void updateMemberInfo() {
         // set tree level for implement into graph
         strukturOrganisasiRequest.setTree_level(getJabatanPosition(strukturOrganisasiRequest.getJabatan()));
 
         if (strukturOrganisasiRequest.getPhoto_url() != null) {
-            putMemberImage(strukturOrganisasiRequest);
-        } else updateMemberField(strukturOrganisasiRequest);
+            putMemberImage();
+        } else {
+            strukturOrganisasiRequest.setPhoto_url(strukturOrganisasiResponse.photo_url);
+            if (isTheDataSame())
+                iStrukturOrganisasiView.onDataIsSame();
+            else
+                updateMemberField();
+        }
+    }
+
+    //to check if new data is same with old data
+    private boolean isTheDataSame() {
+        return strukturOrganisasiRequest.toString().equals(strukturOrganisasiResponse.toString());
     }
 
     // to put new image of member into firebase storage
-    private void putMemberImage(StrukturOrganisasiRequest strukturOrganisasiRequest) {
+    private void putMemberImage() {
         StorageReference storageReference = FirebaseStorage.getInstance().getReference()
                 .child(ARG_UKM)
                 .child(Common.formatChildName(AccountHelper.getUser().ukm))
@@ -149,7 +169,7 @@ public class StrukturOrganisasiPresenterImp implements IStrukturOrganisasiPresen
                                         .addOnCompleteListener(task -> {
                                             Timber.d("Download URL: %s", task.getResult());
                                             strukturOrganisasiRequest.setPhoto_url(task.getResult().toString());
-                                            updateMemberField(strukturOrganisasiRequest);
+                                            updateMemberField();
                                         })
                                         .addOnFailureListener(e -> {
                                             Timber.e(e.getMessage());
@@ -160,16 +180,12 @@ public class StrukturOrganisasiPresenterImp implements IStrukturOrganisasiPresen
     }
 
     // to update firebase database children of ukm member
-    private void updateMemberField(StrukturOrganisasiRequest strukturOrganisasiRequest) {
-        Timber.d("Current Thread: %s", Thread.currentThread().getName());
+    private void updateMemberField() {
         DatabaseReference databaseReference =
                 FirebaseDatabase.getInstance().getReference()
                         .child(AppConstant.ARG_STRUKTUR_ORG)
                         .child("ukm_" + Common.formatChildName(AccountHelper.getUser().ukm))
                         .child("" + strukturOrganisasiRequest.getId());
-
-        String key = databaseReference.push().getKey();
-        Timber.d("Key: %s", key);
 
         // still have issues on updating database fields
         RxFirebaseDatabase.setValue(databaseReference, strukturOrganisasiRequest)
@@ -178,13 +194,6 @@ public class StrukturOrganisasiPresenterImp implements IStrukturOrganisasiPresen
                 .subscribe(() -> Timber.d("Member info updated!"),
                         throwable -> Timber.e(throwable.getMessage())
                 );
-    }
-
-    private Map<String, Object> toMapMemberField(DatabaseReference databaseReference, Map<String, Object> memberFieldMap) {
-        Map<String, Object> childUpdates = new HashMap<>();
-        childUpdates.put(databaseReference.push().getKey(), memberFieldMap);
-
-        return childUpdates;
     }
 
     // to set tree level (for graph) according to its jabatan

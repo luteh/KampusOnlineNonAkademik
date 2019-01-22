@@ -29,4 +29,6 @@ public interface IStrukturOrganisasiView {
      * Clear the error effect on all fields
      **/
     void clearError();
+
+    void onDataIsSame();
 }

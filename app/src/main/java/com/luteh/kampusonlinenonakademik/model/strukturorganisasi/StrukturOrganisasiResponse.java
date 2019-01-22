@@ -16,6 +16,10 @@ public class StrukturOrganisasiResponse {
     @NonNull
     @Override
     public String toString() {
-        return String.format("Nama: %s \n NPM: %s \n Jabatan: %s",nama, npm, jabatan);
+        return String.format("Photo URL: %s \n" +
+                        "NPM: %s \n" +
+                        "Nama: %s \n" +
+                        "Jabatan: %s",
+                photo_url, npm, nama, jabatan);
     }
 }

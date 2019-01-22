@@ -35,7 +35,7 @@ public class EditMemberDialogViewHolder {
     @BindView(R.id.spn_dialog_edit_member_jabatan)
     public Spinner spn_dialog_edit_member_jabatan;
 
-    private StrukturOrganisasiResponse strukturOrganisasiResponse;
+    public StrukturOrganisasiResponse strukturOrganisasiResponse;
     private OnEditMemberDialogClick onEditMemberDialogClick;
 
     private Context context;

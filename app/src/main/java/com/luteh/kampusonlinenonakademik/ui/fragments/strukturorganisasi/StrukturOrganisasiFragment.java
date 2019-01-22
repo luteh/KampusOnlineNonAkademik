@@ -4,7 +4,6 @@ package com.luteh.kampusonlinenonakademik.ui.fragments.strukturorganisasi;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.view.LayoutInflater;
@@ -54,13 +53,14 @@ public class StrukturOrganisasiFragment extends BaseFragment implements
     @BindView(R.id.rl_struktur_org_container)
     RelativeLayout rl_struktur_org_container;
 
-    private EditMemberDialogViewHolder dialogHolder;
+    private EditMemberDialogViewHolder editMemberDialogHolder;
+    private AlertDialog editMemberDialog;
 
     protected BaseGraphAdapter<GraphViewHolder> adapter;
 
     private IStrukturOrganisasiPresenter iStrukturOrganisasiPresenter;
 
-    private Uri mUriImageDialog;
+    private String mUriImageDialog;
 
     public StrukturOrganisasiFragment() {
         // Required empty public constructor
@@ -96,15 +96,15 @@ public class StrukturOrganisasiFragment extends BaseFragment implements
 
     private void showEditMemberDialog(int position, StrukturOrganisasiResponse strukturOrganisasiResponse) {
         View view = LayoutInflater.from(context).inflate(R.layout.dialog_edit_member, null);
-        dialogHolder = new EditMemberDialogViewHolder(view, position, strukturOrganisasiResponse, this);
+        editMemberDialogHolder = new EditMemberDialogViewHolder(view, position, strukturOrganisasiResponse, this);
 
-        AlertDialog dialog = new AlertDialog.Builder(context)
+        editMemberDialog = new AlertDialog.Builder(context)
                 .setView(view)
                 .create();
 
-        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-        dialog.show();
-//        dialog.getWindow().getAttributes().windowAnimations = R.style.pdlg_default_animation;
+        editMemberDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        editMemberDialog.show();
+//        editMemberDialog.getWindow().getAttributes().windowAnimations = R.style.pdlg_default_animation;
     }
 
     @Override
@@ -120,22 +120,27 @@ public class StrukturOrganisasiFragment extends BaseFragment implements
 
     @Override
     public void onNamaError(String message) {
-        dialogHolder.til_dialog_edit_member_nama.setError(message);
-        getBaseActivity().showSoftKeyboard(dialogHolder.et_dialog_edit_member_nama);
+        editMemberDialogHolder.til_dialog_edit_member_nama.setError(message);
+        getBaseActivity().showSoftKeyboard(editMemberDialogHolder.et_dialog_edit_member_nama);
 //        Common.dismissSpotsProgress();
     }
 
     @Override
     public void onNpmError(String message) {
-        dialogHolder.til_dialog_edit_member_npm.setError(message);
-        getBaseActivity().showSoftKeyboard(dialogHolder.et_dialog_edit_member_npm);
+        editMemberDialogHolder.til_dialog_edit_member_npm.setError(message);
+        getBaseActivity().showSoftKeyboard(editMemberDialogHolder.et_dialog_edit_member_npm);
 //        Common.dismissSpotsProgress();
     }
 
     @Override
     public void clearError() {
-        dialogHolder.til_dialog_edit_member_nama.setError(null);
-        dialogHolder.til_dialog_edit_member_npm.setError(null);
+        editMemberDialogHolder.til_dialog_edit_member_nama.setError(null);
+        editMemberDialogHolder.til_dialog_edit_member_npm.setError(null);
+    }
+
+    @Override
+    public void onDataIsSame() {
+        editMemberDialog.dismiss();
     }
 
     @Override
@@ -159,11 +164,12 @@ public class StrukturOrganisasiFragment extends BaseFragment implements
     @Override
     public void onBtnDoneDialogClicked() {
         iStrukturOrganisasiPresenter.submitEditMember(
-                new StrukturOrganisasiRequest(dialogHolder.getPosition(),
-                        mUriImageDialog.toString(),
-                        dialogHolder.et_dialog_edit_member_npm.getText().toString(),
-                        dialogHolder.et_dialog_edit_member_nama.getText().toString(),
-                        dialogHolder.spn_dialog_edit_member_jabatan.getSelectedItem().toString())
+                new StrukturOrganisasiRequest(editMemberDialogHolder.getPosition(),
+                        mUriImageDialog,
+                        editMemberDialogHolder.et_dialog_edit_member_npm.getText().toString(),
+                        editMemberDialogHolder.et_dialog_edit_member_nama.getText().toString(),
+                        editMemberDialogHolder.spn_dialog_edit_member_jabatan.getSelectedItem().toString()),
+                editMemberDialogHolder.strukturOrganisasiResponse
         );
     }
 
@@ -189,9 +195,9 @@ public class StrukturOrganisasiFragment extends BaseFragment implements
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
             if (resultCode == RESULT_OK) {
                 Timber.d("Image Crop Uri: %s", result.getUri());
-                dialogHolder.iv_dialog_edit_member.setImageURI(result.getUri());
+                editMemberDialogHolder.iv_dialog_edit_member.setImageURI(result.getUri());
 
-                mUriImageDialog = result.getUri();
+                mUriImageDialog = result.getUri().toString();
 
                 Toast.makeText(
                         getContext(), "Cropping successful, Sample: " + result.getSampleSize(), Toast.LENGTH_LONG)
@@ -206,6 +212,6 @@ public class StrukturOrganisasiFragment extends BaseFragment implements
     public void onDestroyView() {
         super.onDestroyView();
 
-        dialogHolder.unbindView();
+        editMemberDialogHolder.unbindView();
     }
 }

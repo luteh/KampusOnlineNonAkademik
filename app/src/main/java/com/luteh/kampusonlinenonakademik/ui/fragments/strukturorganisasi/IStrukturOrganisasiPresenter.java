@@ -19,5 +19,6 @@ public interface IStrukturOrganisasiPresenter {
 
     void setAlgorithm(GraphAdapter adapter);
 
-    void submitEditMember(StrukturOrganisasiRequest strukturOrganisasiRequest);
+    void submitEditMember(StrukturOrganisasiRequest strukturOrganisasiRequest,
+                          StrukturOrganisasiResponse strukturOrganisasiResponse);
 }
