@@ -9,12 +9,16 @@ import android.view.ViewGroup;
 
 import com.luteh.kampusonlinenonakademik.R;
 import com.luteh.kampusonlinenonakademik.common.base.BaseFragment;
+import com.luteh.kampusonlinenonakademik.model.daftarmember.DaftarMemberParent;
+
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class DaftarMemberFragment extends BaseFragment implements IDaftarFragmentView {
 
+    private IDaftarMemberPresenter iDaftarMemberPresenter;
 
     public DaftarMemberFragment() {
         // Required empty public constructor
@@ -28,4 +32,17 @@ public class DaftarMemberFragment extends BaseFragment implements IDaftarFragmen
         return inflater.inflate(R.layout.fragment_daftar_member, container, false);
     }
 
+    @Override
+    protected void onInit() {
+        super.onInit();
+
+        iDaftarMemberPresenter = new DaftarMemberPresenterImp(this);
+
+        iDaftarMemberPresenter.retrieveDaftarMemberData();
+    }
+
+    @Override
+    public void onRetrieveDataSuccessed(List<DaftarMemberParent> daftarMemberParents) {
+
+    }
 }

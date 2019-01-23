@@ -13,6 +13,7 @@ import android.widget.*;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.luteh.kampusonlinenonakademik.R;
 import com.luteh.kampusonlinenonakademik.common.Common;
@@ -26,9 +27,11 @@ import com.luteh.kampusonlinenonakademik.ui.fragments.strukturorganisasi.adapter
 import java.util.List;
 
 import butterknife.BindView;
+
 import com.luteh.kampusonlinenonakademik.ui.fragments.strukturorganisasi.editmemberdialog.EditMemberDialogViewHolder;
 import com.luteh.kampusonlinenonakademik.ui.fragments.strukturorganisasi.editmemberdialog.OnEditMemberDialogClick;
 import com.theartofdev.edmodo.cropper.CropImage;
+
 import de.blox.graphview.BaseGraphAdapter;
 import de.blox.graphview.Graph;
 import de.blox.graphview.GraphView;
@@ -230,6 +233,7 @@ public class StrukturOrganisasiFragment extends BaseFragment implements
     public void onDestroyView() {
         super.onDestroyView();
 
-        editMemberDialogHolder.unbindView();
+        if (editMemberDialogHolder != null)
+            editMemberDialogHolder.unbindView();
     }
 }

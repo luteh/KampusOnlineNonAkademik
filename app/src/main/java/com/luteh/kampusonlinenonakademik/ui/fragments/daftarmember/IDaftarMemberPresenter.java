@@ -5,4 +5,5 @@ package com.luteh.kampusonlinenonakademik.ui.fragments.daftarmember;
  * Email luthfanmaftuh@gmail.com
  */
 public interface IDaftarMemberPresenter {
+    void retrieveDaftarMemberData();
 }

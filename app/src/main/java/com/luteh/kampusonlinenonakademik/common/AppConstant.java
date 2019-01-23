@@ -14,6 +14,7 @@ public class AppConstant {
     public static final String ARG_UKM = "ukm";
     public static final String ARG_PNG_EXTENSION = ".png";
     public static final String ARG_MEMBER_IMAGE = "member_image";
+    public static final String ARG_DAFTAR_MEMBER = "daftar_member";
 
     public static final String FIELD_PHOTO_URL = "photo_url";
     public static final String FIELD_NPM = "npm";
