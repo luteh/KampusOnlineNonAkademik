@@ -82,10 +82,10 @@
         <item name="android:textColor">@color/colorDefaultText</item>
         <item name="android:textSize">@dimen/text_default_16</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:shadowColor">@color/colorAccent</item>
-        <item name="android:shadowDx">5</item>
-        <item name="android:shadowDy">5</item>
-        <item name="android:shadowRadius">5</item>
+        <!--<item name="android:shadowColor">@color/colorAccent</item>-->
+        <!--<item name="android:shadowDx">5</item>-->
+        <!--<item name="android:shadowDy">5</item>-->
+        <!--<item name="android:shadowRadius">5</item>-->
     </style>
 
     <style name="TextDefaultBold" parent="android:Widget.TextView">

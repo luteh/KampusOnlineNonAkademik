@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="@dimen/margin_default"
+    android:background="@color/colorBackgroundDefault"
     android:orientation="vertical">
 
     <TextView
@@ -11,6 +12,8 @@
         style="@style/TextDefaultBold"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_default"
+        android:layout_marginTop="@dimen/margin_default"
         tools:text="2012" />
 
     <com.cooltechworks.views.shimmer.ShimmerRecyclerView
@@ -20,5 +23,11 @@
         android:layout_below="@+id/tv_daftar_member_tahun"
         android:layout_marginTop="@dimen/margin_default"
         android:orientation="horizontal" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/rv_daftar_member_child"
+        android:background="@color/colorBackground" />
 
 </RelativeLayout>
