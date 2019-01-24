@@ -50,8 +50,10 @@
     <string name="label_npm">NPM</string>
     <string name="label_nama">Nama</string>
     <string name="label_jabatan">Jabatan</string>
+    <string name="label_no_hp">No. HP</string>
     <string name="label_btn_done">Done</string>
     <string name="label_btn_cancel">Cancel</string>
+    <string name="label_btn_add">Add</string>
 
     <string-array name="label_jabatan_item">
         <item>Ketua</item>
