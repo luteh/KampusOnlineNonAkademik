@@ -73,7 +73,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/label_no_hp"
-                android:inputType="text" />
+                android:inputType="phone" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.card.MaterialCardView
@@ -84,7 +84,7 @@
             app:cardCornerRadius="4dp">
 
             <Spinner
-                android:id="@+id/spn_dialog_edit_member_jabatan"
+                android:id="@+id/spn_dialog_add_member_tahun"
                 style="@style/Widget.AppCompat.Spinner.Underlined"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/spinner_height" />
