@@ -5,11 +5,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.luteh.kampusonlinenonakademik.R;
+import com.luteh.kampusonlinenonakademik.model.daftarmember.DaftarMemberChild;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
+import timber.log.Timber;
 
 /**
  * Created by Luthfan Maftuh on 23/01/2019.
@@ -25,8 +28,24 @@ public class DaftarMemberChildHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.tv_daftar_member_child_no_hp)
     public TextView tv_daftar_member_child_no_hp;
 
-    public DaftarMemberChildHolder(@NonNull View itemView) {
+    public int position;
+    public DaftarMemberChild daftarMemberChild;
+
+    private OnItemClicked onItemClicked;
+    private View view;
+
+    public DaftarMemberChildHolder(@NonNull View itemView, OnItemClicked onItemClicked) {
         super(itemView);
         ButterKnife.bind(this, itemView);
+
+        view = itemView;
+        this.onItemClicked = onItemClicked;
+    }
+
+
+    @OnClick
+    void onItemClick() {
+        Timber.d("Position %d clicked!", position);
+        onItemClicked.onChildItemClicked(view, daftarMemberChild, position);
     }
 }

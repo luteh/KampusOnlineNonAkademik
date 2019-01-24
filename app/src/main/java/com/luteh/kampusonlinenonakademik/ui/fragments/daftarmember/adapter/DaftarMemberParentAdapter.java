@@ -19,11 +19,13 @@ import androidx.recyclerview.widget.RecyclerView;
  */
 public class DaftarMemberParentAdapter extends RecyclerView.Adapter<DaftarMemberParentHolder> {
     private List<DaftarMemberParent> daftarMemberParents;
+    private OnItemClicked onItemClicked;
 
     private RecyclerView.RecycledViewPool viewPool = new RecyclerView.RecycledViewPool();
 
-    public DaftarMemberParentAdapter(List<DaftarMemberParent> daftarMemberParents) {
+    public DaftarMemberParentAdapter(List<DaftarMemberParent> daftarMemberParents, OnItemClicked onItemClicked) {
         this.daftarMemberParents = daftarMemberParents;
+        this.onItemClicked = onItemClicked;
     }
 
     @NonNull
@@ -45,7 +47,7 @@ public class DaftarMemberParentAdapter extends RecyclerView.Adapter<DaftarMember
                         false)
         );
         holder.rv_daftar_member_child.setAdapter(
-                new DaftarMemberChildAdapter(parent.daftarMemberChildList)
+                new DaftarMemberChildAdapter(parent.daftarMemberChildList, onItemClicked)
         );
         holder.rv_daftar_member_child.setRecycledViewPool(viewPool);
     }

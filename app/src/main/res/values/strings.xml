@@ -64,4 +64,7 @@
     <string name="label_msg_nama_required">Nama is required</string>
     <string name="label_msg_npm_required">NPM is required</string>
     <string name="label_msg_update_member_success">Update member successed</string>
+
+    <string name="label_menu_edit">Edit</string>
+    <string name="label_menu_delete">Delete</string>
 </resources>
