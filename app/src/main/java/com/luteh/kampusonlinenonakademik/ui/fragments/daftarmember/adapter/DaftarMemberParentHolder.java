@@ -19,7 +19,7 @@ public class DaftarMemberParentHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.tv_daftar_member_tahun)
     public TextView tv_daftar_member_tahun;
     @BindView(R.id.rv_daftar_member_child)
-    public ShimmerRecyclerView rv_daftar_member_child;
+    public RecyclerView rv_daftar_member_child;
 
     public DaftarMemberParentHolder(@NonNull View itemView) {
         super(itemView);
