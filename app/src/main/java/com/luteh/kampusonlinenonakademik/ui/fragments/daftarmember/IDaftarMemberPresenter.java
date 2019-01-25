@@ -6,4 +6,6 @@ package com.luteh.kampusonlinenonakademik.ui.fragments.daftarmember;
  */
 public interface IDaftarMemberPresenter {
     void retrieveDaftarMemberData();
+
+    void retrieveTahunAngkatanData();
 }

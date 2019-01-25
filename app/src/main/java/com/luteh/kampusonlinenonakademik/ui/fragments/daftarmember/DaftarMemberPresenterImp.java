@@ -3,7 +3,6 @@ package com.luteh.kampusonlinenonakademik.ui.fragments.daftarmember;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.gson.Gson;
 import com.luteh.kampusonlinenonakademik.common.AccountHelper;
 import com.luteh.kampusonlinenonakademik.common.Common;
 import com.luteh.kampusonlinenonakademik.model.daftarmember.DaftarMemberChild;
@@ -18,6 +17,7 @@ import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
 import static com.luteh.kampusonlinenonakademik.common.AppConstant.ARG_DAFTAR_MEMBER;
+import static com.luteh.kampusonlinenonakademik.common.AppConstant.ARG_TAHUN;
 
 /**
  * Created by Luthfan Maftuh on 23/01/2019.
@@ -58,6 +58,27 @@ public class DaftarMemberPresenterImp implements IDaftarMemberPresenter {
                 .subscribe(dataSnapshotRxFirebaseChildEvent ->
                                 iDaftarFragmentView.onRetrieveDataSuccessed(daftarMemberParents),
                         throwable -> Timber.d(throwable.getMessage())
+                );
+    }
+
+    @Override
+    public void retrieveTahunAngkatanData() {
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference()
+                .child(ARG_TAHUN);
+
+        List<String> daftarMemberTahuns = new ArrayList<>();
+
+        RxFirebaseDatabase.observeChildEvent(databaseReference, dataSnapshotRxFirebaseChildEvent -> {
+            for (DataSnapshot dataSnapshot : dataSnapshotRxFirebaseChildEvent.getValue().getChildren()) {
+                daftarMemberTahuns.add(dataSnapshot.getValue().toString());
+            }
+            return dataSnapshotRxFirebaseChildEvent;
+        })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(dataSnapshotRxFirebaseChildEvent ->
+                                iDaftarFragmentView.onRetrieveTahunAngkatanDataSuccessed(daftarMemberTahuns),
+                        throwable -> Timber.e(throwable.getMessage())
                 );
     }
 }

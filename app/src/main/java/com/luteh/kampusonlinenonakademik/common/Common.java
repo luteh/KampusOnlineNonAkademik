@@ -88,8 +88,8 @@ public class Common {
         return (!TextUtils.isEmpty(editText.getText()) && Patterns.EMAIL_ADDRESS.matcher(editText.getText()).matches());
     }
 
-    public static boolean isEmpty(EditText editText) {
-        return TextUtils.isEmpty(editText.getText());
+    public static boolean isEmpty(CharSequence charSequence) {
+        return TextUtils.isEmpty(charSequence);
     }
 
     public static void showToastMessage(Context context, String message) {

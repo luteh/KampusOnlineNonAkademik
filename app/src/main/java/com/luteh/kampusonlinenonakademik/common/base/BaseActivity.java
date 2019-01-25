@@ -1,7 +1,9 @@
 package com.luteh.kampusonlinenonakademik.common.base;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.transition.Fade;
@@ -9,14 +11,20 @@ import android.transition.Visibility;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+
 import com.luteh.kampusonlinenonakademik.R;
+import com.luteh.kampusonlinenonakademik.common.Common;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
@@ -173,6 +181,15 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
         } else return null;
     }
 
+    public void openImagePicker() {
+        if (!Common.isPermissionGranted(getContext(), Manifest.permission.READ_EXTERNAL_STORAGE))
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                    CropImage.PICK_IMAGE_PERMISSIONS_REQUEST_CODE);
+        else
+            startPickImage();
+    }
+
     public void startPickImage() {
         CropImage.activity(null)
                 .setGuidelines(CropImageView.Guidelines.ON)
@@ -187,5 +204,18 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
 
         Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.fragmentFrameLayout);
         if (fragment != null) fragment.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == CropImage.PICK_IMAGE_PERMISSIONS_REQUEST_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                startPickImage();
+            } else {
+                Toast.makeText(getContext(), "Cancelling, required permissions are not granted", Toast.LENGTH_LONG)
+                        .show();
+            }
+        }
     }
 }

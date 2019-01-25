@@ -10,4 +10,6 @@ import java.util.List;
  */
 public interface IDaftarFragmentView {
     void onRetrieveDataSuccessed(List<DaftarMemberParent> daftarMemberParents);
+
+    void onRetrieveTahunAngkatanDataSuccessed(List<String> daftarMemberTahuns);
 }
