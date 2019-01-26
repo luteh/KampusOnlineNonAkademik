@@ -5,7 +5,7 @@ package com.luteh.kampusonlinenonakademik.model.daftarmember;
  * Email luthfanmaftuh@gmail.com
  */
 public class DaftarMemberChild {
-    public Integer id;
+    public String angkatan;
     public String photo_url;
     public String npm;
     public String nama;

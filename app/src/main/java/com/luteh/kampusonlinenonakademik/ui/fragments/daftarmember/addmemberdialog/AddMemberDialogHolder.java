@@ -106,6 +106,10 @@ public class AddMemberDialogHolder {
             et_dialog_add_member_no_hp.setError("NPM is required!");
     }
 
+    @OnClick(R.id.btn_dialog_add_member_done)
+    void onBtnAddClick(){
+        onAddMemberDialogClick.onBtnAddClicked();
+    }
 
     private boolean isEmpty(CharSequence text) {
         return TextUtils.isEmpty(text);

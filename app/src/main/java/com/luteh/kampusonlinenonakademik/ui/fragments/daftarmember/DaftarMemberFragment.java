@@ -60,6 +60,7 @@ public class DaftarMemberFragment extends BaseFragment implements IDaftarFragmen
 
     private IDaftarMemberPresenter iDaftarMemberPresenter;
 
+    private AlertDialog addMemberDialog;
     private AddMemberDialogHolder addMemberHolder;
     private String mUriImageDialog;
 
@@ -100,6 +101,20 @@ public class DaftarMemberFragment extends BaseFragment implements IDaftarFragmen
         addMemberHolder.initSpinner(daftarMemberTahuns);
     }
 
+    @Override
+    public void onAddNewDataSuccessfully() {
+//        onLoadingFinished();
+        iDaftarMemberPresenter.retrieveDaftarMemberData();
+        Common.showSuccessMessage(context, "Add new Data Success");
+    }
+
+    @Override
+    public void onAddNewDataFailed(String message) {
+        onLoadingFinished();
+
+        Common.showErrorMessage(context, message);
+    }
+
     private void initRecycler(List<DaftarMemberParent> daftarMemberParents) {
         rv_daftar_member_parent.setLayoutManager(
                 new LinearLayoutManager(context, RecyclerView.VERTICAL, false)
@@ -120,7 +135,7 @@ public class DaftarMemberFragment extends BaseFragment implements IDaftarFragmen
 
         iDaftarMemberPresenter.retrieveTahunAngkatanData();
 
-        AlertDialog addMemberDialog = new AlertDialog.Builder(context)
+        addMemberDialog = new AlertDialog.Builder(context)
                 .setView(view)
                 .create();
 
@@ -186,6 +201,18 @@ public class DaftarMemberFragment extends BaseFragment implements IDaftarFragmen
     @Override
     public void onImageClicked() {
         getBaseActivity().openImagePicker();
+    }
+
+    @Override
+    public void onBtnAddClicked() {
+        addMemberDialog.dismiss();
+        onLoadingStarted();
+
+        iDaftarMemberPresenter.submitMemberData(mUriImageDialog,
+                addMemberHolder.et_dialog_add_member_npm.getText().toString(),
+                addMemberHolder.et_dialog_add_member_nama.getText().toString(),
+                addMemberHolder.et_dialog_add_member_no_hp.getText().toString(),
+                addMemberHolder.spn_dialog_add_member_tahun.getSelectedItem().toString());
     }
 
     @Override

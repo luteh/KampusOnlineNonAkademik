@@ -12,4 +12,8 @@ public interface IDaftarFragmentView {
     void onRetrieveDataSuccessed(List<DaftarMemberParent> daftarMemberParents);
 
     void onRetrieveTahunAngkatanDataSuccessed(List<String> daftarMemberTahuns);
+
+    void onAddNewDataSuccessfully();
+
+    void onAddNewDataFailed(String message);
 }

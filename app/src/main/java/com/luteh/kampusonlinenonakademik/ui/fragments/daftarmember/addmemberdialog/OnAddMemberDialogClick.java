@@ -6,4 +6,6 @@ package com.luteh.kampusonlinenonakademik.ui.fragments.daftarmember.addmemberdia
  */
 public interface OnAddMemberDialogClick {
     void onImageClicked();
+
+    void onBtnAddClicked();
 }

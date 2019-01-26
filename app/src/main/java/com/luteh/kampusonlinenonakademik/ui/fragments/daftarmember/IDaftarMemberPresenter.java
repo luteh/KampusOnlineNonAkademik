@@ -8,4 +8,6 @@ public interface IDaftarMemberPresenter {
     void retrieveDaftarMemberData();
 
     void retrieveTahunAngkatanData();
+
+    void submitMemberData(String imageUri, String npm, String nama, String noHp, String angkatan);
 }

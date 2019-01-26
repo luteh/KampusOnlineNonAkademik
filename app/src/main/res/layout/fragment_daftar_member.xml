@@ -1,21 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true"
     tools:context=".ui.fragments.daftarmember.DaftarMemberFragment">
 
     <RelativeLayout
+        android:id="@+id/rl_daftar_member_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <RelativeLayout
-            android:id="@+id/rl_daftar_member_container"
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/margin_default">
+            android:layout_height="match_parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -27,6 +25,7 @@
                     style="@style/TextMediumBold"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_default"
                     android:gravity="center"
                     tools:text="English Club Member" />
 
@@ -36,21 +35,21 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_default" />
             </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
 
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/fab_daftar_member_add"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentBottom="true"
-                android:layout_marginEnd="@dimen/margin_default"
-                android:layout_marginBottom="@dimen/margin_default"
-                android:src="@drawable/ic_add_white" />
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_daftar_member_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="@dimen/margin_default"
+            android:layout_marginBottom="@dimen/margin_default"
+            android:src="@drawable/ic_add_white" />
 
-        </RelativeLayout>
-
-        <include layout="@layout/layout_loading_dialog" />
     </RelativeLayout>
 
+    <include layout="@layout/layout_loading_dialog" />
 
-</androidx.core.widget.NestedScrollView>
+
+</RelativeLayout>
