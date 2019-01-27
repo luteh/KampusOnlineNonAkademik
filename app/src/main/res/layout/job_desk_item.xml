@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorBackgroundDefault"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_job_desk_divisi_item"
+        style="@style/TextHeaderBold"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_default"
+        tools:text="Divisi Materi" />
+
+    <TextView
+        android:id="@+id/tv_job_desk_job_item"
+        style="@style/TextDefault"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_small"
+        tools:text="Menyiapkan materi untuk jadwal English Day, English Practice, TOEFL, etc." />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorBackground" />
+</LinearLayout>

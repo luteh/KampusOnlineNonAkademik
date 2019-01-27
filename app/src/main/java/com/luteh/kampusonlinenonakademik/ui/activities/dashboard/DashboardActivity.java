@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.widget.Toolbar;
@@ -11,6 +12,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import butterknife.BindView;
+
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.luteh.kampusonlinenonakademik.R;
@@ -21,8 +23,10 @@ import com.luteh.kampusonlinenonakademik.common.utils.HeaderViewHolder;
 import com.luteh.kampusonlinenonakademik.ui.activities.login.LoginActivity;
 import com.luteh.kampusonlinenonakademik.ui.fragments.daftarmember.DaftarMemberFragment;
 import com.luteh.kampusonlinenonakademik.ui.fragments.home.HomeFragment;
+import com.luteh.kampusonlinenonakademik.ui.fragments.jobdesk.JobDeskFragment;
 import com.luteh.kampusonlinenonakademik.ui.fragments.strukturorganisasi.StrukturOrganisasiFragment;
 import com.squareup.picasso.Picasso;
+
 import timber.log.Timber;
 
 import static com.luteh.kampusonlinenonakademik.common.AccountHelper.getUser;
@@ -110,7 +114,7 @@ public class DashboardActivity extends BaseActivity implements
                 replaceFragment(new DaftarMemberFragment(), R.string.title_fragment_daftar_member);
                 break;
             case R.id.menu_nav_job_desk_divisi:
-//                replaceFragment(new HasilStudiFragment(), R.string.title_hasil_studi_fragment);
+                replaceFragment(new JobDeskFragment(), R.string.title_fragment_jobdesk_divisi);
                 break;
             case R.id.menu_nav_kalender_kegiatan:
 //                replaceFragment(new JadwalFragment(), R.string.title_jadwal_fragment);
