@@ -7,11 +7,11 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_job_desk"
-        android:layout_marginStart="@dimen/margin_default"
-        android:layout_marginEnd="@dimen/margin_default"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
     </androidx.recyclerview.widget.RecyclerView>
+
+    <include layout="@layout/layout_loading_dialog"/>
 
 </RelativeLayout>

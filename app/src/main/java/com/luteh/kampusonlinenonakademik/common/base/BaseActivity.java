@@ -9,8 +9,10 @@ import android.os.Bundle;
 import android.transition.Fade;
 import android.transition.Visibility;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -20,6 +22,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
@@ -33,7 +36,6 @@ import com.theartofdev.edmodo.cropper.CropImageView;
  * Email luthfanmaftuh@gmail.com
  */
 public abstract class BaseActivity extends AppCompatActivity implements BaseView {
-
     private Fragment mCurrentFragment;
     private Unbinder unbinder;
 
@@ -216,6 +218,20 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
                 Toast.makeText(getContext(), "Cancelling, required permissions are not granted", Toast.LENGTH_LONG)
                         .show();
             }
+        }
+    }
+
+    public void onLoadingStarted(ViewGroup layoutContainer, ViewGroup progressBarContainer) {
+        if (layoutContainer.isShown()) {
+            layoutContainer.setVisibility(View.INVISIBLE);
+            progressBarContainer.setVisibility(View.VISIBLE);
+        }
+    }
+
+    public void onLoadingFinished(ViewGroup layoutContainer, ViewGroup progressBarContainer) {
+        if (!layoutContainer.isShown()) {
+            layoutContainer.setVisibility(View.VISIBLE);
+            progressBarContainer.setVisibility(View.INVISIBLE);
         }
     }
 }

@@ -5,4 +5,5 @@ package com.luteh.kampusonlinenonakademik.ui.fragments.jobdesk;
  * Email luthfanmaftuh@gmail.com
  */
 public interface IJobDeskPresenter {
+    void retrieveJobDeskData();
 }
