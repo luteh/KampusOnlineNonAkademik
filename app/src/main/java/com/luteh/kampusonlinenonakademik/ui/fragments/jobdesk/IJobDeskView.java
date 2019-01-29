@@ -12,4 +12,8 @@ public interface IJobDeskView {
     void onRetrieveDataSuccess(List<JobDesk> jobDesks);
 
     void onRetrieveDataFailure(String message);
+
+    void onUpdateJobDeskSuccess();
+
+    void onUpdateJobDeskFailure(String message);
 }

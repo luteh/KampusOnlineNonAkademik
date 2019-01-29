@@ -3,6 +3,7 @@ package com.luteh.kampusonlinenonakademik.ui.fragments.jobdesk;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.luteh.kampusonlinenonakademik.common.Common;
 import com.luteh.kampusonlinenonakademik.model.jobdesk.JobDesk;
 
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
 import static com.luteh.kampusonlinenonakademik.common.AppConstant.ARG_JOB_DESK;
+import static com.luteh.kampusonlinenonakademik.common.AppConstant.FIELD_JOB;
 
 /**
  * Created by Luthfan Maftuh on 27/01/2019.
@@ -50,5 +52,24 @@ public class JobDeskPresenterImp implements IJobDeskPresenter {
                             iJobDeskView.onRetrieveDataFailure(throwable.getMessage());
                         }
                 );
+    }
+
+    @Override
+    public void submitEditJobDesk(JobDesk jobDesk) {
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference()
+                .child(ARG_JOB_DESK)
+                .child(Common.formatChildName(jobDesk.divisi))
+                .child(FIELD_JOB);
+
+        RxFirebaseDatabase.setValue(databaseReference, jobDesk.job)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(() -> {
+                    Timber.d("Job Desk Updated");
+                    iJobDeskView.onUpdateJobDeskSuccess();
+                }, throwable -> {
+                    Timber.e(throwable.getMessage());
+                    iJobDeskView.onUpdateJobDeskFailure("Update Job Desk Failed");
+                });
     }
 }

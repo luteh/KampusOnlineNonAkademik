@@ -23,6 +23,7 @@ public class AppConstant {
     public static final String FIELD_NAMA = "nama";
     public static final String FIELD_JABATAN = "jabatan";
     public static final String FIELD_TREE_LEVEL = "tree_level";
+    public static final String FIELD_JOB = "job";
 
     public static final int REQUEST_CODE_INTERNET = 1000;
 }

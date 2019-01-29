@@ -87,6 +87,16 @@ public class JobDeskFragment extends BaseFragment implements IJobDeskView,
     }
 
     @Override
+    public void onUpdateJobDeskSuccess() {
+        Common.showSuccessMessage(context, "Job Desk description updated!");
+    }
+
+    @Override
+    public void onUpdateJobDeskFailure(String message) {
+        Common.showErrorMessage(context, message);
+    }
+
+    @Override
     public void onItemClicked(View view, JobDesk jobDesk) {
         this.jobDesk = jobDesk;
         showMenuItem(view);
@@ -134,5 +144,7 @@ public class JobDeskFragment extends BaseFragment implements IJobDeskView,
         jobDeskDialog.dismiss();
 
         mAdapter.notifyDataSetChanged();
+
+        iJobDeskPresenter.submitEditJobDesk(jobDesk);
     }
 }

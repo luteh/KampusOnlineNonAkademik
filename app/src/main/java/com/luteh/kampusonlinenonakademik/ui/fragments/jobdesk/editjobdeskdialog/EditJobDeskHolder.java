@@ -1,5 +1,6 @@
 package com.luteh.kampusonlinenonakademik.ui.fragments.jobdesk.editjobdeskdialog;
 
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -11,6 +12,7 @@ import com.luteh.kampusonlinenonakademik.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.OnTextChanged;
 
 /**
  * Created by Luthfan Maftuh on 29/01/2019.
@@ -52,6 +54,16 @@ public class EditJobDeskHolder {
     @OnClick(R.id.btn_dialog_job_desk_done)
     void onBtnClicked() {
         onJobDeskDialogClick.onBtnDialogClicked();
+    }
+
+    @OnTextChanged(R.id.et_dialog_job_desk_job)
+    void onJobTextChanged(CharSequence text) {
+        if (TextUtils.isEmpty(text)) {
+            et_dialog_job_desk_job.setError("Job Desk description is required!");
+            btn_dialog_job_desk_done.setEnabled(false);
+        } else {
+            btn_dialog_job_desk_done.setEnabled(true);
+        }
     }
 
 }
