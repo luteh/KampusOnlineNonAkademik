@@ -26,7 +26,10 @@
     <string name="title_fragment_home">Home</string>
     <string name="title_fragment_struktur_organisasi">Struktur Organisasi</string>
     <string name="title_fragment_daftar_member">Daftar Member</string>
+    
+    <!--Job Desk Fragment-->
     <string name="title_fragment_jobdesk_divisi">Job Desk Divisi</string>
+    <string name="label_job_desk">Job Desk</string>
     <string name="title_fragment_kalender_kegiatan">Kalender Kegiatan</string>
     <string name="title_fragment_proposal">Proposal</string>
 

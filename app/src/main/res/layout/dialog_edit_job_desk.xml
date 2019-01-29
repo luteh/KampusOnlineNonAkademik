@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:background="@color/colorBackground"
+	android:layout_height="wrap_content">
+	
+	<TextView
+		android:id="@+id/tv_dialog_job_desk_divisi"
+		style="@style/TextHeaderBold"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="@dimen/margin_default"
+		android:textAlignment="center"
+		tools:text="Divisi Hiburan" />
+	
+	<com.google.android.material.textfield.TextInputLayout
+		android:id="@+id/til_dialog_job_desk_job"
+		style="@style/InputLayoutWithMargin"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_below="@id/tv_dialog_job_desk_divisi">
+		
+		<com.google.android.material.textfield.TextInputEditText
+			android:id="@+id/et_dialog_job_desk_job"
+			style="@style/EditTextForm"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:hint="@string/label_job_desk"
+			tools:text="Menyiapkan materi untuk jadwal English Day, English Practice, TOEFL, etc." />
+	</com.google.android.material.textfield.TextInputLayout>
+	
+	<Button
+		android:id="@+id/btn_dialog_job_desk_done"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_below="@id/til_dialog_job_desk_job"
+		android:layout_alignParentEnd="true"
+		android:layout_margin="@dimen/margin_default"
+		android:text="@string/label_btn_done" />
+
+</RelativeLayout>
