@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.fragments.jobdesk.JobDeskFragment">
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_job_desk"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-    </androidx.recyclerview.widget.RecyclerView>
-
-    <include layout="@layout/layout_loading_dialog"/>
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	tools:context=".ui.fragments.jobdesk.JobDeskFragment">
+	
+	<androidx.recyclerview.widget.RecyclerView
+		android:id="@+id/rv_job_desk"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:layoutAnimation="@anim/layout_anim_fall_down">
+	
+	</androidx.recyclerview.widget.RecyclerView>
+	
+	<include layout="@layout/layout_loading_dialog" />
 
 </RelativeLayout>

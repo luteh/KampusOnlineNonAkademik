@@ -32,6 +32,7 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_daftar_member_parent"
                     android:layout_width="match_parent"
+                    android:layoutAnimation="@anim/layout_anim_fall_down"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_default" />
             </LinearLayout>
