@@ -28,6 +28,7 @@
 			android:layout_height="wrap_content"
 			android:layout_below="@id/tv_job_desk_divisi_item"
 			android:layout_marginTop="@dimen/margin_small"
+			android:justificationMode="inter_word"
 			tools:text="Menyiapkan materi untuk jadwal English Day, English Practice, TOEFL, etc." />
 	
 	</RelativeLayout>
