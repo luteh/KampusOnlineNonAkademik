@@ -29,7 +29,7 @@ android {
 
 ext {
     firebaseVersion = "16.0.5"
-    androidxLibraryVersion = "1.1.0-alpha02"
+    androidxLibraryVersion = "1.1.0-alpha03"
     butterKnifeVersion = "10.0.0"
 }
 dependencies {
@@ -94,5 +94,8 @@ dependencies {
 
     // Shimmer RecyclerView
     implementation 'com.github.sharish:ShimmerRecyclerView:v1.3'
+
+    // Material Calendar View
+    implementation 'com.applandeo:material-calendar-view:1.5.1'
 }
 apply plugin: 'com.google.gms.google-services'
