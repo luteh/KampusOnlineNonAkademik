@@ -5,4 +5,5 @@ package com.luteh.kampusonlinenonakademik.ui.fragments.kalenderkegiatan;
  * Email luthfanmaftuh@gmail.com
  */
 public interface IKegiatanPresenter {
+    void retrieveKegiatanData();
 }

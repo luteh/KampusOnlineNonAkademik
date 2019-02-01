@@ -17,6 +17,7 @@ public class AppConstant {
     public static final String ARG_DAFTAR_MEMBER = "daftar_member";
     public static final String ARG_TAHUN = "tahun";
     public static final String ARG_JOB_DESK = "job_desk";
+    public static final String ARG_KALENDER_KEGIATAN = "kalender_kegiatan";
 
     public static final String FIELD_PHOTO_URL = "photo_url";
     public static final String FIELD_NPM = "npm";
