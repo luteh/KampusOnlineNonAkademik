@@ -24,7 +24,8 @@
             android:id="@+id/rv_kegiatan"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:layoutAnimation="@anim/layout_anim_fall_down" />
     </LinearLayout>
 
     <include layout="@layout/layout_loading_dialog" />

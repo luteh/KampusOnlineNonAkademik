@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
 
 import com.applandeo.materialcalendarview.CalendarView;
@@ -92,7 +93,9 @@ public class KalenderKegiatanFragment extends BaseFragment implements IKegiatanV
 //            Calendar cal = Calendar.getInstance();
             for (KegiatanParent kegiatanParent : kegiatanParents) {
                 Timber.d("Tanggal: %s", kegiatanParent.tanggal);
+//                Convert String to Date
                 Date date = sdf.parse(kegiatanParent.tanggal);
+
                 Calendar cal = Calendar.getInstance();
                 cal.setTime(date);
                 events.add(new EventDay(cal, R.drawable.sample_three_icons));
@@ -106,12 +109,16 @@ public class KalenderKegiatanFragment extends BaseFragment implements IKegiatanV
         // TODO: 01/02/2019 Refactor boilerplate codes to be readable codes
 
         cal_kegiatan.setOnDayClickListener(eventDay -> {
-            SimpleDateFormat sdfs = new SimpleDateFormat("dd-MM-yyyy");
-//                String strDate = eventDay.getCalendar().getTime().toString();
-            String stringDate = sdfs.format(eventDay.getCalendar().getTime());
-//                Date date = sdfs.parse(strDate);
+//            Convert Date to String
+            String stringDate = sdf.format(eventDay.getCalendar().getTime());
+
             mAdapter = new KegiatanAdapter(mapList.get(stringDate));
+
+            rv_kegiatan.setLayoutAnimation(AnimationUtils.loadLayoutAnimation(rv_kegiatan.getContext(), R.anim.layout_anim_fall_down));
+            mAdapter.notifyDataSetChanged();
             rv_kegiatan.setAdapter(mAdapter);
+            rv_kegiatan.scheduleLayoutAnimation();
+
         });
     }
 

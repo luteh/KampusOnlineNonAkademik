@@ -3,21 +3,35 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/colorBackgroundDefault"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/tv_kegiatan_jam_item"
-        style="@style/TextMediumBold"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_default"
-        tools:text="22:00:00 WIB" />
+        android:layout_margin="@dimen/margin_default"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/tv_kegiatan_deskripsi_item"
-        style="@style/TextDefault"
+        <TextView
+            android:id="@+id/tv_kegiatan_jam_item"
+            style="@style/TextMediumBold"
+            android:background="@color/grey"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="22:00:00 WIB" />
+
+        <TextView
+            android:id="@+id/tv_kegiatan_deskripsi_item"
+            style="@style/TextDefault"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_small"
+            tools:text="Latihan toeoeoteoroaerf" />
+    </LinearLayout>
+
+    <View
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="1dp"
         android:layout_marginTop="@dimen/margin_default"
-        tools:text="Latihan toeoeoteoroaerf" />
+        android:background="@color/colorBackground" />
 </LinearLayout>

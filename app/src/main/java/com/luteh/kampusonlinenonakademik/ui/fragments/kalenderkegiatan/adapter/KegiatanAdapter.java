@@ -32,10 +32,14 @@ public class KegiatanAdapter extends RecyclerView.Adapter<KegiatanHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull KegiatanHolder holder, int position) {
-        KegiatanChild kegiatanChild = kegiatanChildren.get(position);
+        if (kegiatanChildren != null) {
+            KegiatanChild kegiatanChild = kegiatanChildren.get(position);
 
-        holder.tv_kegiatan_jam_item.setText(kegiatanChild.jam_kegiatan);
-        holder.tv_kegiatan_deskripsi_item.setText(kegiatanChild.deskripsi_kegiatan);
+            holder.tv_kegiatan_jam_item.setText(kegiatanChild.jam_kegiatan);
+            holder.tv_kegiatan_deskripsi_item.setText(kegiatanChild.deskripsi_kegiatan);
+        } else {
+            holder.tv_kegiatan_jam_item.setText("Tidak ada kegiatan!");
+        }
     }
 
     @Override
@@ -43,6 +47,6 @@ public class KegiatanAdapter extends RecyclerView.Adapter<KegiatanHolder> {
         if (kegiatanChildren != null)
             return kegiatanChildren.size();
         else
-            return 0;
+            return 1;
     }
 }
