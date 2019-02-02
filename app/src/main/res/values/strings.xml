@@ -1,75 +1,81 @@
 <resources>
-	<string name="app_name">KampusOnlineNonAkademik</string>
-	
-	<string name="label_warning">Warning</string>
-	<string name="label_message_apps_requirement">This app requires permission to run properly.
+    <string name="app_name">KampusOnlineNonAkademik</string>
+
+    <string name="label_warning">Warning</string>
+    <string name="label_message_apps_requirement">This app requires permission to run properly.
     </string>
-	<string name="label_show_permission">Show permission</string>
-	<string name="label_close_app">Close Apps</string>
-	
-	<string name="label_logout">Logout</string>
-	<string name="nav_header_title">Android Studio</string>
-	<string name="nav_header_subtitle">android.studio@android.com</string>
-	<string name="nav_header_desc">Navigation header</string>
-	
-	<!--Login Activity-->
-	<string name="title_activity_login">LoginActivity</string>
-	<string name="text_login">Login</string>
-	<string name="label_message_valid_email">Email is valid</string>
-	<string name="label_message_unvalid_email">Email is invalid!</string>
-	<string name="label_message_email_required">Email is required</string>
-	<string name="label_message_password_required">Password is required!</string>
-	<string name="label_message_password_incorrect">Password is incorrect!</string>
-	<string name="label_message_email_password_not_match">Email and Password don\'t match</string>
-	<string name="message_authentication_failed">Authentication failed</string>
-	
-	<string name="title_fragment_home">Home</string>
-	<string name="title_fragment_struktur_organisasi">Struktur Organisasi</string>
-	<string name="title_fragment_daftar_member">Daftar Member</string>
-	
-	<!--Job Desk Fragment-->
-	<string name="title_fragment_jobdesk_divisi">Job Desk Divisi</string>
-	<string name="label_job_desk">Job Desk</string>
-	<string name="title_fragment_kalender_kegiatan">Kalender Kegiatan</string>
-	<string name="title_fragment_proposal">Proposal</string>
-	
-	
-	<string name="title_message_loading">Loading . . .</string>
-	<string name="title_activity_dashboard">DashboardActivity</string>
-	<string name="title_section1">Section 1</string>
-	<string name="title_section2">Section 2</string>
-	<string name="title_section3">Section 3</string>
-	
-	<string name="navigation_drawer_open">Open navigation drawer</string>
-	<string name="navigation_drawer_close">Close navigation drawer</string>
-	
-	<string name="action_example">Example action</string>
-	
-	<string name="action_settings">Settings</string>
-	
-	<!-- TODO: Remove or change this placeholder text -->
-	<string name="hello_blank_fragment">Hello blank fragment</string>
-	
-	<string name="label_npm">NPM</string>
-	<string name="label_nama">Nama</string>
-	<string name="label_jabatan">Jabatan</string>
-	<string name="label_no_hp">No. HP</string>
-	<string name="label_btn_done">Done</string>
-	<string name="label_btn_cancel">Cancel</string>
-	<string name="label_btn_add">Add</string>
-	
-	<string-array name="label_jabatan_item">
-		<item>Ketua</item>
-		<item>Wakil Ketua</item>
-		<item>Bendahara</item>
-		<item>Sekretaris</item>
-	</string-array>
-	
-	<!--Edit Member Dialog-->
-	<string name="label_msg_nama_required">Nama is required</string>
-	<string name="label_msg_npm_required">NPM is required</string>
-	<string name="label_msg_update_member_success">Update member successed</string>
-	
-	<string name="label_menu_edit">Edit</string>
-	<string name="label_menu_delete">Delete</string>
+    <string name="label_show_permission">Show permission</string>
+    <string name="label_close_app">Close Apps</string>
+
+    <string name="label_logout">Logout</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+
+    <!--Login Activity-->
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="text_login">Login</string>
+    <string name="label_message_valid_email">Email is valid</string>
+    <string name="label_message_unvalid_email">Email is invalid!</string>
+    <string name="label_message_email_required">Email is required</string>
+    <string name="label_message_password_required">Password is required!</string>
+    <string name="label_message_password_incorrect">Password is incorrect!</string>
+    <string name="label_message_email_password_not_match">Email and Password don\'t match</string>
+    <string name="message_authentication_failed">Authentication failed</string>
+
+    <string name="title_fragment_home">Home</string>
+    <string name="title_fragment_struktur_organisasi">Struktur Organisasi</string>
+    <string name="title_fragment_daftar_member">Daftar Member</string>
+
+    <!--Job Desk Fragment-->
+    <string name="title_fragment_jobdesk_divisi">Job Desk Divisi</string>
+    <string name="label_job_desk">Job Desk</string>
+
+    <!--Kegiatan Fragment-->
+    <string name="title_fragment_kalender_kegiatan">Kalender Kegiatan</string>
+    <string name="label_tanggal">Tanggal</string>
+    <string name="label_jam">Jam</string>
+    <string name="label_deskripsi_kegiatan">Deskripsi Kegiatan</string>
+
+    <string name="title_fragment_proposal">Proposal</string>
+
+
+    <string name="title_message_loading">Loading . . .</string>
+    <string name="title_activity_dashboard">DashboardActivity</string>
+    <string name="title_section1">Section 1</string>
+    <string name="title_section2">Section 2</string>
+    <string name="title_section3">Section 3</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_example">Example action</string>
+
+    <string name="action_settings">Settings</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="label_npm">NPM</string>
+    <string name="label_nama">Nama</string>
+    <string name="label_jabatan">Jabatan</string>
+    <string name="label_no_hp">No. HP</string>
+    <string name="label_btn_done">Done</string>
+    <string name="label_btn_cancel">Cancel</string>
+    <string name="label_btn_add">Add</string>
+
+    <string-array name="label_jabatan_item">
+        <item>Ketua</item>
+        <item>Wakil Ketua</item>
+        <item>Bendahara</item>
+        <item>Sekretaris</item>
+    </string-array>
+
+    <!--Edit Member Dialog-->
+    <string name="label_msg_nama_required">Nama is required</string>
+    <string name="label_msg_npm_required">NPM is required</string>
+    <string name="label_msg_update_member_success">Update member successed</string>
+
+    <string name="label_menu_edit">Edit</string>
+    <string name="label_menu_delete">Delete</string>
 </resources>

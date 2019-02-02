@@ -6,27 +6,41 @@
     android:layout_height="match_parent"
     tools:context=".ui.fragments.kalenderkegiatan.KalenderKegiatanFragment">
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/rl_kegiatan_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <com.applandeo.materialcalendarview.CalendarView
-            android:id="@+id/cal_kegiatan"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="2"
-            app:eventsEnabled="true"
-            app:type="one_day_picker" />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_kegiatan"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:layoutAnimation="@anim/layout_anim_fall_down" />
-    </LinearLayout>
+            <com.applandeo.materialcalendarview.CalendarView
+                android:id="@+id/cal_kegiatan"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="2"
+                app:eventsEnabled="true"
+                app:type="one_day_picker" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_kegiatan"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layoutAnimation="@anim/layout_anim_fall_down" />
+        </LinearLayout>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_add_kegiatan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="@dimen/margin_default"
+            android:src="@drawable/ic_add_white" />
+    </RelativeLayout>
 
     <include layout="@layout/layout_loading_dialog" />
 </RelativeLayout>

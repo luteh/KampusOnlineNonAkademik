@@ -8,15 +8,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.applandeo.materialcalendarview.CalendarView;
 import com.applandeo.materialcalendarview.EventDay;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.luteh.kampusonlinenonakademik.R;
 import com.luteh.kampusonlinenonakademik.common.Common;
 import com.luteh.kampusonlinenonakademik.common.base.BaseFragment;
 import com.luteh.kampusonlinenonakademik.model.kegiatan.KegiatanChild;
 import com.luteh.kampusonlinenonakademik.model.kegiatan.KegiatanParent;
 import com.luteh.kampusonlinenonakademik.ui.fragments.kalenderkegiatan.adapter.KegiatanAdapter;
+import com.luteh.kampusonlinenonakademik.ui.fragments.kalenderkegiatan.dialog.AddKegiatanHolder;
+import com.luteh.kampusonlinenonakademik.ui.fragments.kalenderkegiatan.dialog.OnKegiatanDialogClick;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -26,15 +30,18 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
+import butterknife.OnClick;
 import timber.log.Timber;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class KalenderKegiatanFragment extends BaseFragment implements IKegiatanView {
+public class KalenderKegiatanFragment extends BaseFragment implements IKegiatanView,
+        OnKegiatanDialogClick {
 
     @BindView(R.id.cal_kegiatan)
     CalendarView cal_kegiatan;
@@ -44,10 +51,15 @@ public class KalenderKegiatanFragment extends BaseFragment implements IKegiatanV
     LinearLayout ll_progress_bar_container;
     @BindView(R.id.rv_kegiatan)
     RecyclerView rv_kegiatan;
+    @BindView(R.id.fab_add_kegiatan)
+    FloatingActionButton fab_add_kegiatan;
 
     private RecyclerView.Adapter mAdapter;
 
     private IKegiatanPresenter iKegiatanPresenter;
+
+    private AddKegiatanHolder kegiatanHolder;
+    private AlertDialog kegiatanDialog;
 
     public KalenderKegiatanFragment() {
         // Required empty public constructor
@@ -127,5 +139,28 @@ public class KalenderKegiatanFragment extends BaseFragment implements IKegiatanV
     public void onFailure(String message) {
         getBaseActivity().onLoadingFinished(rl_kegiatan_container, ll_progress_bar_container);
         Common.showErrorMessage(context, message);
+    }
+
+    @OnClick(R.id.fab_add_kegiatan)
+    void onFabKegiatanClick() {
+        showAddKegiatanDialog();
+    }
+
+    private void showAddKegiatanDialog() {
+        View view = LayoutInflater.from(context).inflate(R.layout.dialog_add_kegiatan, null);
+        kegiatanHolder = new AddKegiatanHolder(view, this);
+
+        kegiatanDialog = new AlertDialog.Builder(context, R.style.DialogTheme)
+                .setView(view)
+                .setTitle("Add Kegiatan Baru")
+                .create();
+
+        kegiatanDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        kegiatanDialog.show();
+    }
+
+    @Override
+    public void OnBtnAddClicked() {
+        Toast.makeText(context, "Button Add Clicked!", Toast.LENGTH_SHORT).show();
     }
 }
