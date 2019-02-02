@@ -14,4 +14,6 @@ public interface IKegiatanView {
     void onSuccessRetrieveKegiatanData(List<KegiatanParent> kegiatanParents, HashMap<String, List<KegiatanChild>> mapList);
 
     void onFailure(String message);
+
+    void onSuccessSubmitNewKegiatanData();
 }

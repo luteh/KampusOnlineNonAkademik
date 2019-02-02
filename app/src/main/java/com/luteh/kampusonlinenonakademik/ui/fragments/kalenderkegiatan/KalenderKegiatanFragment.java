@@ -134,11 +134,18 @@ public class KalenderKegiatanFragment extends BaseFragment implements IKegiatanV
         });
     }
 
-
     @Override
     public void onFailure(String message) {
         getBaseActivity().onLoadingFinished(rl_kegiatan_container, ll_progress_bar_container);
         Common.showErrorMessage(context, message);
+    }
+
+    @Override
+    public void onSuccessSubmitNewKegiatanData() {
+        Common.showSuccessMessage(context, "Submit new kegiatan data Successfully");
+
+       /* if (mAdapter != null)
+            rv_kegiatan.getAdapter().notifyDataSetChanged();*/
     }
 
     @OnClick(R.id.fab_add_kegiatan)
@@ -161,6 +168,14 @@ public class KalenderKegiatanFragment extends BaseFragment implements IKegiatanV
 
     @Override
     public void OnBtnAddClicked() {
+        kegiatanDialog.dismiss();
+
+        iKegiatanPresenter.submitNewKegiatanToDatabase(
+                kegiatanHolder.getTanggal(),
+                kegiatanHolder.getJam(),
+                kegiatanHolder.getDeskripsi()
+        );
+
         Toast.makeText(context, "Button Add Clicked!", Toast.LENGTH_SHORT).show();
     }
 }

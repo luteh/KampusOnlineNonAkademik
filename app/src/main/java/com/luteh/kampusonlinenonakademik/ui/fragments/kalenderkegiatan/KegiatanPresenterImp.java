@@ -60,4 +60,22 @@ public class KegiatanPresenterImp implements IKegiatanPresenter {
                         }
                 );
     }
+
+    @Override
+    public void submitNewKegiatanToDatabase(String tanggal, String jam, String deskripsi) {
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference()
+                .child(ARG_KALENDER_KEGIATAN)
+                .child("ukm_" + Common.formatChildName(AccountHelper.getUser().ukm))
+                .child(tanggal)
+                .push();
+
+        RxFirebaseDatabase.setValue(databaseReference, new KegiatanChild(jam, deskripsi))
+                .subscribe(() -> {
+                    Timber.d("Submit new kegiatan successfully");
+                    iKegiatanView.onSuccessSubmitNewKegiatanData();
+                }, throwable -> {
+                    Timber.e(throwable.getMessage());
+                    iKegiatanView.onFailure(throwable.getMessage());
+                });
+    }
 }

@@ -6,4 +6,6 @@ package com.luteh.kampusonlinenonakademik.ui.fragments.kalenderkegiatan;
  */
 public interface IKegiatanPresenter {
     void retrieveKegiatanData();
+
+    void submitNewKegiatanToDatabase(String tanggal, String jam, String deskripsi);
 }

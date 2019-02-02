@@ -56,6 +56,18 @@ public class AddKegiatanHolder implements DatePickerDialog.OnDateSetListener,
         view.addOnLayoutChangeListener(this);
     }
 
+    public String getTanggal(){
+        return et_dialog_add_kegiatan_tanggal.getText().toString();
+    }
+
+    public String getJam(){
+        return et_dialog_add_kegiatan_jam.getText().toString();
+    }
+
+    public String getDeskripsi(){
+        return et_dialog_add_kegiatan_deskripsi.getText().toString();
+    }
+
     @OnClick(R.id.btn_dialog_add_kegiatan)
     void onBtnAddClick() {
         onKegiatanDialogClick.OnBtnAddClicked();
@@ -108,14 +120,16 @@ public class AddKegiatanHolder implements DatePickerDialog.OnDateSetListener,
 
     @Override
     public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
-        if (TextUtils.isEmpty(et_dialog_add_kegiatan_jam.getText()) ||
-                TextUtils.isEmpty(et_dialog_add_kegiatan_tanggal.getText()) ||
-                TextUtils.isEmpty(et_dialog_add_kegiatan_deskripsi.getText())) {
-            if (btn_dialog_add_kegiatan.isEnabled())
-                btn_dialog_add_kegiatan.setEnabled(false);
-        } else {
+        // TODO: 02/02/2019 Fix issue: Button status not change on the first layout changed
+
+        if (!TextUtils.isEmpty(et_dialog_add_kegiatan_jam.getText()) &&
+                !TextUtils.isEmpty(et_dialog_add_kegiatan_tanggal.getText()) &&
+                !TextUtils.isEmpty(et_dialog_add_kegiatan_deskripsi.getText())) {
             if (!btn_dialog_add_kegiatan.isEnabled())
                 btn_dialog_add_kegiatan.setEnabled(true);
+        } else {
+            if (btn_dialog_add_kegiatan.isEnabled())
+                btn_dialog_add_kegiatan.setEnabled(false);
         }
     }
 }
