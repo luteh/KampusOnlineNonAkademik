@@ -27,7 +27,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:clickable="true"
-                android:enabled="false"
                 android:focusable="false"
                 android:hint="@string/label_tanggal"
                 android:inputType="none" />
@@ -47,7 +46,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:clickable="true"
-                android:enabled="false"
                 android:focusable="false"
                 android:hint="@string/label_jam"
                 android:inputType="none" />
@@ -68,7 +66,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/label_deskripsi_kegiatan"
-            android:inputType="text" />
+            android:imeOptions="actionDone"
+            android:inputType="text|textMultiLine|textCapSentences"
+            android:maxLines="3" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button

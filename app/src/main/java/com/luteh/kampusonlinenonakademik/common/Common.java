@@ -1,6 +1,5 @@
 package com.luteh.kampusonlinenonakademik.common;
 
-import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.text.SpannableString;
@@ -9,16 +8,18 @@ import android.util.Patterns;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.core.app.ActivityCompat;
-
 import com.luteh.kampusonlinenonakademik.R;
 import com.shashank.sony.fancytoastlib.FancyToast;
 
-import dmax.dialog.SpotsDialog;
-
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.core.app.ActivityCompat;
+import dmax.dialog.SpotsDialog;
 
 /**
  * Created by Luthfan Maftuh on 08/11/2018.
@@ -40,6 +41,9 @@ public class Common {
     private static android.app.AlertDialog waitingDialog;
 
     public static boolean isFrsDialogShowed = false;
+
+    private static SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+    private static SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
 
     public static void showProgressBar(Context context) {
         builder = new AlertDialog.Builder(context);
@@ -115,5 +119,21 @@ public class Common {
         SpannableString spannableString = new SpannableString(text);
         spannableString.setSpan(new android.text.style.LeadingMarginSpan.Standard(60, 0), 0, 1, 0);
         return spannableString;
+    }
+
+    public static String convertDateToString(Date date) {
+        return dateFormat.format(date);
+    }
+
+    public static Date convertStringToDate(String date) throws ParseException {
+        return dateFormat.parse(date);
+    }
+
+    public static String convertTimeToString(Date date) {
+        return timeFormat.format(date);
+    }
+
+    public static Date convertStringToTime(String time) throws ParseException {
+        return timeFormat.parse(time);
     }
 }
