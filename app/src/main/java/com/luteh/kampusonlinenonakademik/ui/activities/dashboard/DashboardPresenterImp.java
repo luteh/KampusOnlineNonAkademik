@@ -1,23 +1,17 @@
 package com.luteh.kampusonlinenonakademik.ui.activities.dashboard;
 
 import android.content.Context;
-import android.util.Log;
-import com.google.firebase.database.DataSnapshot;
+
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 import com.luteh.kampusonlinenonakademik.common.AccountHelper;
 import com.luteh.kampusonlinenonakademik.common.Common;
 import com.luteh.kampusonlinenonakademik.model.User;
+
 import durdinapps.rxfirebase2.RxFirebaseDatabase;
-import durdinapps.rxfirebase2.RxFirebaseStorage;
-import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
-
-import java.util.ArrayList;
 
 import static com.luteh.kampusonlinenonakademik.common.AppConstant.ARG_USERS;
 
@@ -53,6 +47,9 @@ public class DashboardPresenterImp implements IDashboardPresenter {
                                 Common.dismissProgressBar();
 
                                 AccountHelper.saveUser(user);
+
+                                Timber.d("User Info: %s", AccountHelper.getUser().toString());
+
                                 iDashboardView.onRetrieveUserInfoSuccess();
                             }, throwable -> {
                                 Common.dismissProgressBar();
