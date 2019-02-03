@@ -20,6 +20,9 @@
             android:id="@+id/menu_nav_proposal"
             android:title="@string/title_fragment_proposal" />
         <item
+            android:id="@+id/menu_nav_daftar_ukm"
+            android:title="@string/title_daftar_ukm" />
+        <item
             android:id="@+id/menu_nav_logout"
             android:title="@string/label_logout" />
     </group>

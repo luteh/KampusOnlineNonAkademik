@@ -5,14 +5,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.Fragment;
-import butterknife.BindView;
-
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.luteh.kampusonlinenonakademik.R;
@@ -22,12 +14,20 @@ import com.luteh.kampusonlinenonakademik.common.base.BaseActivity;
 import com.luteh.kampusonlinenonakademik.common.utils.HeaderViewHolder;
 import com.luteh.kampusonlinenonakademik.ui.activities.login.LoginActivity;
 import com.luteh.kampusonlinenonakademik.ui.fragments.daftarmember.DaftarMemberFragment;
+import com.luteh.kampusonlinenonakademik.ui.fragments.daftarukm.DaftarUkmFragment;
 import com.luteh.kampusonlinenonakademik.ui.fragments.home.HomeFragment;
 import com.luteh.kampusonlinenonakademik.ui.fragments.jobdesk.JobDeskFragment;
 import com.luteh.kampusonlinenonakademik.ui.fragments.kalenderkegiatan.KalenderKegiatanFragment;
 import com.luteh.kampusonlinenonakademik.ui.fragments.strukturorganisasi.StrukturOrganisasiFragment;
 import com.squareup.picasso.Picasso;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
+import butterknife.BindView;
 import timber.log.Timber;
 
 import static com.luteh.kampusonlinenonakademik.common.AccountHelper.getUser;
@@ -66,6 +66,7 @@ public class DashboardActivity extends BaseActivity implements
     protected void onInit() {
         super.onInit();
 
+
         iDashboardPresenter = new DashboardPresenterImp(this, this);
 
         if ((AccountHelper.getUser() == null))
@@ -74,6 +75,28 @@ public class DashboardActivity extends BaseActivity implements
             onRetrieveUserInfoSuccess();
 
         Timber.d("Token : %s", AccountHelper.getToken());
+    }
+
+    private void initDrawerMenu() {
+        Menu navMenu = navigationView.getMenu();
+
+        if (AccountHelper.getUser().isMember) {
+            navMenu.findItem(R.id.menu_nav_struktur_organisasi).setVisible(true);
+            navMenu.findItem(R.id.menu_nav_daftar_member).setVisible(true);
+            navMenu.findItem(R.id.menu_nav_job_desk_divisi).setVisible(true);
+            navMenu.findItem(R.id.menu_nav_kalender_kegiatan).setVisible(true);
+            navMenu.findItem(R.id.menu_nav_proposal).setVisible(true);
+            navMenu.findItem(R.id.menu_nav_daftar_ukm).setVisible(false);
+            navMenu.findItem(R.id.menu_nav_logout).setVisible(true);
+        } else {
+            navMenu.findItem(R.id.menu_nav_struktur_organisasi).setVisible(false);
+            navMenu.findItem(R.id.menu_nav_daftar_member).setVisible(false);
+            navMenu.findItem(R.id.menu_nav_job_desk_divisi).setVisible(false);
+            navMenu.findItem(R.id.menu_nav_kalender_kegiatan).setVisible(false);
+            navMenu.findItem(R.id.menu_nav_proposal).setVisible(false);
+            navMenu.findItem(R.id.menu_nav_daftar_ukm).setVisible(true);
+            navMenu.findItem(R.id.menu_nav_logout).setVisible(true);
+        }
     }
 
     @Override
@@ -123,6 +146,9 @@ public class DashboardActivity extends BaseActivity implements
             case R.id.menu_nav_proposal:
 //                replaceFragment(new RencanaStudiFragment(), R.string.title_rencana_studi_fragment);
                 break;
+            case R.id.menu_nav_daftar_ukm:
+                replaceFragment(new DaftarUkmFragment(), R.string.title_daftar_ukm);
+                break;
             case R.id.menu_nav_logout:
                 FirebaseAuth.getInstance().signOut();
                 AccountHelper.clearUserData(this);
@@ -151,6 +177,7 @@ public class DashboardActivity extends BaseActivity implements
         }
 
         initFragment();
+        initDrawerMenu();
     }
 
     private void initFragment() {
