@@ -2,17 +2,16 @@ package com.luteh.kampusonlinenonakademik.ui.fragments.strukturorganisasi;
 
 
 import android.Manifest;
+import android.app.Fragment;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.*;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.luteh.kampusonlinenonakademik.R;
@@ -23,19 +22,18 @@ import com.luteh.kampusonlinenonakademik.model.strukturorganisasi.StrukturOrgani
 import com.luteh.kampusonlinenonakademik.ui.fragments.strukturorganisasi.adapter.GraphAdapter;
 import com.luteh.kampusonlinenonakademik.ui.fragments.strukturorganisasi.adapter.GraphViewHolder;
 import com.luteh.kampusonlinenonakademik.ui.fragments.strukturorganisasi.adapter.OnGraphItemClicked;
-
-import java.util.List;
-
-import butterknife.BindView;
-
 import com.luteh.kampusonlinenonakademik.ui.fragments.strukturorganisasi.editmemberdialog.EditMemberDialogViewHolder;
 import com.luteh.kampusonlinenonakademik.ui.fragments.strukturorganisasi.editmemberdialog.OnEditMemberDialogClick;
 import com.theartofdev.edmodo.cropper.CropImage;
 
+import java.util.List;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import butterknife.BindView;
 import de.blox.graphview.BaseGraphAdapter;
 import de.blox.graphview.Graph;
 import de.blox.graphview.GraphView;
-import durdinapps.rxfirebase2.RxFirebaseDatabase;
 import timber.log.Timber;
 
 import static android.app.Activity.RESULT_OK;
@@ -82,12 +80,21 @@ public class StrukturOrganisasiFragment extends BaseFragment implements
     protected void onInit() {
         super.onInit();
 
+        initView();
+
         iStrukturOrganisasiPresenter = new StrukturOrganisasiPresenterImp(getContext(), this);
 
         iStrukturOrganisasiPresenter.retrieveStrukturOrganisasiData();
 
         ll_progress_bar_container.setVisibility(View.VISIBLE);
         rl_struktur_org_container.setVisibility(View.INVISIBLE);
+    }
+
+    private void initView() {
+        if (Common.isAdmin())
+            fab_struktur_org_add_node.setVisibility(View.VISIBLE);
+        else
+            fab_struktur_org_add_node.setVisibility(View.INVISIBLE);
     }
 
     private void setupAdapter(Graph graph, List<StrukturOrganisasiResponse> strukturOrganisasiResponses) {
@@ -166,10 +173,13 @@ public class StrukturOrganisasiFragment extends BaseFragment implements
 
     @Override
     public void onItemClicked(StrukturOrganisasiResponse strukturOrganisasiResponse, int position) {
-        Common.showToastMessage(getContext(), "Clicker on position " + position);
-        Timber.d("Info: %s", strukturOrganisasiResponse.toString());
 
-        showEditMemberDialog(position, strukturOrganisasiResponse);
+        if (Common.isAdmin()) {
+            Common.showToastMessage(getContext(), "Clicker on position " + position);
+            Timber.d("Info: %s", strukturOrganisasiResponse.toString());
+
+            showEditMemberDialog(position, strukturOrganisasiResponse);
+        }
     }
 
     @Override

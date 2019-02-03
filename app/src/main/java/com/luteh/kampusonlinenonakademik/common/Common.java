@@ -136,4 +136,9 @@ public class Common {
     public static Date convertStringToTime(String time) throws ParseException {
         return timeFormat.parse(time);
     }
+
+    public static boolean isAdmin() {
+        return (AccountHelper.getUser().isHasAccess &&
+                AccountHelper.getUser().isMember);
+    }
 }

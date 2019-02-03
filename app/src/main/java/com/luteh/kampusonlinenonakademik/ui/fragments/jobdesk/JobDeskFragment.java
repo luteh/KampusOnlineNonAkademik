@@ -98,8 +98,10 @@ public class JobDeskFragment extends BaseFragment implements IJobDeskView,
 
     @Override
     public void onItemClicked(View view, JobDesk jobDesk) {
-        this.jobDesk = jobDesk;
-        showMenuItem(view);
+        if (Common.isAdmin()) {
+            this.jobDesk = jobDesk;
+            showMenuItem(view);
+        }
     }
 
     private void showMenuItem(View view) {

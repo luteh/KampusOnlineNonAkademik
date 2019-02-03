@@ -77,6 +77,8 @@ public class KalenderKegiatanFragment extends BaseFragment implements IKegiatanV
     protected void onInit() {
         super.onInit();
 
+        initView();
+
         Timber.d("onInit");
 
         initRecyclerView();
@@ -86,6 +88,13 @@ public class KalenderKegiatanFragment extends BaseFragment implements IKegiatanV
         iKegiatanPresenter.retrieveKegiatanData();
 
         getBaseActivity().onLoadingStarted(rl_kegiatan_container, ll_progress_bar_container);
+    }
+
+    private void initView() {
+        if (Common.isAdmin())
+            fab_add_kegiatan.setVisibility(View.VISIBLE);
+        else
+            fab_add_kegiatan.setVisibility(View.INVISIBLE);
     }
 
     private void initRecyclerView() {
@@ -159,7 +168,7 @@ public class KalenderKegiatanFragment extends BaseFragment implements IKegiatanV
 
         kegiatanDialog = new AlertDialog.Builder(context, R.style.DialogTheme)
                 .setView(view)
-                .setTitle("Add Kegiatan Baru")
+                .setTitle(context.getResources().getText(R.string.label_tambah_kegiatan))
                 .create();
 
         kegiatanDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);

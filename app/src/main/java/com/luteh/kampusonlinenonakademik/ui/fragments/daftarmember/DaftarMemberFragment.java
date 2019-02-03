@@ -1,10 +1,10 @@
 package com.luteh.kampusonlinenonakademik.ui.fragments.daftarmember;
 
 
+import android.app.Fragment;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,8 +29,6 @@ import com.theartofdev.edmodo.cropper.CropImage;
 
 import java.util.List;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -80,6 +78,8 @@ public class DaftarMemberFragment extends BaseFragment implements IDaftarFragmen
     protected void onInit() {
         super.onInit();
 
+        initView();
+
         tv_daftar_member_header.setText(String.format("%s Member", AccountHelper.getUser().ukm));
 
         iDaftarMemberPresenter = new DaftarMemberPresenterImp(this);
@@ -87,6 +87,13 @@ public class DaftarMemberFragment extends BaseFragment implements IDaftarFragmen
         iDaftarMemberPresenter.retrieveDaftarMemberData();
 
         onLoadingStarted();
+    }
+
+    private void initView() {
+        if (Common.isAdmin())
+            fab_daftar_member_add.setVisibility(View.VISIBLE);
+        else
+            fab_daftar_member_add.setVisibility(View.INVISIBLE);
     }
 
     @Override
@@ -162,7 +169,9 @@ public class DaftarMemberFragment extends BaseFragment implements IDaftarFragmen
 
     @Override
     public void onChildItemClicked(View view, DaftarMemberChild daftarMemberChild, int position) {
-        showMenuItem(view);
+        if (Common.isAdmin()) {
+            showMenuItem(view);
+        }
     }
 
     private void showMenuItem(View view) {
