@@ -105,7 +105,7 @@ public class KalenderKegiatanFragment extends BaseFragment implements IKegiatanV
     @Override
     public void onSuccessRetrieveKegiatanData(List<KegiatanParent> kegiatanParents, HashMap<String, List<KegiatanChild>> mapList) {
         getBaseActivity().onLoadingFinished(rl_kegiatan_container, ll_progress_bar_container);
-        Common.showSuccessMessage(context, "Retrieve Data success!");
+//        Common.showSuccessMessage(context, "Retrieve Data success!");
 
         List<EventDay> events = new ArrayList<>();
 

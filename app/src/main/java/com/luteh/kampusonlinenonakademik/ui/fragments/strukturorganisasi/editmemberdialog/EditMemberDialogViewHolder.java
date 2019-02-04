@@ -5,15 +5,17 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.Spinner;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import butterknife.Unbinder;
+
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.luteh.kampusonlinenonakademik.R;
 import com.luteh.kampusonlinenonakademik.model.strukturorganisasi.StrukturOrganisasiResponse;
 import com.squareup.picasso.Picasso;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.Unbinder;
 
 /**
  * Created by Luthfan Maftuh on 19/01/2019.
@@ -73,6 +75,8 @@ public class EditMemberDialogViewHolder {
         spn_dialog_edit_member_jabatan.setAdapter(adapter);
 
         spn_dialog_edit_member_jabatan.setSelection(adapter.getPosition(strukturOrganisasiResponse.jabatan));
+
+        spn_dialog_edit_member_jabatan.setEnabled(false);
     }
 
     public int getPosition() {

@@ -13,6 +13,8 @@ import java.util.HashMap;
 import java.util.List;
 
 import durdinapps.rxfirebase2.RxFirebaseDatabase;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
 import static com.luteh.kampusonlinenonakademik.common.AppConstant.ARG_KALENDER_KEGIATAN;
@@ -51,6 +53,8 @@ public class KegiatanPresenterImp implements IKegiatanPresenter {
 
             return dataSnapshotRxFirebaseChildEvent;
         })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(dataSnapshotRxFirebaseChildEvent -> {
                             Timber.d("Retrieve kegiatan data success");
                             iKegiatanView.onSuccessRetrieveKegiatanData(kegiatanParents, listHashMap);
