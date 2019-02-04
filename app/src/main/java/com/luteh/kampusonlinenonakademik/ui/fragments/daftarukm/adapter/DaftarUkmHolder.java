@@ -5,6 +5,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.luteh.kampusonlinenonakademik.R;
+import com.luteh.kampusonlinenonakademik.model.daftarukm.DaftarUkm;
 import com.squareup.picasso.Picasso;
 
 import androidx.annotation.NonNull;
@@ -23,17 +24,24 @@ public class DaftarUkmHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.tv_daftar_ukm_title_item)
     TextView tv_daftar_ukm_title_item;
 
+    private View view;
     private OnDaftarUkmItemClick onDaftarUkmItemClick;
+    private DaftarUkm daftarUkm;
 
     public DaftarUkmHolder(@NonNull View itemView, OnDaftarUkmItemClick onDaftarUkmItemClick) {
         super(itemView);
         ButterKnife.bind(this, itemView);
+        view = itemView;
         this.onDaftarUkmItemClick = onDaftarUkmItemClick;
+    }
+
+    public void setDaftarUkm(DaftarUkm daftarUkm) {
+        this.daftarUkm = daftarUkm;
     }
 
     @OnClick
     void onItemClick() {
-        onDaftarUkmItemClick.onItemClicked();
+        onDaftarUkmItemClick.onItemClicked(view, daftarUkm);
     }
 
     void setDaftarUkmImage(String logo) {

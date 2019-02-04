@@ -37,6 +37,7 @@ public class DaftarUkmAdapter extends RecyclerView.Adapter<DaftarUkmHolder> {
     @Override
     public void onBindViewHolder(@NonNull DaftarUkmHolder holder, int position) {
         DaftarUkm daftarUkm = daftarUkms.get(position);
+        holder.setDaftarUkm(daftarUkm);
 
         holder.setDaftarUkmImage(daftarUkm.logo);
         holder.setDaftarUkmTitle(daftarUkm.nama_ukm);

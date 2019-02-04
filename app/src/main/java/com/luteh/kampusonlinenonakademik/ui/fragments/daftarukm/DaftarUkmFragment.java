@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.PopupMenu;
 
 import com.luteh.kampusonlinenonakademik.R;
 import com.luteh.kampusonlinenonakademik.common.Common;
@@ -32,6 +33,7 @@ public class DaftarUkmFragment extends BaseFragment implements IDaftarUkmView,
     ViewGroup ll_progress_bar_container;
 
     private IDaftarUkmPresenter iDaftarUkmPresenter;
+    private DaftarUkm daftarUkm;
 
     public DaftarUkmFragment() {
         // Required empty public constructor
@@ -79,7 +81,27 @@ public class DaftarUkmFragment extends BaseFragment implements IDaftarUkmView,
     }
 
     @Override
-    public void onItemClicked() {
+    public void onItemClicked(View view, DaftarUkm daftarUkm) {
+        this.daftarUkm = daftarUkm;
 
+        showMenuItem(view);
+    }
+
+    private void showMenuItem(View view) {
+        PopupMenu menu = new PopupMenu(context, view);
+
+        menu.setOnMenuItemClickListener(item -> {
+            switch (item.getItemId()) {
+                case R.id.item_join:
+                    Common.showInfoMessage(context,
+                            String.format("Your request has sent to UKM %s staff", daftarUkm.nama_ukm)
+                    );
+                    break;
+            }
+            return true;
+        });
+
+        menu.inflate(R.menu.menu_daftar_ukm);
+        menu.show();
     }
 }
