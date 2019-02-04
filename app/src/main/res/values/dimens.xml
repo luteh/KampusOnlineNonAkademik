@@ -52,6 +52,8 @@
 
     <dimen name="img_rounded">80dp</dimen>
     <dimen name="img_rounded_corner">40dp</dimen>
+    <dimen name="img_rounded_">100dp</dimen>
+    <dimen name="img_rounded_corner_">50dp</dimen>
     <dimen name="img_default">150dp</dimen>
     <dimen name="img_default_corner">75dp</dimen>
 
