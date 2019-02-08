@@ -19,4 +19,19 @@
             android:tint="@android:color/holo_blue_dark"
             android:src="@drawable/ic_dot"/>
     </item>
+
+    <!--<item
+        android:drawable="@drawable/ic_dot"
+        android:gravity="top|left"
+        android:tint="@android:color/holo_green_dark" />
+    <item
+        android:drawable="@drawable/ic_dot"
+        android:gravity="center"
+        android:tint="@android:color/holo_red_dark" />
+
+    <item
+        android:drawable="@drawable/ic_dot"
+        android:gravity="right"
+        android:left="80dp"
+        android:tint="@android:color/holo_blue_dark" />-->
 </layer-list>

@@ -119,7 +119,7 @@ public class KalenderKegiatanFragment extends BaseFragment implements IKegiatanV
 
                 Calendar cal = Calendar.getInstance();
                 cal.setTime(date);
-                events.add(new EventDay(cal, R.drawable.sample_three_icons));
+                events.add(new EventDay(cal, R.drawable.ic_dot_));
             }
         } catch (ParseException e) {
             e.printStackTrace();
