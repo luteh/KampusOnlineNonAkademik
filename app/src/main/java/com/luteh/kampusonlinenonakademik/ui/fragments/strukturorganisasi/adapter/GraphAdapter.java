@@ -23,6 +23,8 @@ public class GraphAdapter extends BaseGraphAdapter<GraphViewHolder> {
     private List<StrukturOrganisasiResponse> strukturOrganisasiResponses;
     private OnGraphItemClicked onGraphItemClicked;
 
+    private Context context;
+
     public GraphAdapter(@NonNull Context context, int layoutRes) {
         super(context, layoutRes);
     }
@@ -32,6 +34,7 @@ public class GraphAdapter extends BaseGraphAdapter<GraphViewHolder> {
                         List<StrukturOrganisasiResponse> strukturOrganisasiResponses,
                         OnGraphItemClicked onGraphItemClicked) {
         super(context, layoutRes, graph);
+        this.context = context;
         this.strukturOrganisasiResponses = strukturOrganisasiResponses;
         this.onGraphItemClicked = onGraphItemClicked;
     }
@@ -49,7 +52,7 @@ public class GraphAdapter extends BaseGraphAdapter<GraphViewHolder> {
         holder.tv_npm.setText(strukturOrganisasiResponses.get(position).npm);
 
         if (!TextUtils.isEmpty(strukturOrganisasiResponses.get(position).photo_url)) {
-            Picasso.get()
+            Picasso.with(context)
                     .load(strukturOrganisasiResponses.get(position).photo_url)
                     .placeholder(R.drawable.ic_user_holo)
                     .into(holder.iv_struktur_org_item);

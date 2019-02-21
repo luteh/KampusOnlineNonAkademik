@@ -9,11 +9,14 @@ import android.os.Bundle;
 import android.transition.Fade;
 import android.transition.Visibility;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.Toast;
+
+import com.luteh.kampusonlinenonakademik.R;
+import com.luteh.kampusonlinenonakademik.common.Common;
+import com.theartofdev.edmodo.cropper.CropImage;
+import com.theartofdev.edmodo.cropper.CropImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -22,14 +25,8 @@ import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-
-import com.luteh.kampusonlinenonakademik.R;
-import com.luteh.kampusonlinenonakademik.common.Common;
-import com.theartofdev.edmodo.cropper.CropImage;
-import com.theartofdev.edmodo.cropper.CropImageView;
 
 /**
  * Created by Luthfan Maftuh on 17/08/2018.
@@ -221,17 +218,19 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
         }
     }
 
-    public void onLoadingStarted(ViewGroup layoutContainer, ViewGroup progressBarContainer) {
-        if (layoutContainer.isShown()) {
+    public void onLoadingStarted(View layoutContainer, View progressBarContainer) {
+//        if (layoutContainer.isShown()) {
             layoutContainer.setVisibility(View.INVISIBLE);
             progressBarContainer.setVisibility(View.VISIBLE);
-        }
+//        }
     }
 
-    public void onLoadingFinished(ViewGroup layoutContainer, ViewGroup progressBarContainer) {
-        if (!layoutContainer.isShown()) {
+
+    public void onLoadingFinished(View layoutContainer, View progressBarContainer) {
+//        if (!layoutContainer.isShown()) {
             layoutContainer.setVisibility(View.VISIBLE);
             progressBarContainer.setVisibility(View.INVISIBLE);
-        }
+//        }
     }
+
 }

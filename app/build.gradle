@@ -37,7 +37,7 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'androidx.appcompat:appcompat:1.0.2'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha3'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha2'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.1'
@@ -60,7 +60,7 @@ dependencies {
     annotationProcessor "com.jakewharton:butterknife-compiler:$butterKnifeVersion"
 
     // Gson
-    implementation 'com.google.code.gson:gson:2.8.2'
+    implementation 'com.google.code.gson:gson:2.8.5'
 
     //    Spots Dialog
     implementation 'com.github.d-max:spots-dialog:1.1@aar'
@@ -69,7 +69,11 @@ dependencies {
     implementation 'com.github.Shashank02051997:FancyToast-Android:0.1.3'
 
     //Picasso
-    implementation 'com.squareup.picasso:picasso:2.71828'
+    implementation 'com.squareup.picasso:picasso:2.5.2'
+
+    //Android Image Slider
+    implementation 'com.nineoldandroids:library:2.4.0'
+    implementation 'com.daimajia.slider:library:1.1.5@aar'
 
     // RxJava 2
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.0'

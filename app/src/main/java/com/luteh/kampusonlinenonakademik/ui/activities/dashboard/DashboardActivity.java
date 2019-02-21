@@ -81,6 +81,7 @@ public class DashboardActivity extends BaseActivity implements
         Menu navMenu = navigationView.getMenu();
 
         if (AccountHelper.getUser().isMember) {
+            navMenu.findItem(R.id.menu_nav_home).setVisible(true);
             navMenu.findItem(R.id.menu_nav_struktur_organisasi).setVisible(true);
             navMenu.findItem(R.id.menu_nav_daftar_member).setVisible(true);
             navMenu.findItem(R.id.menu_nav_job_desk_divisi).setVisible(true);
@@ -89,6 +90,7 @@ public class DashboardActivity extends BaseActivity implements
             navMenu.findItem(R.id.menu_nav_daftar_ukm).setVisible(false);
             navMenu.findItem(R.id.menu_nav_logout).setVisible(true);
         } else {
+            navMenu.findItem(R.id.menu_nav_home).setVisible(true);
             navMenu.findItem(R.id.menu_nav_struktur_organisasi).setVisible(false);
             navMenu.findItem(R.id.menu_nav_daftar_member).setVisible(false);
             navMenu.findItem(R.id.menu_nav_job_desk_divisi).setVisible(false);
@@ -97,6 +99,8 @@ public class DashboardActivity extends BaseActivity implements
             navMenu.findItem(R.id.menu_nav_daftar_ukm).setVisible(true);
             navMenu.findItem(R.id.menu_nav_logout).setVisible(true);
         }
+
+        navigationView.setCheckedItem(R.id.menu_nav_home);
     }
 
     @Override
@@ -131,6 +135,9 @@ public class DashboardActivity extends BaseActivity implements
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.menu_nav_home:
+                replaceFragment(new HomeFragment(), R.string.title_fragment_home);
+                break;
             case R.id.menu_nav_struktur_organisasi:
                 replaceFragment(new StrukturOrganisasiFragment(), R.string.title_fragment_struktur_organisasi);
                 break;
@@ -168,7 +175,7 @@ public class DashboardActivity extends BaseActivity implements
         HeaderViewHolder headerViewHolder = new HeaderViewHolder(headerLayout);
 
         if (getUser() != null) {
-            Picasso.get()
+            Picasso.with(getContext())
                     .load(getUser().photo_url)
                     .into(headerViewHolder.imgProfile);
 

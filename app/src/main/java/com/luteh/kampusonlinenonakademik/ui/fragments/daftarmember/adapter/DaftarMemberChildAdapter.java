@@ -1,6 +1,6 @@
 package com.luteh.kampusonlinenonakademik.ui.fragments.daftarmember.adapter;
 
-import android.text.Layout;
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -12,8 +12,6 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-import butterknife.OnClick;
-import timber.log.Timber;
 
 /**
  * Created by Luthfan Maftuh on 23/01/2019.
@@ -23,6 +21,8 @@ public class DaftarMemberChildAdapter extends RecyclerView.Adapter<DaftarMemberC
     private List<DaftarMemberChild> daftarMemberChildren;
     private OnItemClicked onItemClicked;
 
+    private Context context;
+
     public DaftarMemberChildAdapter(List<DaftarMemberChild> daftarMemberChildren, OnItemClicked onItemClicked) {
         this.daftarMemberChildren = daftarMemberChildren;
         this.onItemClicked = onItemClicked;
@@ -31,6 +31,8 @@ public class DaftarMemberChildAdapter extends RecyclerView.Adapter<DaftarMemberC
     @NonNull
     @Override
     public DaftarMemberChildHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        context = parent.getContext();
+
         return new DaftarMemberChildHolder(
                 LayoutInflater.from(parent.getContext()).inflate(R.layout.daftar_member_child_item, null),
                 onItemClicked
@@ -44,7 +46,7 @@ public class DaftarMemberChildAdapter extends RecyclerView.Adapter<DaftarMemberC
 
         DaftarMemberChild child = daftarMemberChildren.get(position);
 
-        Picasso.get()
+        Picasso.with(context)
                 .load(child.photo_url)
                 .into(holder.iv_daftar_member_child);
 
@@ -57,4 +59,6 @@ public class DaftarMemberChildAdapter extends RecyclerView.Adapter<DaftarMemberC
     public int getItemCount() {
         return daftarMemberChildren.size();
     }
+
+
 }

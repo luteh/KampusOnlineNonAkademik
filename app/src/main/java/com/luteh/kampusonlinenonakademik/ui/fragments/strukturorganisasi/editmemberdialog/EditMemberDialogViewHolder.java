@@ -61,7 +61,7 @@ public class EditMemberDialogViewHolder {
         et_dialog_edit_member_npm.setText(strukturOrganisasiResponse.npm);
         et_dialog_edit_member_nama.setText(strukturOrganisasiResponse.nama);
 
-        Picasso.get()
+        Picasso.with(context)
                 .load(strukturOrganisasiResponse.photo_url)
                 .placeholder(R.drawable.ic_user_holo)
                 .into(iv_dialog_edit_member);

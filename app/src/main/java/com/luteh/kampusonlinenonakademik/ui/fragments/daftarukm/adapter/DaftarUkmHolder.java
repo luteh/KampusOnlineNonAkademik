@@ -45,7 +45,7 @@ public class DaftarUkmHolder extends RecyclerView.ViewHolder {
     }
 
     void setDaftarUkmImage(String logo) {
-        Picasso.get()
+        Picasso.with(view.getContext())
                 .load(logo)
                 .placeholder(R.drawable.ic_user_holo)
                 .into(iv_daftar_ukm_item);

@@ -6,4 +6,6 @@ package com.luteh.kampusonlinenonakademik.ui.fragments.home;
  */
 public interface IHomePresenter {
     void getHomeContent();
+
+    void getNewsData();
 }

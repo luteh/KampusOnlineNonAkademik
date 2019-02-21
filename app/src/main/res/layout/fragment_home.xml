@@ -1,25 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.fragments.home.HomeFragment">
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".ui.fragments.home.HomeFragment">
+        android:layout_height="0dp"
+        android:layout_weight="4">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-        <!-- TODO: Update blank fragment layout -->
-        <RelativeLayout
-                android:id="@+id/rl_home_container"
+            <com.daimajia.slider.library.SliderLayout
+                android:id="@+id/slider_home_news"
                 android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="15"
+                custom:auto_cycle="true"
+                custom:indicator_visibility="visible"
+                custom:pager_animation="Accordion"
+                custom:pager_animation_span="1100" />
+
+            <com.daimajia.slider.library.Indicators.PagerIndicator
+                android:id="@+id/custom_indicator"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
                 android:layout_gravity="center"
-                android:layout_height="match_parent">
+                android:layout_weight="1"
+                android:gravity="center"
+                custom:selected_color="#555555"
+                custom:selected_height="8dp"
+                custom:selected_padding_left="3dp"
+                custom:selected_padding_right="3dp"
+                custom:selected_width="8dp"
+                custom:shape="oval"
+                custom:unselected_color="#55555555"
+                custom:unselected_height="4dp"
+                custom:unselected_padding_left="3dp"
+                custom:unselected_padding_right="3dp"
+                custom:unselected_width="4dp" />
+        </LinearLayout>
 
-            <ImageView
-                    android:id="@+id/iv_home_ukm_logo"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
-        </RelativeLayout>
 
-        <include layout="@layout/layout_loading_dialog"/>
+        <ProgressBar
+            android:id="@+id/pb_home_news"
+            style="@style/Widget.AppCompat.ProgressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true" />
+    </RelativeLayout>
 
-</FrameLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_home_container"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:layout_weight="6">
+
+        <ImageView
+            android:id="@+id/iv_home_ukm_logo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/margin_default" />
+
+        <ProgressBar
+            android:id="@+id/pb_home_ukm_logo"
+            style="@style/Widget.AppCompat.ProgressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true" />
+    </RelativeLayout>
+</LinearLayout>
