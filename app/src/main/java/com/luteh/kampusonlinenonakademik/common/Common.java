@@ -14,8 +14,10 @@ import com.shashank.sony.fancytoastlib.FancyToast;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
@@ -44,6 +46,7 @@ public class Common {
 
     private static SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
     private static SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+    private static SimpleDateFormat dateAlphanumericFormat = new SimpleDateFormat("dd MMM yyyy");
 
     public static void showProgressBar(Context context) {
         builder = new AlertDialog.Builder(context);
@@ -121,8 +124,22 @@ public class Common {
         return spannableString;
     }
 
+    private static Date getStartOfDay() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date());
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        return calendar.getTime();
+    }
+
     public static String convertDateToString(Date date) {
         return dateFormat.format(date);
+    }
+
+    public static String convertDateToStringAlphanumeric(Date date){
+        return dateAlphanumericFormat.format(date);
     }
 
     public static Date convertStringToDate(String date) throws ParseException {
@@ -135,6 +152,18 @@ public class Common {
 
     public static Date convertStringToTime(String time) throws ParseException {
         return timeFormat.parse(time);
+    }
+
+    public static long getDaysAgo(Date date) {
+        final long diff = getStartOfDay().getTime() - date.getTime();
+
+        if (diff < 0) {
+            // if the input date millisecond > today's 12:00am millisecond it is today
+            // (this won't work if you input tomorrow)
+            return 0;
+        } else {
+            return TimeUnit.MILLISECONDS.toDays(diff);
+        }
     }
 
     public static boolean isAdmin() {
