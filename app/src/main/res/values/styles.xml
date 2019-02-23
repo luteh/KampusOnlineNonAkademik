@@ -111,6 +111,11 @@
         <item name="android:textSize">@dimen/text_small_12</item>
     </style>
 
+    <style name="TextSmallBlack" parent="android:Widget.TextView">
+        <item name="android:textColor">@color/colorDefaultText</item>
+        <item name="android:textSize">@dimen/text_small_12</item>
+    </style>
+
     <style name="TextDefaultGreen" parent="android:Widget.TextView">
         <item name="android:textColor">@color/colorGreenText</item>
         <item name="android:textSize">@dimen/text_small_14</item>
