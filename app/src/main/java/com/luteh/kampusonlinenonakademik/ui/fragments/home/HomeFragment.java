@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import com.daimajia.slider.library.Animations.DescriptionAnimation;
 import com.daimajia.slider.library.Indicators.PagerIndicator;
@@ -21,12 +20,15 @@ import com.luteh.kampusonlinenonakademik.R;
 import com.luteh.kampusonlinenonakademik.common.Common;
 import com.luteh.kampusonlinenonakademik.common.base.BaseFragment;
 import com.luteh.kampusonlinenonakademik.model.home.News;
+import com.luteh.kampusonlinenonakademik.ui.activities.berita.BeritaActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 import butterknife.BindView;
 import timber.log.Timber;
+
+import static com.luteh.kampusonlinenonakademik.common.AppConstant.KEY_DETAIL_BERITA;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -97,7 +99,7 @@ public class HomeFragment extends BaseFragment implements IHomeView,
             //add your extra information
             textSliderView.bundle(new Bundle());
             textSliderView.getBundle()
-                    .putString("extra", news.judul);
+                    .putSerializable(KEY_DETAIL_BERITA, news);
 
             slider_home_news.addSlider(textSliderView);
         }
@@ -136,7 +138,9 @@ public class HomeFragment extends BaseFragment implements IHomeView,
 
     @Override
     public void onSliderClick(BaseSliderView slider) {
-        Toast.makeText(context, slider.getBundle().get("extra") + "", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(context, slider.getBundle().get(KEY_DETAIL_BERITA) + "", Toast.LENGTH_SHORT).show();
+
+        getBaseActivity().startActivityFromRight(BeritaActivity.class, slider.getBundle());
     }
 
     @Override

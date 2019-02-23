@@ -23,6 +23,9 @@
     <string name="label_message_email_password_not_match">Email and Password don\'t match</string>
     <string name="message_authentication_failed">Authentication failed</string>
 
+    <!--Berita Activity-->
+    <string name="title_activity_berita">Berita</string>
+
     <string name="title_fragment_home">Home</string>
     <string name="title_fragment_struktur_organisasi">Struktur Organisasi</string>
     <string name="title_fragment_daftar_member">Daftar Member</string>

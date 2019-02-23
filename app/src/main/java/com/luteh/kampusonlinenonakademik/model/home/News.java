@@ -1,10 +1,12 @@
 package com.luteh.kampusonlinenonakademik.model.home;
 
+import java.io.Serializable;
+
 /**
  * Created by Luthfan Maftuh on 21/02/2019.
  * Email luthfanmaftuh@gmail.com
  */
-public class News {
+public class News implements Serializable {
     public String judul;
     public String image_url;
     public String deskripsi;
