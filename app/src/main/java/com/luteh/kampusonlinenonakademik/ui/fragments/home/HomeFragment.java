@@ -23,6 +23,7 @@ import com.luteh.kampusonlinenonakademik.model.home.News;
 import com.luteh.kampusonlinenonakademik.ui.activities.berita.BeritaActivity;
 import com.squareup.picasso.Picasso;
 
+import java.util.Collections;
 import java.util.List;
 
 import butterknife.BindView;
@@ -86,6 +87,7 @@ public class HomeFragment extends BaseFragment implements IHomeView,
 
     @Override
     public void onSuccessGetNewsData(List<News> newsList) {
+        Collections.sort(newsList, (o1, o2) -> o2.tanggal_berita.compareTo(o1.tanggal_berita));
         for (News news : newsList) {
             TextSliderView textSliderView = new TextSliderView(context);
             textSliderView.description(String.format("%s \nPosted by %s on %s",
