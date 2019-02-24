@@ -95,6 +95,16 @@
         <!--<item name="android:shadowRadius">5</item>-->
     </style>
 
+    <style name="TextMedium" parent="android:Widget.TextView">
+        <item name="android:textColor">@color/colorDefaultText</item>
+        <item name="android:textSize">@dimen/text_default_16</item>
+    </style>
+
+    <style name="TextLarge" parent="android:Widget.TextView">
+        <item name="android:textColor">@color/colorDefaultText</item>
+        <item name="android:textSize">@dimen/text_default</item>
+    </style>
+
     <style name="TextDefaultBold" parent="android:Widget.TextView">
         <item name="android:textColor">@color/colorDefaultText</item>
         <item name="android:textSize">@dimen/text_small_14</item>

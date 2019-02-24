@@ -24,10 +24,10 @@
     <string name="message_authentication_failed">Authentication failed</string>
 
     <!--Berita Activity-->
-    <string name="title_activity_berita">Berita</string>
+    <string name="title_activity_berita"> </string>
 
     <!--AllBerita Activity-->
-    <string name="title_activity_allberita">Berita</string>
+    <string name="title_activity_allberita">UKM News</string>
 
     <!--Home Fragment-->
     <string name="title_fragment_home">Home</string>

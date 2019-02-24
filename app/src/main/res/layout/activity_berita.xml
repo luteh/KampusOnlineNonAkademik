@@ -54,7 +54,7 @@
 
         <TextView
             android:id="@+id/tv_berita_deskripsi"
-            style="@style/TextDefault"
+            style="@style/TextLarge"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin_default"

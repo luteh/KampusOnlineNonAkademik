@@ -86,15 +86,18 @@ public class HomeFragment extends BaseFragment implements IHomeView,
 
     @Override
     public void onRetrieveContentSuccessful(Uri uri) {
+        getBaseActivity().onLoadingFinished(iv_home_ukm_logo, pb_home_ukm_logo);
+
         Picasso.with(context)
                 .load(uri)
                 .into(iv_home_ukm_logo);
 
-        getBaseActivity().onLoadingFinished(iv_home_ukm_logo, pb_home_ukm_logo);
     }
 
     @Override
     public void onSuccessGetNewsData(ArrayList<News> newsList) {
+        getBaseActivity().onLoadingFinished(slider_home_news, pb_home_news);
+
         Collections.sort(newsList, (o1, o2) -> o2.tanggal_berita.compareTo(o1.tanggal_berita));
         this.newsList = newsList;
 
@@ -108,7 +111,7 @@ public class HomeFragment extends BaseFragment implements IHomeView,
                         news.post_by,
                         news.tanggal_berita))
                         .image(news.image_url)
-                        .setScaleType(BaseSliderView.ScaleType.Fit)
+                        .setScaleType(BaseSliderView.ScaleType.CenterInside)
                         .setOnSliderClickListener(this);
 
                 //add your extra information
@@ -126,8 +129,6 @@ public class HomeFragment extends BaseFragment implements IHomeView,
         slider_home_news.setCustomAnimation(new DescriptionAnimation());
         slider_home_news.setDuration(4000);
         slider_home_news.addOnPageChangeListener(this);
-
-        getBaseActivity().onLoadingFinished(slider_home_news, pb_home_news);
     }
 
     @Override
