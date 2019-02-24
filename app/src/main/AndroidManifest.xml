@@ -38,10 +38,15 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustResize" />
-
         <activity
             android:name=".ui.activities.berita.BeritaActivity"
             android:label="@string/title_activity_berita"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeWithActionBar"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".ui.activities.allberita.AllBeritaActivity"
+            android:label="@string/title_activity_allberita"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeWithActionBar"
             android:windowSoftInputMode="adjustResize" />

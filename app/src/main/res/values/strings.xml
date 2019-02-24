@@ -26,7 +26,13 @@
     <!--Berita Activity-->
     <string name="title_activity_berita">Berita</string>
 
+    <!--AllBerita Activity-->
+    <string name="title_activity_allberita">Berita</string>
+
+    <!--Home Fragment-->
     <string name="title_fragment_home">Home</string>
+    <string name="label_see_more">See More</string>
+
     <string name="title_fragment_struktur_organisasi">Struktur Organisasi</string>
     <string name="title_fragment_daftar_member">Daftar Member</string>
 

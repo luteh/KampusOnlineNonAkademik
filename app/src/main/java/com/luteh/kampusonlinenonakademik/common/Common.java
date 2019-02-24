@@ -138,7 +138,7 @@ public class Common {
         return dateFormat.format(date);
     }
 
-    public static String convertDateToStringAlphanumeric(Date date){
+    public static String convertDateToStringAlphanumeric(Date date) {
         return dateAlphanumericFormat.format(date);
     }
 
@@ -163,6 +163,18 @@ public class Common {
             return 0;
         } else {
             return TimeUnit.MILLISECONDS.toDays(diff);
+        }
+    }
+
+    public static String getStringDateRange(String date) {
+        try {
+            long daysAgo = getDaysAgo(Common.convertStringToDate(date));
+            return (daysAgo < 8) ?
+                    daysAgo + " days ago" :
+                    convertDateToStringAlphanumeric(convertStringToDate(date));
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return "";
         }
     }
 

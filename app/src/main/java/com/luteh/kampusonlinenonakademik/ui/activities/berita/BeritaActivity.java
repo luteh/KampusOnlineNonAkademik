@@ -50,7 +50,7 @@ public class BeritaActivity extends BaseActivity implements IBeritaView {
         iBeritaPresenter = new BeritaPresenterImp(this);
 
         Intent mIntent = getIntent();
-        news = (News) mIntent.getSerializableExtra(KEY_DETAIL_BERITA);
+        news = mIntent.getParcelableExtra(KEY_DETAIL_BERITA);
 
         Timber.d(news.toString());
 

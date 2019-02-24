@@ -4,7 +4,7 @@ import android.net.Uri;
 
 import com.luteh.kampusonlinenonakademik.model.home.News;
 
-import java.util.List;
+import java.util.ArrayList;
 
 /**
  * Created by Luthfan Maftuh on 16/01/2019.
@@ -13,7 +13,7 @@ import java.util.List;
 public interface IHomeView {
     void onRetrieveContentSuccessful(Uri uri);
 
-    void onSuccessGetNewsData(List<News> newsList);
+    void onSuccessGetNewsData(ArrayList<News> newsList);
 
     void onFailureGetNewsData(String message);
 }

@@ -9,42 +9,55 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="4">
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <com.daimajia.slider.library.SliderLayout
                 android:id="@+id/slider_home_news"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="15"
+                android:layout_height="250dp"
                 custom:auto_cycle="true"
                 custom:indicator_visibility="visible"
                 custom:pager_animation="Accordion"
                 custom:pager_animation_span="1100" />
 
-            <com.daimajia.slider.library.Indicators.PagerIndicator
-                android:id="@+id/custom_indicator"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:gravity="center"
-                custom:selected_color="#555555"
-                custom:selected_height="8dp"
-                custom:selected_padding_left="3dp"
-                custom:selected_padding_right="3dp"
-                custom:selected_width="8dp"
-                custom:shape="oval"
-                custom:unselected_color="#55555555"
-                custom:unselected_height="4dp"
-                custom:unselected_padding_left="3dp"
-                custom:unselected_padding_right="3dp"
-                custom:unselected_width="4dp" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.daimajia.slider.library.Indicators.PagerIndicator
+                    android:id="@+id/custom_indicator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:gravity="center"
+                    custom:selected_color="#555555"
+                    custom:selected_height="8dp"
+                    custom:selected_padding_left="3dp"
+                    custom:selected_padding_right="3dp"
+                    custom:selected_width="8dp"
+                    custom:shape="oval"
+                    custom:unselected_color="#55555555"
+                    custom:unselected_height="4dp"
+                    custom:unselected_padding_left="3dp"
+                    custom:unselected_padding_right="3dp"
+                    custom:unselected_width="4dp" />
+
+                <Button
+                    android:id="@+id/btn_berita_see_more"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="@dimen/margin_default"
+                    android:text="@string/label_see_more" />
+            </RelativeLayout>
+
         </LinearLayout>
 
 
@@ -60,9 +73,8 @@
     <RelativeLayout
         android:id="@+id/rl_home_container"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_gravity="center"
-        android:layout_weight="6">
+        android:layout_height="match_parent"
+        android:layout_gravity="center">
 
         <ImageView
             android:id="@+id/iv_home_ukm_logo"

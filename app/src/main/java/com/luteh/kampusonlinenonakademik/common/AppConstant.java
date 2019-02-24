@@ -29,6 +29,7 @@ public class AppConstant {
     public static final String FIELD_JOB = "job";
 
     public static final String KEY_DETAIL_BERITA = "detail_berita";
+    public static final String KEY_LIST_BERITA = "list_berita";
 
     public static final int REQUEST_CODE_INTERNET = 1000;
 }

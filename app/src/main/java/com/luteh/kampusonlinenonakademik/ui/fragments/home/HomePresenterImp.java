@@ -13,7 +13,6 @@ import com.luteh.kampusonlinenonakademik.common.Common;
 import com.luteh.kampusonlinenonakademik.model.home.News;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import durdinapps.rxfirebase2.RxFirebaseDatabase;
 import durdinapps.rxfirebase2.RxFirebaseStorage;
@@ -63,7 +62,7 @@ public class HomePresenterImp implements IHomePresenter {
                     .child(AppConstant.ARG_NEWS);
 
             RxFirebaseDatabase.observeSingleValueEvent(databaseReference, dataSnapshot -> {
-                List<News> newsList = new ArrayList<>();
+                ArrayList<News> newsList = new ArrayList<>();
 
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     newsList.add(postSnapshot.getValue(News.class));
