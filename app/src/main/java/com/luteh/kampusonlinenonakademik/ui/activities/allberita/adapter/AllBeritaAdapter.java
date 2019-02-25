@@ -18,7 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
  * Created by Luthfan Maftuh on 24/02/2019.
  * Email luthfanmaftuh@gmail.com
  */
-public class AllBeritaAdapter extends RecyclerView.Adapter<AllBeritaView> {
+public class AllBeritaAdapter extends RecyclerView.Adapter<AllBeritaHolder> {
 
     private Context context;
     private ArrayList<News> newsArrayList;
@@ -31,16 +31,16 @@ public class AllBeritaAdapter extends RecyclerView.Adapter<AllBeritaView> {
 
     @NonNull
     @Override
-    public AllBeritaView onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public AllBeritaHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         context = parent.getContext();
-        return new AllBeritaView(
+        return new AllBeritaHolder(
                 LayoutInflater.from(context).inflate(R.layout.allberita_item, null),
                 iAllBeritaAdapter
         );
     }
 
     @Override
-    public void onBindViewHolder(@NonNull AllBeritaView holder, int position) {
+    public void onBindViewHolder(@NonNull AllBeritaHolder holder, int position) {
         News news = newsArrayList.get(position);
 
         holder.tv_allberita_item_judul.setText(news.judul);

@@ -28,6 +28,10 @@
 
     <!--AllBerita Activity-->
     <string name="title_activity_allberita">UKM News</string>
+    <string name="label_judul">Judul</string>
+    <string name="label_deskripsi">Deskripsi</string>
+    <string name="label_headline_image">Headline Image</string>
+    <string name="label_tambah_berita">Tambah Berita Baru</string>
 
     <!--Home Fragment-->
     <string name="title_fragment_home">Home</string>

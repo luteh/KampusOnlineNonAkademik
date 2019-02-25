@@ -16,7 +16,7 @@ import butterknife.OnClick;
  * Created by Luthfan Maftuh on 24/02/2019.
  * Email luthfanmaftuh@gmail.com
  */
-public class AllBeritaView extends RecyclerView.ViewHolder {
+public class AllBeritaHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.tv_allberita_item_judul)
     protected TextView tv_allberita_item_judul;
     @BindView(R.id.tv_allberita_item_post_by)
@@ -28,7 +28,7 @@ public class AllBeritaView extends RecyclerView.ViewHolder {
 
     private IAllBeritaAdapter iAllBeritaAdapter;
 
-    public AllBeritaView(@NonNull View itemView, IAllBeritaAdapter iAllBeritaAdapter) {
+    public AllBeritaHolder(@NonNull View itemView, IAllBeritaAdapter iAllBeritaAdapter) {
         super(itemView);
         ButterKnife.bind(this, itemView);
 
