@@ -227,10 +227,10 @@ public class Common {
 
             Timber.d("Time ago: %s", DateUtils.getRelativeTimeSpanString(mDate.getTime()));
 
-            long secondsAgo = getSecondsAgo(mDate);
-            long minutesAgo = getMinutesAgo(mDate);
-            long hoursAgo = getHoursAgo(mDate);
-            long daysAgo = getDaysAgo(mDate);
+            long secondsAgo = getSecondsAgo(mDate) + 1;
+            long minutesAgo = getMinutesAgo(mDate) + 1;
+            long hoursAgo = getHoursAgo(mDate) + 1;
+            long daysAgo = getDaysAgo(mDate) + 1;
 
             if (secondsAgo > 60) {
                 if (minutesAgo > 60) {
