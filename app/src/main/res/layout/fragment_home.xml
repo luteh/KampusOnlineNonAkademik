@@ -74,7 +74,8 @@
         android:id="@+id/rl_home_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="center">
+        android:layout_gravity="center"
+        android:visibility="gone">
 
         <ImageView
             android:id="@+id/iv_home_ukm_logo"
@@ -89,4 +90,25 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true" />
     </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_home_content_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:src="@drawable/ic_warning" />
+
+        <TextView
+            style="@style/TextHeaderBold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/label_msg_belum_bergabung_ukm"
+            android:textAlignment="center" />
+    </LinearLayout>
 </LinearLayout>

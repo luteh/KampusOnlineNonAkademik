@@ -9,7 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 
 import com.daimajia.slider.library.Animations.DescriptionAnimation;
 import com.daimajia.slider.library.Indicators.PagerIndicator;
@@ -21,6 +23,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 import com.luteh.kampusonlinenonakademik.R;
+import com.luteh.kampusonlinenonakademik.common.AccountHelper;
 import com.luteh.kampusonlinenonakademik.common.Common;
 import com.luteh.kampusonlinenonakademik.common.base.BaseFragment;
 import com.luteh.kampusonlinenonakademik.model.home.News;
@@ -62,6 +65,10 @@ public class HomeFragment extends BaseFragment implements IHomeView,
     PagerIndicator custom_indicator;
     @BindView(R.id.btn_berita_see_more)
     Button btn_berita_see_more;
+    @BindView(R.id.ll_home_content_container)
+    LinearLayout ll_home_content_container;
+    @BindView(R.id.rl_home_container)
+    RelativeLayout rl_home_container;
 
     private ArrayList<News> newsList;
 
@@ -92,10 +99,19 @@ public class HomeFragment extends BaseFragment implements IHomeView,
         iHomePresenter = new HomePresenterImp(getContext(), this);
 
         iHomePresenter.getNewsData();
-        iHomePresenter.getHomeContent();
+
+        if (AccountHelper.getUser().isMember) {
+            ll_home_content_container.setVisibility(View.GONE);
+            rl_home_container.setVisibility(View.VISIBLE);
+
+            iHomePresenter.getHomeContent();
+            getBaseActivity().onLoadingStarted(iv_home_ukm_logo, pb_home_ukm_logo);
+        } else {
+            rl_home_container.setVisibility(View.GONE);
+            ll_home_content_container.setVisibility(View.VISIBLE);
+        }
 
         getBaseActivity().onLoadingStarted(slider_home_news, pb_home_news);
-        getBaseActivity().onLoadingStarted(iv_home_ukm_logo, pb_home_ukm_logo);
     }
 
     @Override

@@ -40,6 +40,7 @@
     <!--Home Fragment-->
     <string name="title_fragment_home">Home</string>
     <string name="label_see_more">See More</string>
+    <string name="label_msg_belum_bergabung_ukm">Anda belum bergabung di UKM manapun</string>
 
     <string name="title_fragment_struktur_organisasi">Struktur Organisasi</string>
     <string name="title_fragment_daftar_member">Daftar Member</string>
