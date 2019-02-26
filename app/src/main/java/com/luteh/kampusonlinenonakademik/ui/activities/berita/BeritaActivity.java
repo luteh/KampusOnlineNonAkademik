@@ -11,13 +11,11 @@ import com.luteh.kampusonlinenonakademik.common.base.BaseActivity;
 import com.luteh.kampusonlinenonakademik.model.home.News;
 import com.squareup.picasso.Picasso;
 
-import java.text.ParseException;
-
 import butterknife.BindView;
 import timber.log.Timber;
 
 import static com.luteh.kampusonlinenonakademik.common.AppConstant.KEY_DETAIL_BERITA;
-import static com.luteh.kampusonlinenonakademik.common.Common.*;
+import static com.luteh.kampusonlinenonakademik.common.Common.paragraphTextStyle;
 
 public class BeritaActivity extends BaseActivity implements IBeritaView {
 
@@ -61,17 +59,7 @@ public class BeritaActivity extends BaseActivity implements IBeritaView {
         tv_berita_judul.setText(news.judul);
         tv_berita_post_by.setText(news.post_by);
         tv_berita_deskripsi.setText(paragraphTextStyle(news.deskripsi));
-
-        try {
-            long daysAgo = getDaysAgo(Common.convertStringToDate(news.tanggal_berita));
-            tv_berita_tanggal.setText(
-                    (daysAgo < 8) ?
-                            daysAgo + " days ago" :
-                            convertDateToStringAlphanumeric(convertStringToDate(news.tanggal_berita))
-            );
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        tv_berita_tanggal.setText(Common.getStringDateRange(news.tanggal_berita));
 
         Picasso.with(getContext())
                 .load(news.image_url)

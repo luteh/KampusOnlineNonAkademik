@@ -1,5 +1,8 @@
 package com.luteh.kampusonlinenonakademik.common;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 /**
  * Created by Luthfan Maftuh on 13/11/2018.
  * Email luthfanmaftuh@gmail.com
@@ -13,6 +16,7 @@ public class AppConstant {
     public static final String ARG_STRUKTUR_ORG = "struktur_organisasi";
     public static final String ARG_UKM = "ukm";
     public static final String ARG_NEWS = "news";
+    public static final String ARG_IMAGE = "image";
     public static final String ARG_PNG_EXTENSION = ".png";
     public static final String ARG_MEMBER_IMAGE = "member_image";
     public static final String ARG_DAFTAR_MEMBER = "daftar_member";
@@ -32,4 +36,7 @@ public class AppConstant {
     public static final String KEY_LIST_BERITA = "list_berita";
 
     public static final int REQUEST_CODE_INTERNET = 1000;
+
+    public static final DatabaseReference REF_NEWS = FirebaseDatabase.getInstance().getReference()
+            .child(ARG_NEWS);
 }

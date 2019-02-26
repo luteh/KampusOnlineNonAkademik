@@ -32,6 +32,7 @@
     <string name="label_deskripsi">Deskripsi</string>
     <string name="label_headline_image">Headline Image</string>
     <string name="label_tambah_berita">Tambah Berita Baru</string>
+    <string name="label_msg_add_berita_success">Add new berita successful</string>
 
     <!--Home Fragment-->
     <string name="title_fragment_home">Home</string>

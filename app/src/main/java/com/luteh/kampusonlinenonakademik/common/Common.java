@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.text.SpannableString;
 import android.text.TextUtils;
+import android.text.format.DateUtils;
 import android.util.Patterns;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -22,6 +23,7 @@ import java.util.concurrent.TimeUnit;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 import dmax.dialog.SpotsDialog;
+import timber.log.Timber;
 
 /**
  * Created by Luthfan Maftuh on 08/11/2018.
@@ -47,6 +49,7 @@ public class Common {
     private static SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
     private static SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
     private static SimpleDateFormat dateAlphanumericFormat = new SimpleDateFormat("dd MMM yyyy");
+    private static SimpleDateFormat defaultDateFormat = new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy");
 
     public static void showProgressBar(Context context) {
         builder = new AlertDialog.Builder(context);
@@ -134,6 +137,36 @@ public class Common {
         return calendar.getTime();
     }
 
+    private static Date getStartOfHour() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date());
+//        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        return calendar.getTime();
+    }
+
+    private static Date getStartOfMinute() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date());
+//        calendar.set(Calendar.HOUR_OF_DAY, 0);
+//        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        return calendar.getTime();
+    }
+
+    private static Date getStartOfSecond() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date());
+//        calendar.set(Calendar.HOUR_OF_DAY, 0);
+//        calendar.set(Calendar.MINUTE, 0);
+//        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        return calendar.getTime();
+    }
+
     public static String convertDateToString(Date date) {
         return dateFormat.format(date);
     }
@@ -143,7 +176,8 @@ public class Common {
     }
 
     public static Date convertStringToDate(String date) throws ParseException {
-        return dateFormat.parse(date);
+//        return dateFormat.parse(date);
+        return defaultDateFormat.parse(date);
     }
 
     public static String convertTimeToString(Date date) {
@@ -154,24 +188,67 @@ public class Common {
         return timeFormat.parse(time);
     }
 
+    public static long getSecondsAgo(Date date) {
+        final long diff = getStartOfSecond().getTime() - date.getTime();
+
+        return (diff < 0) ? 0 : TimeUnit.MILLISECONDS.toSeconds(diff);
+    }
+
+    public static long getMinutesAgo(Date date) {
+        final long diff = getStartOfMinute().getTime() - date.getTime();
+
+        return (diff < 0) ? 0 : TimeUnit.MILLISECONDS.toMinutes(diff);
+    }
+
+    public static long getHoursAgo(Date date) {
+        final long diff = getStartOfHour().getTime() - date.getTime();
+
+        return (diff < 0) ? 0 : TimeUnit.MILLISECONDS.toHours(diff);
+    }
+
     public static long getDaysAgo(Date date) {
         final long diff = getStartOfDay().getTime() - date.getTime();
 
-        if (diff < 0) {
+        /*if (diff < 0) {
             // if the input date millisecond > today's 12:00am millisecond it is today
             // (this won't work if you input tomorrow)
             return 0;
         } else {
             return TimeUnit.MILLISECONDS.toDays(diff);
-        }
+        }*/
+
+        return (diff < 0) ? 0 : TimeUnit.MILLISECONDS.toDays(diff);
     }
 
     public static String getStringDateRange(String date) {
+
         try {
-            long daysAgo = getDaysAgo(Common.convertStringToDate(date));
-            return (daysAgo < 8) ?
+            Date mDate = Common.convertStringToDate(date);
+
+            Timber.d("Time ago: %s", DateUtils.getRelativeTimeSpanString(mDate.getTime()));
+
+            long secondsAgo = getSecondsAgo(mDate);
+            long minutesAgo = getMinutesAgo(mDate);
+            long hoursAgo = getHoursAgo(mDate);
+            long daysAgo = getDaysAgo(mDate);
+
+            if (secondsAgo > 60) {
+                if (minutesAgo > 60) {
+                    if (hoursAgo > 24) {
+                        if (daysAgo > 7) {
+                            return convertDateToStringAlphanumeric(convertStringToDate(date));
+                        }
+                        return daysAgo + " days ago";
+                    }
+                    return hoursAgo + " hours ago";
+                }
+                return minutesAgo + " minutes ago";
+            }
+            return secondsAgo + " seconds ago";
+
+            /*return (daysAgo < 8) ?
                     daysAgo + " days ago" :
-                    convertDateToStringAlphanumeric(convertStringToDate(date));
+                    convertDateToStringAlphanumeric(convertStringToDate(date));*/
         } catch (ParseException e) {
             e.printStackTrace();
             return "";

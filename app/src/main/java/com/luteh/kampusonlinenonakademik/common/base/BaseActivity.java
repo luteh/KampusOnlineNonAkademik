@@ -180,19 +180,19 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
         } else return null;
     }
 
-    public void openImagePicker() {
+    public void openImagePicker(boolean isOval) {
         if (!Common.isPermissionGranted(getContext(), Manifest.permission.READ_EXTERNAL_STORAGE))
             ActivityCompat.requestPermissions(this,
                     new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
                     CropImage.PICK_IMAGE_PERMISSIONS_REQUEST_CODE);
         else
-            startPickImage();
+            startPickImage(isOval);
     }
 
-    public void startPickImage() {
+    public void startPickImage(boolean isOval) {
         CropImage.activity(null)
                 .setGuidelines(CropImageView.Guidelines.ON)
-                .setCropShape(CropImageView.CropShape.OVAL)
+                .setCropShape((isOval) ? CropImageView.CropShape.OVAL : CropImageView.CropShape.RECTANGLE)
                 .setFixAspectRatio(true)
                 .start(this);
     }
@@ -210,7 +210,7 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == CropImage.PICK_IMAGE_PERMISSIONS_REQUEST_CODE) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                startPickImage();
+                startPickImage(false);
             } else {
                 Toast.makeText(getContext(), "Cancelling, required permissions are not granted", Toast.LENGTH_LONG)
                         .show();
@@ -220,16 +220,16 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
 
     public void onLoadingStarted(View layoutContainer, View progressBarContainer) {
 //        if (layoutContainer.isShown()) {
-            layoutContainer.setVisibility(View.INVISIBLE);
-            progressBarContainer.setVisibility(View.VISIBLE);
+        layoutContainer.setVisibility(View.INVISIBLE);
+        progressBarContainer.setVisibility(View.VISIBLE);
 //        }
     }
 
 
     public void onLoadingFinished(View layoutContainer, View progressBarContainer) {
 //        if (!layoutContainer.isShown()) {
-            layoutContainer.setVisibility(View.VISIBLE);
-            progressBarContainer.setVisibility(View.INVISIBLE);
+        layoutContainer.setVisibility(View.VISIBLE);
+        progressBarContainer.setVisibility(View.INVISIBLE);
 //        }
     }
 

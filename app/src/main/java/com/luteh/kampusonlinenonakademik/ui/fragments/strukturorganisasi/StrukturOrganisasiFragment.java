@@ -189,7 +189,7 @@ public class StrukturOrganisasiFragment extends BaseFragment implements
                     new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
                     CropImage.PICK_IMAGE_PERMISSIONS_REQUEST_CODE);
         else
-            getBaseActivity().startPickImage();
+            getBaseActivity().startPickImage(true);
     }
 
     @Override
@@ -209,7 +209,7 @@ public class StrukturOrganisasiFragment extends BaseFragment implements
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == CropImage.PICK_IMAGE_PERMISSIONS_REQUEST_CODE) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                getBaseActivity().startPickImage();
+                getBaseActivity().startPickImage(true);
             } else {
                 Toast.makeText(getContext(), "Cancelling, required permissions are not granted", Toast.LENGTH_LONG)
                         .show();

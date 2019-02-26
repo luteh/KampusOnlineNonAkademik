@@ -2,12 +2,13 @@ package com.luteh.kampusonlinenonakademik.model.home;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.text.TextUtils;
 
 /**
  * Created by Luthfan Maftuh on 21/02/2019.
  * Email luthfanmaftuh@gmail.com
  */
-public class News implements Parcelable {
+public class News implements Parcelable, INews {
     public String judul;
     public String image_url;
     public String deskripsi;
@@ -15,6 +16,14 @@ public class News implements Parcelable {
     public String post_by;
 
     public News() {
+    }
+
+    public News(String judul, String image_url, String deskripsi, String tanggal_berita, String post_by) {
+        this.judul = judul;
+        this.image_url = image_url;
+        this.deskripsi = deskripsi;
+        this.tanggal_berita = tanggal_berita;
+        this.post_by = post_by;
     }
 
     @Override
@@ -62,4 +71,14 @@ public class News implements Parcelable {
             return new News[size];
         }
     };
+
+    @Override
+    public int isValidData() {
+        if(TextUtils.isEmpty(judul)) return 0;
+        else if(TextUtils.isEmpty(image_url)) return 1;
+        else if(TextUtils.isEmpty(deskripsi)) return 2;
+        else if(TextUtils.isEmpty(tanggal_berita)) return 3;
+        else if(TextUtils.isEmpty(post_by)) return 4;
+        else return -1;
+    }
 }

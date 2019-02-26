@@ -29,6 +29,9 @@ public class HomePresenterImp implements IHomePresenter {
     private Context context;
     private IHomeView iHomeView;
 
+    private ArrayList<News> newsList = new ArrayList<>();
+    private DatabaseReference databaseReference;
+
     public HomePresenterImp(Context context, IHomeView iHomeView) {
         this.context = context;
         this.iHomeView = iHomeView;
@@ -58,11 +61,11 @@ public class HomePresenterImp implements IHomePresenter {
     @Override
     public void getNewsData() {
         if (AccountHelper.getUser() != null) {
-            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference()
+            databaseReference = FirebaseDatabase.getInstance().getReference()
                     .child(AppConstant.ARG_NEWS);
 
             RxFirebaseDatabase.observeSingleValueEvent(databaseReference, dataSnapshot -> {
-                ArrayList<News> newsList = new ArrayList<>();
+//                ArrayList<News> newsList = new ArrayList<>();
 
                 for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     newsList.add(postSnapshot.getValue(News.class));
@@ -75,7 +78,7 @@ public class HomePresenterImp implements IHomePresenter {
                     .subscribe(news -> {
                         Timber.d("Get news data successful!");
                         iHomeView.onSuccessGetNewsData(news);
-                    }, throwable -> {
+                        }, throwable -> {
                         iHomeView.onFailureGetNewsData(throwable.getMessage());
                         throwable.printStackTrace();
                     });

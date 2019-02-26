@@ -1,11 +1,15 @@
 package com.luteh.kampusonlinenonakademik.ui.activities.allberita;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.luteh.kampusonlinenonakademik.R;
+import com.luteh.kampusonlinenonakademik.common.AccountHelper;
 import com.luteh.kampusonlinenonakademik.common.Common;
 import com.luteh.kampusonlinenonakademik.common.base.BaseActivity;
 import com.luteh.kampusonlinenonakademik.common.utils.CustomDividerItemDecoration;
@@ -15,9 +19,13 @@ import com.luteh.kampusonlinenonakademik.ui.activities.allberita.adapter.IAllBer
 import com.luteh.kampusonlinenonakademik.ui.activities.allberita.dialog.AllBeritaDialogHolder;
 import com.luteh.kampusonlinenonakademik.ui.activities.allberita.dialog.IAllBeritaDialog;
 import com.luteh.kampusonlinenonakademik.ui.activities.berita.BeritaActivity;
+import com.theartofdev.edmodo.cropper.CropImage;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -29,17 +37,21 @@ import static com.luteh.kampusonlinenonakademik.common.AppConstant.KEY_DETAIL_BE
 import static com.luteh.kampusonlinenonakademik.common.AppConstant.KEY_LIST_BERITA;
 
 public class AllBeritaActivity extends BaseActivity implements IAllBeritaAdapter,
-        IAllBeritaDialog {
+        IAllBeritaDialog,
+        IAllBeritaView {
 
     @BindView(R.id.rv_allberita)
     RecyclerView rv_allberita;
     @BindView(R.id.fab_allberita_add)
     FloatingActionButton fab_allberita_add;
 
+    private IAllBeritaPresenter iAllBeritaPresenter;
+
     private ArrayList<News> newsArrayList;
 
     private AllBeritaDialogHolder allBeritaDialogHolder;
     private AlertDialog allBeritaDialog;
+    private String mUriImageDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +64,8 @@ public class AllBeritaActivity extends BaseActivity implements IAllBeritaAdapter
     @Override
     protected void onInit() {
         super.onInit();
+
+        iAllBeritaPresenter = new AllBeritaPresenterImp(this);
 
         newsArrayList = this.getIntent().getParcelableArrayListExtra(KEY_LIST_BERITA);
 
@@ -124,7 +138,14 @@ public class AllBeritaActivity extends BaseActivity implements IAllBeritaAdapter
 
     @Override
     public void onClickAddButton() {
-
+        iAllBeritaPresenter.submitNewBerita(
+                allBeritaDialogHolder.et_dialog_add_berita_judul.getText().toString(),
+                mUriImageDialog,
+                allBeritaDialogHolder.et_dialog_add_berita_deskripsi.getText().toString(),
+//                Common.convertDateToString(Calendar.getInstance().getTime()),
+                Calendar.getInstance().getTime().toString(),
+                "UKM " + AccountHelper.getUser().ukm
+        );
     }
 
     @Override
@@ -134,6 +155,46 @@ public class AllBeritaActivity extends BaseActivity implements IAllBeritaAdapter
 
     @Override
     public void onClickImageEditText() {
+        openImagePicker(false);
+    }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        // handle result of CropImageActivity
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+            CropImage.ActivityResult result = CropImage.getActivityResult(data);
+            if (resultCode == RESULT_OK) {
+                handleImagePickerResult(result.getUri());
+            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+                Toast.makeText(getContext(), "Cropping failed: " + result.getError(), Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+
+    private void handleImagePickerResult(Uri uri) {
+        mUriImageDialog = uri.toString();
+        allBeritaDialogHolder.et_dialog_add_berita_image.setText(uri.getLastPathSegment());
+
+        Toast.makeText(getContext(), "Picking image successful", Toast.LENGTH_LONG)
+                .show();
+    }
+
+    @Override
+    public void onEmptyData(int emptyCode) {
+
+    }
+
+    @Override
+    public void onSuccessSubmitNewData(News news) {
+        allBeritaDialog.dismiss();
+
+        newsArrayList.add(news);
+        Collections.sort(newsArrayList, (o1, o2) -> o2.tanggal_berita.compareTo(o1.tanggal_berita));
+
+        rv_allberita.getAdapter().notifyDataSetChanged();
+
+        Common.showSuccessMessage(this, getResources().getString(R.string.label_msg_add_berita_success));
     }
 }

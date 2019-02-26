@@ -209,7 +209,7 @@ public class DaftarMemberFragment extends BaseFragment implements IDaftarFragmen
 
     @Override
     public void onImageClicked() {
-        getBaseActivity().openImagePicker();
+        getBaseActivity().openImagePicker(true);
     }
 
     @Override

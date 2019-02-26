@@ -17,6 +17,9 @@ import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.daimajia.slider.library.Tricks.ViewPagerEx;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
 import com.luteh.kampusonlinenonakademik.R;
 import com.luteh.kampusonlinenonakademik.common.Common;
 import com.luteh.kampusonlinenonakademik.common.base.BaseFragment;
@@ -28,19 +31,22 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import androidx.annotation.NonNull;
 import butterknife.BindView;
 import butterknife.OnClick;
 import timber.log.Timber;
 
 import static com.luteh.kampusonlinenonakademik.common.AppConstant.KEY_DETAIL_BERITA;
 import static com.luteh.kampusonlinenonakademik.common.AppConstant.KEY_LIST_BERITA;
+import static com.luteh.kampusonlinenonakademik.common.AppConstant.REF_NEWS;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class HomeFragment extends BaseFragment implements IHomeView,
         ViewPagerEx.OnPageChangeListener,
-        BaseSliderView.OnSliderClickListener {
+        BaseSliderView.OnSliderClickListener,
+        ValueEventListener {
 
     private IHomePresenter iHomePresenter;
 
@@ -57,7 +63,7 @@ public class HomeFragment extends BaseFragment implements IHomeView,
     @BindView(R.id.btn_berita_see_more)
     Button btn_berita_see_more;
 
-    private ArrayList<News> newsList = new ArrayList<News>();
+    private ArrayList<News> newsList;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -72,8 +78,16 @@ public class HomeFragment extends BaseFragment implements IHomeView,
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+
+        REF_NEWS.addListenerForSingleValueEvent(this);
+    }
+
+    @Override
     protected void onInit() {
         super.onInit();
+
 
         iHomePresenter = new HomePresenterImp(getContext(), this);
 
@@ -98,8 +112,15 @@ public class HomeFragment extends BaseFragment implements IHomeView,
     public void onSuccessGetNewsData(ArrayList<News> newsList) {
         getBaseActivity().onLoadingFinished(slider_home_news, pb_home_news);
 
-        Collections.sort(newsList, (o1, o2) -> o2.tanggal_berita.compareTo(o1.tanggal_berita));
+        this.newsList = new ArrayList<>();
+//        Collections.sort(newsList, (o1, o2) -> o2.tanggal_berita.compareTo(o1.tanggal_berita));
         this.newsList = newsList;
+
+        setSlider();
+    }
+
+    private void setSlider() {
+        Collections.sort(newsList, (o1, o2) -> o2.tanggal_berita.compareTo(o1.tanggal_berita));
 
         for (int i = 0; i < 4; i++) {
             News news = newsList.get(i);
@@ -109,7 +130,7 @@ public class HomeFragment extends BaseFragment implements IHomeView,
                 textSliderView.description(String.format("%s \nPosted by %s on %s",
                         news.judul,
                         news.post_by,
-                        news.tanggal_berita))
+                        Common.getStringDateRange(news.tanggal_berita)))
                         .image(news.image_url)
                         .setScaleType(BaseSliderView.ScaleType.CenterInside)
                         .setOnSliderClickListener(this);
@@ -172,5 +193,32 @@ public class HomeFragment extends BaseFragment implements IHomeView,
     public void onStop() {
         slider_home_news.stopAutoCycle();
         super.onStop();
+    }
+
+    @Override
+    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+        if (newsList != null) {
+            Timber.d("Children count, %d", dataSnapshot.getChildrenCount());
+            if (dataSnapshot.getChildrenCount() != newsList.size()) {
+
+                Timber.d("Data Changed!");
+                Timber.d(dataSnapshot.getValue(News.class).toString());
+
+                newsList.clear();
+                slider_home_news.removeAllSliders();
+
+                for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+                    newsList.add(dataSnapshot1.getValue(News.class));
+                }
+
+                setSlider();
+            }
+        }
+    }
+
+    @Override
+    public void onCancelled(@NonNull DatabaseError databaseError) {
+        Timber.w(databaseError.toException());
     }
 }
