@@ -10,4 +10,6 @@ public interface IAllBeritaView {
     void onEmptyData(int emptyCode);
 
     void onSuccessSubmitNewData(News news);
+
+    void onListChange(News news);
 }

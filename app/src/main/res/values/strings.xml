@@ -33,6 +33,9 @@
     <string name="label_headline_image">Headline Image</string>
     <string name="label_tambah_berita">Tambah Berita Baru</string>
     <string name="label_msg_add_berita_success">Add new berita successful</string>
+    <string name="label_msg_judul_required">Judul is required!</string>
+    <string name="label_msg_image_required">Image is required!</string>
+    <string name="label_msg_add_berita_failed">Add new berita failed</string>
 
     <!--Home Fragment-->
     <string name="title_fragment_home">Home</string>

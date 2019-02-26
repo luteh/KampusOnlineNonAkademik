@@ -56,4 +56,10 @@ public class AllBeritaDialogHolder {
     void onClickCancelBerita() {
         iAllBeritaDialog.onClickCancelButton();
     }
+
+    public void clearError(){
+        et_dialog_add_berita_judul.setError(null);
+        et_dialog_add_berita_image.setError(null);
+        et_dialog_add_berita_deskripsi.setError(null);
+    }
 }

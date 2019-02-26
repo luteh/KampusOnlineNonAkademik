@@ -183,18 +183,43 @@ public class AllBeritaActivity extends BaseActivity implements IAllBeritaAdapter
 
     @Override
     public void onEmptyData(int emptyCode) {
+        allBeritaDialogHolder.clearError();
 
+        switch (emptyCode) {
+            case 0:
+                allBeritaDialogHolder.et_dialog_add_berita_judul.setError(getResources().getString(R.string.label_msg_judul_required));
+                break;
+            case 1:
+                allBeritaDialogHolder.et_dialog_add_berita_image.setError(getResources().getString(R.string.label_msg_image_required));
+                break;
+            case 2:
+                allBeritaDialogHolder.et_dialog_add_berita_deskripsi.setError(getResources().getString(R.string.label_msg_deskripsi_required));
+                break;
+            case 3 | 4:
+                Toast.makeText(this, getResources().getString(R.string.label_msg_add_berita_failed), Toast.LENGTH_SHORT).show();
+                break;
+        }
     }
 
     @Override
     public void onSuccessSubmitNewData(News news) {
+        /*allBeritaDialog.dismiss();
+
+        newsArrayList.add(news);
+        Collections.sort(newsArrayList, (o1, o2) -> o2.tanggal_berita.compareTo(o1.tanggal_berita));
+
+        rv_allberita.getAdapter().notifyDataSetChanged();*/
+
+        Common.showSuccessMessage(this, getResources().getString(R.string.label_msg_add_berita_success));
+    }
+
+    @Override
+    public void onListChange(News news) {
         allBeritaDialog.dismiss();
 
         newsArrayList.add(news);
         Collections.sort(newsArrayList, (o1, o2) -> o2.tanggal_berita.compareTo(o1.tanggal_berita));
 
         rv_allberita.getAdapter().notifyDataSetChanged();
-
-        Common.showSuccessMessage(this, getResources().getString(R.string.label_msg_add_berita_success));
     }
 }

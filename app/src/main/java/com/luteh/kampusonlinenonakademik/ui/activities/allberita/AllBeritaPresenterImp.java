@@ -54,6 +54,7 @@ public class AllBeritaPresenterImp implements IAllBeritaPresenter {
                 iAllBeritaView.onEmptyData(4);
                 break;
             case -1:
+                iAllBeritaView.onListChange(news);
                 putImageIntoStorage();
                 break;
         }
@@ -75,8 +76,8 @@ public class AllBeritaPresenterImp implements IAllBeritaPresenter {
                             .subscribe(uri -> {
                                 news.image_url = uri.toString();
                                 submitDataIntoDatabase();
-                            });
-                });
+                            }, throwable -> throwable.printStackTrace());
+                }, throwable -> throwable.printStackTrace());
     }
 
     private void submitDataIntoDatabase() {
