@@ -78,29 +78,33 @@ public class DashboardActivity extends BaseActivity implements
     }
 
     private void initDrawerMenu() {
+        if (AccountHelper.getUser().isMember && !AccountHelper.getUser().isHasAccess) {
+            setupDrawerMenu(true, true, true,
+                    true, false, false);
+        } else if (Common.isAdmin()) {
+            setupDrawerMenu(true, true, true,
+                    true, true, false);
+        } else {
+            setupDrawerMenu(false, false, false,
+                    false, false, true);
+        }
+    }
+
+    private void setupDrawerMenu(boolean struktur_organisasi, boolean daftar_member, boolean job_desk,
+                                 boolean kalender_kegiatna, boolean proposal, boolean daftar_ukm) {
         Menu navMenu = navigationView.getMenu();
 
-        if (AccountHelper.getUser().isMember) {
-            navMenu.findItem(R.id.menu_nav_home).setVisible(true);
-            navMenu.findItem(R.id.menu_nav_struktur_organisasi).setVisible(true);
-            navMenu.findItem(R.id.menu_nav_daftar_member).setVisible(true);
-            navMenu.findItem(R.id.menu_nav_job_desk_divisi).setVisible(true);
-            navMenu.findItem(R.id.menu_nav_kalender_kegiatan).setVisible(true);
-            navMenu.findItem(R.id.menu_nav_proposal).setVisible(true);
-            navMenu.findItem(R.id.menu_nav_daftar_ukm).setVisible(false);
-            navMenu.findItem(R.id.menu_nav_logout).setVisible(true);
-        } else {
-            navMenu.findItem(R.id.menu_nav_home).setVisible(true);
-            navMenu.findItem(R.id.menu_nav_struktur_organisasi).setVisible(false);
-            navMenu.findItem(R.id.menu_nav_daftar_member).setVisible(false);
-            navMenu.findItem(R.id.menu_nav_job_desk_divisi).setVisible(false);
-            navMenu.findItem(R.id.menu_nav_kalender_kegiatan).setVisible(false);
-            navMenu.findItem(R.id.menu_nav_proposal).setVisible(false);
-            navMenu.findItem(R.id.menu_nav_daftar_ukm).setVisible(true);
-            navMenu.findItem(R.id.menu_nav_logout).setVisible(true);
-        }
+        navMenu.findItem(R.id.menu_nav_home).setVisible(true);
+        navMenu.findItem(R.id.menu_nav_struktur_organisasi).setVisible(struktur_organisasi);
+        navMenu.findItem(R.id.menu_nav_daftar_member).setVisible(daftar_member);
+        navMenu.findItem(R.id.menu_nav_job_desk_divisi).setVisible(job_desk);
+        navMenu.findItem(R.id.menu_nav_kalender_kegiatan).setVisible(kalender_kegiatna);
+        navMenu.findItem(R.id.menu_nav_proposal).setVisible(proposal);
+        navMenu.findItem(R.id.menu_nav_daftar_ukm).setVisible(daftar_ukm);
+        navMenu.findItem(R.id.menu_nav_logout).setVisible(true);
 
         navigationView.setCheckedItem(R.id.menu_nav_home);
+
     }
 
     @Override
@@ -116,17 +120,17 @@ public class DashboardActivity extends BaseActivity implements
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.dashboard, menu);
+//        getMenuInflater().inflate(R.menu.dashboard, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
+        /*switch (item.getItemId()) {
             case R.id.menuLogout:
                 Common.showToastMessage(this, "Logout Clicked!");
                 break;
-        }
+        }*/
 
         return super.onOptionsItemSelected(item);
     }

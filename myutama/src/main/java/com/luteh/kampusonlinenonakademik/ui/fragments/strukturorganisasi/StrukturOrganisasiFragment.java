@@ -13,7 +13,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.luteh.kampusonlinenonakademik.R;
 import com.luteh.kampusonlinenonakademik.common.Common;
 import com.luteh.kampusonlinenonakademik.common.base.BaseFragment;
@@ -48,8 +47,6 @@ public class StrukturOrganisasiFragment extends BaseFragment implements
 
     @BindView(R.id.graph_struktur_org)
     GraphView graph_struktur_org;
-    @BindView(R.id.fab_struktur_org_add_node)
-    FloatingActionButton fab_struktur_org_add_node;
     @BindView(R.id.ll_progress_bar_container)
     LinearLayout ll_progress_bar_container;
     @BindView(R.id.rl_struktur_org_container)
@@ -80,21 +77,12 @@ public class StrukturOrganisasiFragment extends BaseFragment implements
     protected void onInit() {
         super.onInit();
 
-        initView();
-
         iStrukturOrganisasiPresenter = new StrukturOrganisasiPresenterImp(getContext(), this);
 
         iStrukturOrganisasiPresenter.retrieveStrukturOrganisasiData();
 
         ll_progress_bar_container.setVisibility(View.VISIBLE);
         rl_struktur_org_container.setVisibility(View.INVISIBLE);
-    }
-
-    private void initView() {
-        if (Common.isAdmin())
-            fab_struktur_org_add_node.setVisibility(View.VISIBLE);
-        else
-            fab_struktur_org_add_node.setVisibility(View.INVISIBLE);
     }
 
     private void setupAdapter(Graph graph, List<StrukturOrganisasiResponse> strukturOrganisasiResponses) {
