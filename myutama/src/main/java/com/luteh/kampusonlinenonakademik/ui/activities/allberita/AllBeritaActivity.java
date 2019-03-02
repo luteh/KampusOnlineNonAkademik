@@ -21,6 +21,7 @@ import com.luteh.kampusonlinenonakademik.ui.activities.allberita.dialog.IAllBeri
 import com.luteh.kampusonlinenonakademik.ui.activities.berita.BeritaActivity;
 import com.theartofdev.edmodo.cropper.CropImage;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -218,7 +219,14 @@ public class AllBeritaActivity extends BaseActivity implements IAllBeritaAdapter
         allBeritaDialog.dismiss();
 
         newsArrayList.add(news);
-        Collections.sort(newsArrayList, (o1, o2) -> o2.tanggal_berita.compareTo(o1.tanggal_berita));
+        Collections.sort(newsArrayList, (o1, o2) -> {
+            try {
+                return Common.convertStringToDate(o2.tanggal_berita).compareTo(Common.convertStringToDate(o1.tanggal_berita));
+            } catch (ParseException e) {
+                e.printStackTrace();
+                return 0;
+            }
+        });
 
         rv_allberita.getAdapter().notifyDataSetChanged();
     }

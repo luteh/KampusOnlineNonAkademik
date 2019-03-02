@@ -31,6 +31,7 @@ import com.luteh.kampusonlinenonakademik.ui.activities.allberita.AllBeritaActivi
 import com.luteh.kampusonlinenonakademik.ui.activities.berita.BeritaActivity;
 import com.squareup.picasso.Picasso;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -136,7 +137,14 @@ public class HomeFragment extends BaseFragment implements IHomeView,
     }
 
     private void setSlider() {
-        Collections.sort(newsList, (o1, o2) -> o2.tanggal_berita.compareTo(o1.tanggal_berita));
+        Collections.sort(newsList, (o1, o2) -> {
+            try {
+                return Common.convertStringToDate(o2.tanggal_berita).compareTo(Common.convertStringToDate(o1.tanggal_berita));
+            } catch (ParseException e) {
+                e.printStackTrace();
+                return 0;
+            }
+        });
 
         for (int i = 0; i < 4; i++) {
             News news = newsList.get(i);

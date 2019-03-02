@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">KampusOnlineNonAkademik</string>
+    <string name="app_name">MyUtama</string>
 
     <string name="label_warning">Warning</string>
     <string name="label_message_apps_requirement">This app requires permission to run properly.
