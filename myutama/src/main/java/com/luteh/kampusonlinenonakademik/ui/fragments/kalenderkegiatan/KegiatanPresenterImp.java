@@ -73,7 +73,9 @@ public class KegiatanPresenterImp implements IKegiatanPresenter {
                 .child(tanggal)
                 .push();
 
-        RxFirebaseDatabase.setValue(databaseReference, new KegiatanChild(jam, deskripsi))
+        String key = databaseReference.getKey();
+
+        RxFirebaseDatabase.setValue(databaseReference, new KegiatanChild(key, jam, deskripsi))
                 .subscribe(() -> {
                     Timber.d("Submit new kegiatan successfully");
                     iKegiatanView.onSuccessSubmitNewKegiatanData();
@@ -81,5 +83,22 @@ public class KegiatanPresenterImp implements IKegiatanPresenter {
                     Timber.e(throwable.getMessage());
                     iKegiatanView.onFailure(throwable.getMessage());
                 });
+    }
+
+    @Override
+    public void deleteKegiatan(String stringDate, String key) {
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference()
+                .child(ARG_KALENDER_KEGIATAN)
+                .child("ukm_" + Common.formatChildName(AccountHelper.getUser().ukm))
+                .child(stringDate)
+                .child(key);
+
+        RxFirebaseDatabase.setValue(databaseReference, null)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(() -> {
+                    Timber.d("Delete kegiatan item successful!");
+                    iKegiatanView.onSuccessDeleteKegiatan();
+                }, throwable -> throwable.printStackTrace());
     }
 }

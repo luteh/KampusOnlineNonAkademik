@@ -8,4 +8,6 @@ public interface IKegiatanPresenter {
     void retrieveKegiatanData();
 
     void submitNewKegiatanToDatabase(String tanggal, String jam, String deskripsi);
+
+    void deleteKegiatan(String stringDate, String key);
 }

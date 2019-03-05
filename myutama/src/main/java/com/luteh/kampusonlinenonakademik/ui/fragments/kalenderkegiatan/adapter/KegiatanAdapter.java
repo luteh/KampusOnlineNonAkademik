@@ -53,4 +53,8 @@ public class KegiatanAdapter extends RecyclerView.Adapter<KegiatanHolder> {
         else
             return 1;
     }
+
+    public KegiatanChild getItem(int position) {
+        return kegiatanChildren.get(position);
+    }
 }

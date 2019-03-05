@@ -16,4 +16,6 @@ public interface IKegiatanView {
     void onFailure(String message);
 
     void onSuccessSubmitNewKegiatanData();
+
+    void onSuccessDeleteKegiatan();
 }

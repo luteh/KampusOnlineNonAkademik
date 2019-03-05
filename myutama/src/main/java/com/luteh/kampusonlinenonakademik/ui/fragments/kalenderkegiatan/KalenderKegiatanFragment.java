@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
+import android.widget.PopupMenu;
 import android.widget.Toast;
 
 import com.applandeo.materialcalendarview.CalendarView;
@@ -16,6 +17,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.luteh.kampusonlinenonakademik.R;
 import com.luteh.kampusonlinenonakademik.common.Common;
 import com.luteh.kampusonlinenonakademik.common.base.BaseFragment;
+import com.luteh.kampusonlinenonakademik.common.utils.RecyclerTouchListener;
 import com.luteh.kampusonlinenonakademik.model.kegiatan.KegiatanChild;
 import com.luteh.kampusonlinenonakademik.model.kegiatan.KegiatanParent;
 import com.luteh.kampusonlinenonakademik.ui.fragments.kalenderkegiatan.adapter.KegiatanAdapter;
@@ -41,7 +43,8 @@ import timber.log.Timber;
  * A simple {@link Fragment} subclass.
  */
 public class KalenderKegiatanFragment extends BaseFragment implements IKegiatanView,
-        OnKegiatanDialogClick {
+        OnKegiatanDialogClick,
+        RecyclerTouchListener.ItemClickListener {
 
     @BindView(R.id.cal_kegiatan)
     CalendarView cal_kegiatan;
@@ -60,6 +63,10 @@ public class KalenderKegiatanFragment extends BaseFragment implements IKegiatanV
 
     private AddKegiatanHolder kegiatanHolder;
     private AlertDialog kegiatanDialog;
+
+    private String stringDate;
+    private List<KegiatanChild> kegiatanChildren;
+    private HashMap<String, List<KegiatanChild>> mapKegiatan;
 
     public KalenderKegiatanFragment() {
         // Required empty public constructor
@@ -87,7 +94,7 @@ public class KalenderKegiatanFragment extends BaseFragment implements IKegiatanV
 
         iKegiatanPresenter.retrieveKegiatanData();
 
-        getBaseActivity().onLoadingStarted(rl_kegiatan_container, ll_progress_bar_container);
+//        getBaseActivity().onLoadingStarted(rl_kegiatan_container, ll_progress_bar_container);
     }
 
     private void initView() {
@@ -100,12 +107,16 @@ public class KalenderKegiatanFragment extends BaseFragment implements IKegiatanV
     private void initRecyclerView() {
         rv_kegiatan.setHasFixedSize(true);
         rv_kegiatan.setLayoutManager(new LinearLayoutManager(context, RecyclerView.VERTICAL, false));
+
+        rv_kegiatan.addOnItemTouchListener(new RecyclerTouchListener(context, rv_kegiatan, this));
     }
 
     @Override
     public void onSuccessRetrieveKegiatanData(List<KegiatanParent> kegiatanParents, HashMap<String, List<KegiatanChild>> mapList) {
         getBaseActivity().onLoadingFinished(rl_kegiatan_container, ll_progress_bar_container);
 //        Common.showSuccessMessage(context, "Retrieve Data success!");
+
+        mapKegiatan = mapList;
 
         List<EventDay> events = new ArrayList<>();
 
@@ -131,15 +142,18 @@ public class KalenderKegiatanFragment extends BaseFragment implements IKegiatanV
 
         cal_kegiatan.setOnDayClickListener(eventDay -> {
 //            Convert Date to String
-            String stringDate = sdf.format(eventDay.getCalendar().getTime());
+            stringDate = sdf.format(eventDay.getCalendar().getTime());
 
-            mAdapter = new KegiatanAdapter(mapList.get(stringDate));
+            kegiatanChildren = mapKegiatan.get(stringDate);
+
+            mAdapter = new KegiatanAdapter(kegiatanChildren);
+
+            Timber.d("Current item count after init: %d", mAdapter.getItemCount());
 
             rv_kegiatan.setLayoutAnimation(AnimationUtils.loadLayoutAnimation(rv_kegiatan.getContext(), R.anim.layout_anim_fall_down));
-            mAdapter.notifyDataSetChanged();
+//            mAdapter.notifyDataSetChanged();
             rv_kegiatan.setAdapter(mAdapter);
             rv_kegiatan.scheduleLayoutAnimation();
-
         });
     }
 
@@ -155,6 +169,13 @@ public class KalenderKegiatanFragment extends BaseFragment implements IKegiatanV
 
        /* if (mAdapter != null)
             rv_kegiatan.getAdapter().notifyDataSetChanged();*/
+    }
+
+    @Override
+    public void onSuccessDeleteKegiatan() {
+        Toast.makeText(context, "Delete Kegiatan Successful!", Toast.LENGTH_SHORT).show();
+
+        iKegiatanPresenter.retrieveKegiatanData();
     }
 
     @OnClick(R.id.fab_add_kegiatan)
@@ -186,5 +207,42 @@ public class KalenderKegiatanFragment extends BaseFragment implements IKegiatanV
         );
 
         Toast.makeText(context, "Button Add Clicked!", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onClick(View view, int position) {
+        showMenuItem(view, position);
+    }
+
+    @Override
+    public void onLongClick(View view, int position) {
+
+    }
+
+    private void showMenuItem(View view, int position) {
+        PopupMenu menu = new PopupMenu(context, view);
+
+        menu.setOnMenuItemClickListener(item -> {
+            switch (item.getItemId()) {
+                case R.id.item_edit:
+                    Toast.makeText(context, "Edit position " + position, Toast.LENGTH_SHORT).show();
+                    break;
+                case R.id.item_delete:
+                    Timber.d("Item count before : %d", mAdapter.getItemCount());
+
+                    Timber.d("Kegiatam Item : %s", ((KegiatanAdapter) mAdapter).getItem(position).toString());
+                    iKegiatanPresenter.deleteKegiatan(stringDate, ((KegiatanAdapter) mAdapter).getItem(position).key);
+//                    kegiatanChildren.remove(position);
+                    mapKegiatan.get(stringDate).remove(position);
+                    mAdapter.notifyDataSetChanged();
+
+                    Timber.d("Item count after: %d", mAdapter.getItemCount());
+                    break;
+            }
+            return true;
+        });
+
+        menu.inflate(R.menu.menu_item);
+        menu.show();
     }
 }

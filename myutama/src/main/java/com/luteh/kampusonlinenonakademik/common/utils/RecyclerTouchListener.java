@@ -12,10 +12,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class RecyclerTouchListener implements RecyclerView.OnItemTouchListener {
 
-    private ClickListener clicklistener;
+    private ItemClickListener clicklistener;
     private GestureDetector gestureDetector;
 
-    public RecyclerTouchListener(Context context, final RecyclerView recycleView, final ClickListener clicklistener) {
+    public RecyclerTouchListener(Context context, final RecyclerView recycleView, final ItemClickListener clicklistener) {
 
         this.clicklistener = clicklistener;
         gestureDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
@@ -54,7 +54,7 @@ public class RecyclerTouchListener implements RecyclerView.OnItemTouchListener {
 
     }
 
-    public interface ClickListener {
+    public interface ItemClickListener {
         void onClick(View view, int position);
 
         void onLongClick(View view, int position);
