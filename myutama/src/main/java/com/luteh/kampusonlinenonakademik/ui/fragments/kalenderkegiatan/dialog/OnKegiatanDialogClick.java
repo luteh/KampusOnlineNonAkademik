@@ -5,5 +5,7 @@ package com.luteh.kampusonlinenonakademik.ui.fragments.kalenderkegiatan.dialog;
  * Email luthfanmaftuh@gmail.com
  */
 public interface OnKegiatanDialogClick {
-    void OnBtnAddClicked();
+    void onClickBtnAdd();
+
+    void onClickBtnDone();
 }

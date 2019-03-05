@@ -57,6 +57,9 @@
     <string name="label_msg_deskripsi_required">Deskripsi is required</string>
     <string name="label_msg_tidak_ada_kegiatan">Tidak ada kegiatan</string>
     <string name="label_tambah_kegiatan">Tambah kegiatan baru</string>
+    <string name="title_edit_kegiatan">Edit kegiatan</string>
+    <string name="label_msg_delete_success">Delete kegiatan successful!</string>
+    <string name="label_msg_edit_success">Edit kegiatan successful!</string>
 
     <string name="title_fragment_proposal">Proposal</string>
     <string name="title_daftar_ukm">Daftar UKM</string>

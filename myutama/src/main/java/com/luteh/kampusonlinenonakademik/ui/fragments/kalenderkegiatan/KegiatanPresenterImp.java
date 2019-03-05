@@ -11,6 +11,7 @@ import com.luteh.kampusonlinenonakademik.model.kegiatan.KegiatanParent;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import durdinapps.rxfirebase2.RxFirebaseDatabase;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -99,6 +100,50 @@ public class KegiatanPresenterImp implements IKegiatanPresenter {
                 .subscribe(() -> {
                     Timber.d("Delete kegiatan item successful!");
                     iKegiatanView.onSuccessDeleteKegiatan();
+                }, throwable -> throwable.printStackTrace());
+    }
+
+    @Override
+    public void editKegiatanData(String key, String newStringDate, String newJamKegiatan, String newDeskripsiKegiatan) {
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference()
+                .child(ARG_KALENDER_KEGIATAN)
+                .child("ukm_" + Common.formatChildName(AccountHelper.getUser().ukm))
+                .child(newStringDate)
+                .child(key);
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("jam_kegiatan", newJamKegiatan);
+        map.put("deskripsi_kegiatan", newDeskripsiKegiatan);
+
+        RxFirebaseDatabase.updateChildren(databaseReference, map)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(() -> {
+                    Timber.d("Edit kegiatan successful!");
+                    iKegiatanView.onSuccessEditKegiatan();
+                }, throwable -> throwable.printStackTrace());
+
+    }
+
+    @Override
+    public void editKegiatanData(String key, String oldStringDate, String newStringDate, String newJamKegiatan, String newDeskripsiKegiatan) {
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference()
+                .child(ARG_KALENDER_KEGIATAN)
+                .child("ukm_" + Common.formatChildName(AccountHelper.getUser().ukm));
+
+        RxFirebaseDatabase.setValue(databaseReference.child(oldStringDate).child(key), null)
+                .subscribe();
+
+        DatabaseReference newRef = databaseReference.child(newStringDate).push();
+
+        String newKey = newRef.getKey();
+
+        KegiatanChild kegiatanChild = new KegiatanChild(newKey, newJamKegiatan, newDeskripsiKegiatan);
+
+        RxFirebaseDatabase.setValue(newRef, kegiatanChild)
+                .subscribe(() -> {
+                    Timber.d("Edit kegiatan successful");
+                    iKegiatanView.onSuccessEditKegiatan();
                 }, throwable -> throwable.printStackTrace());
     }
 }

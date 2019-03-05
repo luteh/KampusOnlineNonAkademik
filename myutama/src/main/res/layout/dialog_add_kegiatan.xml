@@ -80,4 +80,14 @@
         android:layout_margin="@dimen/margin_default"
         android:text="@string/label_btn_add" />
 
+    <Button
+        android:id="@+id/btn_dialog_done_kegiatan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/til_dialog_add_kegiatan_deskripsi"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="@dimen/margin_default"
+        android:text="@string/label_btn_done"
+        android:visibility="invisible" />
+
 </RelativeLayout>

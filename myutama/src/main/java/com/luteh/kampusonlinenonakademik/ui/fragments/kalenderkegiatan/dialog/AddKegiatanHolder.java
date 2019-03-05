@@ -29,19 +29,21 @@ public class AddKegiatanHolder implements DatePickerDialog.OnDateSetListener,
         View.OnLayoutChangeListener {
 
     @BindView(R.id.til_dialog_add_kegiatan_tanggal)
-    protected TextInputLayout til_dialog_add_kegiatan_tanggal;
+    public TextInputLayout til_dialog_add_kegiatan_tanggal;
     @BindView(R.id.til_dialog_add_kegiatan_jam)
-    protected TextInputLayout til_dialog_add_kegiatan_jam;
+    public TextInputLayout til_dialog_add_kegiatan_jam;
     @BindView(R.id.til_dialog_add_kegiatan_deskripsi)
-    protected TextInputLayout til_dialog_add_kegiatan_deskripsi;
+    public TextInputLayout til_dialog_add_kegiatan_deskripsi;
     @BindView(R.id.et_dialog_add_kegiatan_tanggal)
-    protected TextInputEditText et_dialog_add_kegiatan_tanggal;
+    public TextInputEditText et_dialog_add_kegiatan_tanggal;
     @BindView(R.id.et_dialog_add_kegiatan_jam)
-    protected TextInputEditText et_dialog_add_kegiatan_jam;
+    public TextInputEditText et_dialog_add_kegiatan_jam;
     @BindView(R.id.et_dialog_add_kegiatan_deskripsi)
-    protected TextInputEditText et_dialog_add_kegiatan_deskripsi;
+    public TextInputEditText et_dialog_add_kegiatan_deskripsi;
     @BindView(R.id.btn_dialog_add_kegiatan)
-    protected Button btn_dialog_add_kegiatan;
+    public Button btn_dialog_add_kegiatan;
+    @BindView(R.id.btn_dialog_done_kegiatan)
+    public Button btn_dialog_done_kegiatan;
 
     private View view;
     private OnKegiatanDialogClick onKegiatanDialogClick;
@@ -54,23 +56,35 @@ public class AddKegiatanHolder implements DatePickerDialog.OnDateSetListener,
         this.onKegiatanDialogClick = onKegiatanDialogClick;
 
         view.addOnLayoutChangeListener(this);
+
+        initView();
     }
 
-    public String getTanggal(){
+    private void initView() {
+        btn_dialog_add_kegiatan.setVisibility(View.VISIBLE);
+        btn_dialog_done_kegiatan.setVisibility(View.INVISIBLE);
+    }
+
+    public String getTanggal() {
         return et_dialog_add_kegiatan_tanggal.getText().toString();
     }
 
-    public String getJam(){
+    public String getJam() {
         return et_dialog_add_kegiatan_jam.getText().toString();
     }
 
-    public String getDeskripsi(){
+    public String getDeskripsi() {
         return et_dialog_add_kegiatan_deskripsi.getText().toString();
     }
 
     @OnClick(R.id.btn_dialog_add_kegiatan)
     void onBtnAddClick() {
-        onKegiatanDialogClick.OnBtnAddClicked();
+        onKegiatanDialogClick.onClickBtnAdd();
+    }
+
+    @OnClick(R.id.btn_dialog_done_kegiatan)
+    void onClickBtnDone() {
+        onKegiatanDialogClick.onClickBtnDone();
     }
 
     @OnClick(R.id.et_dialog_add_kegiatan_tanggal)

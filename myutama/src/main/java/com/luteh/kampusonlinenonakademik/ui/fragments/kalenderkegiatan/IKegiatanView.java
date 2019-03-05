@@ -18,4 +18,6 @@ public interface IKegiatanView {
     void onSuccessSubmitNewKegiatanData();
 
     void onSuccessDeleteKegiatan();
+
+    void onSuccessEditKegiatan();
 }

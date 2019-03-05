@@ -10,4 +10,8 @@ public interface IKegiatanPresenter {
     void submitNewKegiatanToDatabase(String tanggal, String jam, String deskripsi);
 
     void deleteKegiatan(String stringDate, String key);
+
+    void editKegiatanData(String key, String newStringDate, String newJamKegiatan, String newDeskripsiKegiatan);
+
+    void editKegiatanData(String key, String oldStringDate, String newStringDate, String newJamKegiatan, String newDeskripsiKegiatan);
 }

@@ -67,6 +67,7 @@ public class KalenderKegiatanFragment extends BaseFragment implements IKegiatanV
     private String stringDate;
     private List<KegiatanChild> kegiatanChildren;
     private HashMap<String, List<KegiatanChild>> mapKegiatan;
+    private int currentItemPosition;
 
     public KalenderKegiatanFragment() {
         // Required empty public constructor
@@ -94,7 +95,7 @@ public class KalenderKegiatanFragment extends BaseFragment implements IKegiatanV
 
         iKegiatanPresenter.retrieveKegiatanData();
 
-//        getBaseActivity().onLoadingStarted(rl_kegiatan_container, ll_progress_bar_container);
+        getBaseActivity().onLoadingStarted(rl_kegiatan_container, ll_progress_bar_container);
     }
 
     private void initView() {
@@ -151,7 +152,7 @@ public class KalenderKegiatanFragment extends BaseFragment implements IKegiatanV
             Timber.d("Current item count after init: %d", mAdapter.getItemCount());
 
             rv_kegiatan.setLayoutAnimation(AnimationUtils.loadLayoutAnimation(rv_kegiatan.getContext(), R.anim.layout_anim_fall_down));
-//            mAdapter.notifyDataSetChanged();
+            mAdapter.notifyDataSetChanged();
             rv_kegiatan.setAdapter(mAdapter);
             rv_kegiatan.scheduleLayoutAnimation();
         });
@@ -173,23 +174,30 @@ public class KalenderKegiatanFragment extends BaseFragment implements IKegiatanV
 
     @Override
     public void onSuccessDeleteKegiatan() {
-        Toast.makeText(context, "Delete Kegiatan Successful!", Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, context.getResources().getString(R.string.label_msg_delete_success), Toast.LENGTH_SHORT).show();
+
+        iKegiatanPresenter.retrieveKegiatanData();
+    }
+
+    @Override
+    public void onSuccessEditKegiatan() {
+        Toast.makeText(context, context.getResources().getString(R.string.label_msg_edit_success), Toast.LENGTH_SHORT).show();
 
         iKegiatanPresenter.retrieveKegiatanData();
     }
 
     @OnClick(R.id.fab_add_kegiatan)
     void onFabKegiatanClick() {
-        showAddKegiatanDialog();
+        showAddKegiatanDialog(context.getResources().getString(R.string.label_tambah_kegiatan));
     }
 
-    private void showAddKegiatanDialog() {
+    private void showAddKegiatanDialog(String title) {
         View view = LayoutInflater.from(context).inflate(R.layout.dialog_add_kegiatan, null);
         kegiatanHolder = new AddKegiatanHolder(view, this);
 
         kegiatanDialog = new AlertDialog.Builder(context, R.style.DialogTheme)
                 .setView(view)
-                .setTitle(context.getResources().getText(R.string.label_tambah_kegiatan))
+                .setTitle(title)
                 .create();
 
         kegiatanDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
@@ -197,7 +205,7 @@ public class KalenderKegiatanFragment extends BaseFragment implements IKegiatanV
     }
 
     @Override
-    public void OnBtnAddClicked() {
+    public void onClickBtnAdd() {
         kegiatanDialog.dismiss();
 
         iKegiatanPresenter.submitNewKegiatanToDatabase(
@@ -210,7 +218,28 @@ public class KalenderKegiatanFragment extends BaseFragment implements IKegiatanV
     }
 
     @Override
+    public void onClickBtnDone() {
+        kegiatanDialog.dismiss();
+
+        String key = ((KegiatanAdapter) mAdapter).getItem(currentItemPosition).key;
+        String newStringDate = kegiatanHolder.et_dialog_add_kegiatan_tanggal.getText().toString();
+        String newJamKegiatan = kegiatanHolder.et_dialog_add_kegiatan_jam.getText().toString();
+        String newDeskripsiKegiatan = kegiatanHolder.et_dialog_add_kegiatan_deskripsi.getText().toString();
+
+        if (newStringDate.equals(stringDate)) {
+            iKegiatanPresenter.editKegiatanData(key, newStringDate, newJamKegiatan, newDeskripsiKegiatan);
+        } else {
+            iKegiatanPresenter.editKegiatanData(key, stringDate, newStringDate, newJamKegiatan, newDeskripsiKegiatan);
+            // TODO: 05/03/2019 Remove current selected item data from lists
+            mapKegiatan.get(stringDate).remove(currentItemPosition);
+            mAdapter.notifyDataSetChanged();
+        }
+    }
+
+    @Override
     public void onClick(View view, int position) {
+        currentItemPosition = position;
+
         showMenuItem(view, position);
     }
 
@@ -226,6 +255,7 @@ public class KalenderKegiatanFragment extends BaseFragment implements IKegiatanV
             switch (item.getItemId()) {
                 case R.id.item_edit:
                     Toast.makeText(context, "Edit position " + position, Toast.LENGTH_SHORT).show();
+                    showEditKegiatanDialog(position);
                     break;
                 case R.id.item_delete:
                     Timber.d("Item count before : %d", mAdapter.getItemCount());
@@ -244,5 +274,16 @@ public class KalenderKegiatanFragment extends BaseFragment implements IKegiatanV
 
         menu.inflate(R.menu.menu_item);
         menu.show();
+    }
+
+    private void showEditKegiatanDialog(int position) {
+        showAddKegiatanDialog(context.getResources().getString(R.string.title_edit_kegiatan));
+
+        kegiatanHolder.btn_dialog_done_kegiatan.setVisibility(View.VISIBLE);
+        kegiatanHolder.btn_dialog_add_kegiatan.setVisibility(View.INVISIBLE);
+
+        kegiatanHolder.et_dialog_add_kegiatan_tanggal.setText(stringDate);
+        kegiatanHolder.et_dialog_add_kegiatan_jam.setText(((KegiatanAdapter) mAdapter).getItem(position).jam_kegiatan);
+        kegiatanHolder.et_dialog_add_kegiatan_deskripsi.setText(((KegiatanAdapter) mAdapter).getItem(position).deskripsi_kegiatan);
     }
 }
