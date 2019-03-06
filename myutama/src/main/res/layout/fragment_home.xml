@@ -1,118 +1,120 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:custom="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:weightSum="2"
     tools:context=".ui.fragments.home.HomeFragment">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <com.daimajia.slider.library.SliderLayout
-                android:id="@+id/slider_home_news"
-                android:layout_width="match_parent"
-                android:layout_height="250dp"
-                custom:auto_cycle="true"
-                custom:indicator_visibility="visible"
-                custom:pager_animation="Accordion"
-                custom:pager_animation_span="1100" />
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <com.daimajia.slider.library.Indicators.PagerIndicator
-                    android:id="@+id/custom_indicator"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:gravity="center"
-                    custom:selected_color="#555555"
-                    custom:selected_height="8dp"
-                    custom:selected_padding_left="3dp"
-                    custom:selected_padding_right="3dp"
-                    custom:selected_width="8dp"
-                    custom:shape="oval"
-                    custom:unselected_color="#55555555"
-                    custom:unselected_height="4dp"
-                    custom:unselected_padding_left="3dp"
-                    custom:unselected_padding_right="3dp"
-                    custom:unselected_width="4dp" />
-
-                <Button
-                    android:id="@+id/btn_berita_see_more"
-                    style="@style/Widget.MaterialComponents.Button.TextButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginEnd="@dimen/margin_default"
-                    android:text="@string/label_see_more" />
-            </RelativeLayout>
-
-        </LinearLayout>
-
-
-        <ProgressBar
-            android:id="@+id/pb_home_news"
-            style="@style/Widget.AppCompat.ProgressBar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true" />
-    </RelativeLayout>
-
-
-    <RelativeLayout
-        android:id="@+id/rl_home_container"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_gravity="center"
-        android:layout_weight="1"
-        android:visibility="gone">
-
-        <ImageView
-            android:id="@+id/iv_home_ukm_logo"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="@dimen/margin_default" />
-
-        <ProgressBar
-            android:id="@+id/pb_home_ukm_logo"
-            style="@style/Widget.AppCompat.ProgressBar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true" />
-    </RelativeLayout>
-
     <LinearLayout
-        android:id="@+id/ll_home_content_container"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_gravity="center"
-        android:layout_weight="1"
-        android:gravity="center"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <ImageView
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:src="@drawable/ic_warning" />
+            android:layout_height="wrap_content">
 
-        <TextView
-            style="@style/TextHeaderBold"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <com.daimajia.slider.library.SliderLayout
+                    android:id="@+id/slider_home_news"
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp"
+                    custom:auto_cycle="true"
+                    custom:indicator_visibility="visible"
+                    custom:pager_animation="Accordion"
+                    custom:pager_animation_span="1100" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.daimajia.slider.library.Indicators.PagerIndicator
+                        android:id="@+id/custom_indicator"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:gravity="center"
+                        custom:selected_color="#555555"
+                        custom:selected_height="8dp"
+                        custom:selected_padding_left="3dp"
+                        custom:selected_padding_right="3dp"
+                        custom:selected_width="8dp"
+                        custom:shape="oval"
+                        custom:unselected_color="#55555555"
+                        custom:unselected_height="4dp"
+                        custom:unselected_padding_left="3dp"
+                        custom:unselected_padding_right="3dp"
+                        custom:unselected_width="4dp" />
+
+                    <Button
+                        android:id="@+id/btn_berita_see_more"
+                        style="@style/Widget.MaterialComponents.Button.TextButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="@dimen/margin_default"
+                        android:text="@string/label_see_more" />
+                </RelativeLayout>
+
+            </LinearLayout>
+
+
+            <ProgressBar
+                android:id="@+id/pb_home_news"
+                style="@style/Widget.AppCompat.ProgressBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true" />
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/rl_home_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/label_msg_belum_bergabung_ukm"
-            android:textAlignment="center" />
+            android:layout_gravity="center"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/iv_home_ukm_logo"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/margin_default" />
+
+            <ProgressBar
+                android:id="@+id/pb_home_ukm_logo"
+                style="@style/Widget.AppCompat.ProgressBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_home_content_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:src="@drawable/ic_warning" />
+
+            <TextView
+                style="@style/TextHeaderBold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/label_msg_belum_bergabung_ukm"
+                android:textAlignment="center" />
+        </LinearLayout>
     </LinearLayout>
-</LinearLayout>
+
+</androidx.core.widget.NestedScrollView>
