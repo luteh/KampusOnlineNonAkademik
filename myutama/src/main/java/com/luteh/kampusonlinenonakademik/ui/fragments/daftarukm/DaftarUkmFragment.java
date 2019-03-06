@@ -62,7 +62,7 @@ public class DaftarUkmFragment extends BaseFragment implements IDaftarUkmView,
 
     private void initRecyclerView() {
         rv_daftar_ukm.setHasFixedSize(true);
-        rv_daftar_ukm.setLayoutManager(new GridLayoutManager(context, 2));
+        rv_daftar_ukm.setLayoutManager(new GridLayoutManager(context, 3));
     }
 
     @Override
