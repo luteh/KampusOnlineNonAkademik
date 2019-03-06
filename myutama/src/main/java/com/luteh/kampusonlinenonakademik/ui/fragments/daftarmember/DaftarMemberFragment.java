@@ -169,9 +169,9 @@ public class DaftarMemberFragment extends BaseFragment implements IDaftarFragmen
 
     @Override
     public void onChildItemClicked(View view, DaftarMemberChild daftarMemberChild, int position) {
-        if (Common.isAdmin()) {
+        /*if (Common.isAdmin()) {
             showMenuItem(view);
-        }
+        }*/
     }
 
     private void showMenuItem(View view) {
