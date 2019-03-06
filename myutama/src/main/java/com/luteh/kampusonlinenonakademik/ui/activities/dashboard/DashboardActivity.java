@@ -18,6 +18,7 @@ import com.luteh.kampusonlinenonakademik.ui.fragments.daftarukm.DaftarUkmFragmen
 import com.luteh.kampusonlinenonakademik.ui.fragments.home.HomeFragment;
 import com.luteh.kampusonlinenonakademik.ui.fragments.jobdesk.JobDeskFragment;
 import com.luteh.kampusonlinenonakademik.ui.fragments.kalenderkegiatan.KalenderKegiatanFragment;
+import com.luteh.kampusonlinenonakademik.ui.fragments.proposal.ProposalFragment;
 import com.luteh.kampusonlinenonakademik.ui.fragments.strukturorganisasi.StrukturOrganisasiFragment;
 import com.squareup.picasso.Picasso;
 
@@ -155,7 +156,7 @@ public class DashboardActivity extends BaseActivity implements
                 replaceFragment(new KalenderKegiatanFragment(), R.string.title_fragment_kalender_kegiatan);
                 break;
             case R.id.menu_nav_proposal:
-//                replaceFragment(new RencanaStudiFragment(), R.string.title_rencana_studi_fragment);
+                replaceFragment(new ProposalFragment(), R.string.title_fragment_proposal);
                 break;
             case R.id.menu_nav_daftar_ukm:
                 replaceFragment(new DaftarUkmFragment(), R.string.title_daftar_ukm);
